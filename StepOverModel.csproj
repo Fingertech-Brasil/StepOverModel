@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SigDeviceAPI" Version="3.0.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.7" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="LanguageExt.Core">
+      <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SigCrypto">
+      <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SigCrypto.dll</HintPath>
+    </Reference>
+    <Reference Include="SigDeviceAPI">
+      <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SigDeviceAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp">
+      <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SkiaSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
