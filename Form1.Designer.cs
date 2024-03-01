@@ -33,11 +33,19 @@ namespace StepOverModel
         private void InitializeComponent()
         {
             bt_StartSignature = new Button();
-            groupBox1 = new GroupBox();
+            bg_sign = new GroupBox();
+            bt_saveImage = new Button();
             bt_StopSignature = new Button();
             pb_signature = new PictureBox();
-            groupBox1.SuspendLayout();
+            gb_PDF = new GroupBox();
+            button1 = new Button();
+            button2 = new Button();
+            bt_loadPDF = new Button();
+            pb_pdfView = new PictureBox();
+            bg_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
+            gb_PDF.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pb_pdfView).BeginInit();
             SuspendLayout();
             // 
             // bt_StartSignature
@@ -50,24 +58,35 @@ namespace StepOverModel
             bt_StartSignature.UseVisualStyleBackColor = true;
             bt_StartSignature.Click += bt_StartSignature_Click;
             // 
-            // groupBox1
+            // bg_sign
             // 
-            groupBox1.Controls.Add(bt_StopSignature);
-            groupBox1.Controls.Add(bt_StartSignature);
-            groupBox1.Location = new Point(12, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(116, 85);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Signature Options";
+            bg_sign.Controls.Add(bt_saveImage);
+            bg_sign.Controls.Add(bt_StopSignature);
+            bg_sign.Controls.Add(bt_StartSignature);
+            bg_sign.Location = new Point(12, 12);
+            bg_sign.Name = "bg_sign";
+            bg_sign.Size = new Size(116, 111);
+            bg_sign.TabIndex = 1;
+            bg_sign.TabStop = false;
+            bg_sign.Text = "Signature Options";
+            // 
+            // bt_saveImage
+            // 
+            bt_saveImage.Location = new Point(6, 51);
+            bt_saveImage.Name = "bt_saveImage";
+            bt_saveImage.Size = new Size(104, 23);
+            bt_saveImage.TabIndex = 2;
+            bt_saveImage.Text = "Save Image";
+            bt_saveImage.UseVisualStyleBackColor = true;
+            bt_saveImage.Click += bt_saveImage_Click;
             // 
             // bt_StopSignature
             // 
-            bt_StopSignature.Location = new Point(6, 51);
+            bt_StopSignature.Location = new Point(6, 80);
             bt_StopSignature.Name = "bt_StopSignature";
             bt_StopSignature.Size = new Size(104, 23);
             bt_StopSignature.TabIndex = 1;
-            bt_StopSignature.Text = "Cancel Signature";
+            bt_StopSignature.Text = "Stop Signature";
             bt_StopSignature.UseVisualStyleBackColor = true;
             bt_StopSignature.Click += bt_StopSignature_Click;
             // 
@@ -76,34 +95,95 @@ namespace StepOverModel
             pb_signature.BackColor = SystemColors.ControlLight;
             pb_signature.BorderStyle = BorderStyle.FixedSingle;
             pb_signature.Cursor = Cursors.Cross;
-            pb_signature.Location = new Point(172, 12);
+            pb_signature.Location = new Point(149, 12);
             pb_signature.Name = "pb_signature";
-            pb_signature.Size = new Size(442, 222);
+            pb_signature.Size = new Size(427, 191);
             pb_signature.TabIndex = 2;
             pb_signature.TabStop = false;
+            // 
+            // gb_PDF
+            // 
+            gb_PDF.Controls.Add(button1);
+            gb_PDF.Controls.Add(button2);
+            gb_PDF.Controls.Add(bt_loadPDF);
+            gb_PDF.Location = new Point(12, 129);
+            gb_PDF.Name = "gb_PDF";
+            gb_PDF.Size = new Size(116, 111);
+            gb_PDF.TabIndex = 3;
+            gb_PDF.TabStop = false;
+            gb_PDF.Text = "PDF Options";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(6, 51);
+            button1.Name = "button1";
+            button1.Size = new Size(104, 23);
+            button1.TabIndex = 2;
+            button1.Text = "Save Image";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(6, 80);
+            button2.Name = "button2";
+            button2.Size = new Size(104, 23);
+            button2.TabIndex = 1;
+            button2.Text = "Stop Signature";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // bt_loadPDF
+            // 
+            bt_loadPDF.Location = new Point(6, 22);
+            bt_loadPDF.Name = "bt_loadPDF";
+            bt_loadPDF.Size = new Size(104, 23);
+            bt_loadPDF.TabIndex = 0;
+            bt_loadPDF.Text = "Load PDF";
+            bt_loadPDF.UseVisualStyleBackColor = true;
+            bt_loadPDF.Click += bt_loadPDF_Click;
+            // 
+            // pb_pdfView
+            // 
+            pb_pdfView.BackColor = SystemColors.ControlLight;
+            pb_pdfView.BorderStyle = BorderStyle.FixedSingle;
+            pb_pdfView.Cursor = Cursors.Cross;
+            pb_pdfView.Location = new Point(582, 12);
+            pb_pdfView.Name = "pb_pdfView";
+            pb_pdfView.Size = new Size(199, 306);
+            pb_pdfView.TabIndex = 4;
+            pb_pdfView.TabStop = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(638, 263);
+            ClientSize = new Size(795, 325);
+            Controls.Add(pb_pdfView);
+            Controls.Add(gb_PDF);
             Controls.Add(pb_signature);
-            Controls.Add(groupBox1);
+            Controls.Add(bg_sign);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "StepOverModel";
-            groupBox1.ResumeLayout(false);
+            bg_sign.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pb_signature).EndInit();
+            gb_PDF.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pb_pdfView).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Button bt_StartSignature;
-        private GroupBox groupBox1;
+        private GroupBox bg_sign;
         private Button bt_StopSignature;
         private PictureBox pb_signature;
+        private Button bt_saveImage;
+        private GroupBox gb_PDF;
+        private Button button1;
+        private Button button2;
+        private Button bt_loadPDF;
+        private PictureBox pb_pdfView;
     }
 }

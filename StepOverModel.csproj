@@ -9,20 +9,46 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext7" Version="8.0.3" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="SigDeviceAPI" Version="3.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
     <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.7" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Google.Protobuf">
+      <HintPath>bin\Debug\net6.0-windows\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core.Api">
+      <HintPath>bin\Debug\net6.0-windows\Grpc.Core.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Net.Client">
+      <HintPath>bin\Debug\net6.0-windows\Grpc.Net.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Net.Common">
+      <HintPath>bin\Debug\net6.0-windows\Grpc.Net.Common.dll</HintPath>
+    </Reference>
     <Reference Include="LanguageExt.Core">
       <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="SigCrypto">
       <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SigCrypto.dll</HintPath>
     </Reference>
     <Reference Include="SigDeviceAPI">
       <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SigDeviceAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="SigPdfClient">
+      <HintPath>bin\Debug\net6.0-windows\SigPdfClient.dll</HintPath>
+    </Reference>
+    <Reference Include="SigPdfClientProtobuf">
+      <HintPath>bin\Debug\net6.0-windows\SigPdfClientProtobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="SigPdfService">
+      <HintPath>bin\Debug\net6.0-windows\SigPdfService.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp">
       <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SkiaSharp.dll</HintPath>
