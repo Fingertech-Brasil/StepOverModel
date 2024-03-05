@@ -17,6 +17,8 @@ namespace StepOverModel
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            bool connectedDevice = false;
+
             string[]? deviceNames;
 
             int guiOption = 0;
@@ -25,27 +27,28 @@ namespace StepOverModel
             if (deviceNames.Length == 0)
             {
                 MessageBox.Show("No device found!" +
-                                "\nPlease, connect the device before start.");
-                return;
-            }
+                                "\nSignature options is disable.");
 
-            Error r = driverInterface.CheckConnectedDevice(deviceNames[0], out bool connection);
-            if (r != Error.SUCCESS)
+                Application.Run(new Form1(""));
+            }
+            else
             {
-                MessageBox.Show("Error: \n" + r.ToString());
-                return;
+                Error r = driverInterface.CheckConnectedDevice(deviceNames[0], out bool connection);
+                if (r != Error.SUCCESS)
+                {
+                    MessageBox.Show("Error: \n" + r.ToString());
+                    return;
+                }
+
+                string deviceStatus = connection ? "Connected" : "Disconnected";
+
+
+                MessageBox.Show("Device found " +
+                                "\nDevice Info: " + deviceNames[0] +
+                                "\nConncetion: " + deviceStatus);
+
+                Application.Run(new Form1(deviceNames[0]));
             }
-
-            string deviceStatus = connection ? "Connected" : "Disconnected";
-
-
-            MessageBox.Show("Device found " +
-                            "\nNamed: " + deviceNames[0] +
-                            "\nConncetion: " + deviceStatus);
-
-            driverInterface.IsSignFinishedEnabled = false;
-
-            Application.Run(new Form1(deviceNames[0]));
         }
     }
 }

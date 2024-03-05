@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="itext7" Version="8.0.3" />
-    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
     <PackageReference Include="SigDeviceAPI" Version="3.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
     <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.7" />

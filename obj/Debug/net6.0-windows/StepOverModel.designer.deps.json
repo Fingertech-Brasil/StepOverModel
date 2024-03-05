@@ -14,6 +14,14 @@
           }
         }
       },
+      "BouncyCastle.Cryptography/2.2.1": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.2.1.47552"
+          }
+        }
+      },
       "DerConverter/3.0.0.82": {
         "runtime": {
           "lib/netstandard2.0/DerConverter.dll": {
@@ -111,6 +119,18 @@
           }
         }
       },
+      "itext.bouncy-castle-adapter/8.0.3": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.2.1",
+          "itext.commons": "8.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/itext.bouncy-castle-adapter.dll": {
+            "assemblyVersion": "8.0.3.0",
+            "fileVersion": "8.0.3.0"
+          }
+        }
+      },
       "itext.commons/8.0.3": {
         "dependencies": {
           "Microsoft.Extensions.Logging": "5.0.0",
@@ -128,15 +148,9 @@
           "itext": "8.0.3"
         }
       },
-      "iTextSharp/5.5.13.3": {
+      "itext7.bouncy-castle-adapter/8.0.3": {
         "dependencies": {
-          "BouncyCastle": "1.8.9"
-        },
-        "runtime": {
-          "lib/itextsharp.dll": {
-            "assemblyVersion": "5.5.13.3",
-            "fileVersion": "5.5.13.3"
-          }
+          "itext.bouncy-castle-adapter": "8.0.3"
         }
       },
       "LanguageExt.Core/4.0.4": {
@@ -1589,6 +1603,13 @@
       "path": "bouncycastle/1.8.9",
       "hashPath": "bouncycastle.1.8.9.nupkg.sha512"
     },
+    "BouncyCastle.Cryptography/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A6Zr52zVqJKt18ZBsTnX0qhG0kwIQftVAjLmszmkiR/trSp8H+xj1gUOzk7XHwaKgyREMSV1v9XaKrBUeIOdvQ==",
+      "path": "bouncycastle.cryptography/2.2.1",
+      "hashPath": "bouncycastle.cryptography.2.2.1.nupkg.sha512"
+    },
     "DerConverter/3.0.0.82": {
       "type": "package",
       "serviceable": true,
@@ -1624,6 +1645,13 @@
       "path": "itext/8.0.3",
       "hashPath": "itext.8.0.3.nupkg.sha512"
     },
+    "itext.bouncy-castle-adapter/8.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Al6JpWVyfESsU3wqjV5lEyD/921PLk7HBj1OlQOhBqx82JeA8popny5ryMWZjtxmDtuaWwrjKB8CPQ2mvH5Afw==",
+      "path": "itext.bouncy-castle-adapter/8.0.3",
+      "hashPath": "itext.bouncy-castle-adapter.8.0.3.nupkg.sha512"
+    },
     "itext.commons/8.0.3": {
       "type": "package",
       "serviceable": true,
@@ -1638,12 +1666,12 @@
       "path": "itext7/8.0.3",
       "hashPath": "itext7.8.0.3.nupkg.sha512"
     },
-    "iTextSharp/5.5.13.3": {
+    "itext7.bouncy-castle-adapter/8.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vtnMhTEJdZFCkLqaQLjD8aqTBIVKHPrSFuSXnxbLEJlvE/j/l88fvG9wtsejXTmhtErMo0lA9T2LdfdfbwplYw==",
-      "path": "itextsharp/5.5.13.3",
-      "hashPath": "itextsharp.5.5.13.3.nupkg.sha512"
+      "sha512": "sha512-GEUO0qkEdiTW4OX9JqO6tbW1ylH9jrV4jhBpnlipW0OVI6yZoq5aCZ7XRHfTm7SL8oukPcf91c1eJES3wwLz3w==",
+      "path": "itext7.bouncy-castle-adapter/8.0.3",
+      "hashPath": "itext7.bouncy-castle-adapter.8.0.3.nupkg.sha512"
     },
     "LanguageExt.Core/4.0.4": {
       "type": "package",

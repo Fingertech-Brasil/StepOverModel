@@ -8,7 +8,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.Pkcs;
-using iTextSharp.text.pdf;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.IO.Image;
 using System.Windows.Forms;
 
 namespace StepOverModel
@@ -16,6 +19,9 @@ namespace StepOverModel
 
     public partial class Form1 : Form
     {
+        // Origin PDF file path
+        string source;
+
         // Create an instance of the driver
         public static IDriver driverInterface = new Driver();
 
@@ -30,7 +36,11 @@ namespace StepOverModel
             InitializeComponent();
 
             // Set the device
-            driverInterface.SetDevice(deviceName0);
+            Error r = driverInterface.SetDevice(deviceName0);
+            if (r == Error.SUCCESS)
+            {
+                gb_sign.Enabled = true;
+            }
 
             // Subscribe to events
             SubscribeToEvents();
@@ -59,12 +69,16 @@ namespace StepOverModel
             };
         }
 
-        private double CalculateDPI(double width, double height)
+        // Get the PDF preview
+        private void GetPDFPreview(string docPath)
         {
-            // Get tge Screen Dimensions
-            Screen screen = Screen.FromControl(this);
-
-            return Math.Sqrt((width*height)/(screen.Bounds.Width*screen.Bounds.Height));
+            // Clear the web browser
+            webBrowser.Dispose();
+            webBrowser = new WebBrowser();
+            // Set the web browser properties
+            webBrowser.Dock = DockStyle.Fill;
+            webBrowser.Navigate(docPath);
+            pb_pdfView.Controls.Add(webBrowser);
         }
 
         // Button to start signature
@@ -101,6 +115,7 @@ namespace StepOverModel
             driverInterface.ClearLcd();
         }
 
+        // Button to save signature image
         private void bt_saveImage_Click(object sender, EventArgs e)
         {
             // Check if have signature image
@@ -192,19 +207,63 @@ namespace StepOverModel
 
             if (openFileDialog.FileName != "")
             {
-                //// Open the selected pdf to stream
-                //FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
-
-                //// Load the PDF file into the client
-                //clientInterface.LoadPdfAsync(fs);
-
-                //// Close the file stream
-                //fs.Close();
-
-                //// Get the PDF dimensions and number of pages
-                //Task<IEnumerable<IPageDimension>> pageDimensions = clientInterface.GetPagesAsync();
-
+                // Set the origin PDF file path and save the signed PDF file path
+                source = openFileDialog.FileName;
+                GetPDFPreview(source);
+                bt_signPDFImg.Enabled = true;
+                tb_x.Enabled = true;
+                tb_y.Enabled = true;
             }
         }
+
+        // Button to sign PDF file with image
+        private void bt_signPDFImg_Click(object sender, EventArgs e)
+        {
+            string destSource;
+            if (source.Contains("_signed.pdf"))
+            {
+                destSource = source.Replace(".pdf", "2.pdf");
+            }
+            else
+            {
+                destSource = source.Replace(".pdf", "_signed.pdf");
+            }
+            // Modify the PDF file
+            PdfDocument pdfDocument = new PdfDocument(new PdfReader(source), new PdfWriter(destSource));
+
+            // Document object to modify the PDF file
+            Document document = new Document(pdfDocument);
+
+            // Select the image to add to the PDF file
+            OpenFileDialog openFileDialogImage = new OpenFileDialog();
+            openFileDialogImage.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
+            openFileDialogImage.Title = "Select an sign Image File";
+            openFileDialogImage.ShowDialog();
+
+            if (openFileDialogImage.FileName != "")
+            {
+                // Add the image
+                ImageData imageData = ImageDataFactory.Create(openFileDialogImage.FileName);
+                iText.Layout.Element.Image signImage = new iText.Layout.Element.Image(imageData);
+                signImage.ScaleAbsolute(200, 100);
+
+                // User Choice to set the page number
+                int pageNumber = Convert.ToInt32(tb_page.Text);
+
+                // Set the position of the image
+                signImage.SetFixedPosition(pageNumber, 440, 4);
+
+                // Add the image to the PDF file
+                document.Add(signImage);
+
+                // Close the document
+                document.Close();
+                GetPDFPreview(destSource);
+                bt_signPDFImg.Enabled = false;
+                tb_x.Enabled = false;
+                tb_y.Enabled = false;
+            }
+        }
+
     }
 }

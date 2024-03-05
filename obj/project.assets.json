@@ -11,6 +11,19 @@
           "lib/BouncyCastle.Crypto.dll": {}
         }
       },
+      "BouncyCastle.Cryptography/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DerConverter/3.0.0.82": {
         "type": "package",
         "compile": {
@@ -145,6 +158,23 @@
           }
         }
       },
+      "itext.bouncy-castle-adapter/8.0.3": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.2.1",
+          "itext.commons": "8.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/itext.bouncy-castle-adapter.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/itext.bouncy-castle-adapter.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "itext.commons/8.0.3": {
         "type": "package",
         "dependencies": {
@@ -168,16 +198,10 @@
           "itext": "8.0.3"
         }
       },
-      "iTextSharp/5.5.13.3": {
+      "itext7.bouncy-castle-adapter/8.0.3": {
         "type": "package",
         "dependencies": {
-          "BouncyCastle": "1.8.9"
-        },
-        "compile": {
-          "lib/itextsharp.dll": {}
-        },
-        "runtime": {
-          "lib/itextsharp.dll": {}
+          "itext.bouncy-castle-adapter": "8.0.3"
         }
       },
       "LanguageExt.Core/4.0.4": {
@@ -2016,6 +2040,26 @@
         "lib/BouncyCastle.Crypto.dll"
       ]
     },
+    "BouncyCastle.Cryptography/2.2.1": {
+      "sha512": "A6Zr52zVqJKt18ZBsTnX0qhG0kwIQftVAjLmszmkiR/trSp8H+xj1gUOzk7XHwaKgyREMSV1v9XaKrBUeIOdvQ==",
+      "type": "package",
+      "path": "bouncycastle.cryptography/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "bouncycastle.cryptography.2.2.1.nupkg.sha512",
+        "bouncycastle.cryptography.nuspec",
+        "lib/net461/BouncyCastle.Cryptography.dll",
+        "lib/net461/BouncyCastle.Cryptography.xml",
+        "lib/net6.0/BouncyCastle.Cryptography.dll",
+        "lib/net6.0/BouncyCastle.Cryptography.xml",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
+        "packageIcon.png"
+      ]
+    },
     "DerConverter/3.0.0.82": {
       "sha512": "6x9+tHjO7IqGtgLlPAc6P1gKGmSl4s5c35M2g6DoOWHWY5RRYRX5LioXD8347Uf4VIuNGoYvRowKiJFHhkkFRA==",
       "type": "package",
@@ -2162,6 +2206,22 @@
         "lib/netstandard2.0/itext.svg.xml"
       ]
     },
+    "itext.bouncy-castle-adapter/8.0.3": {
+      "sha512": "Al6JpWVyfESsU3wqjV5lEyD/921PLk7HBj1OlQOhBqx82JeA8popny5ryMWZjtxmDtuaWwrjKB8CPQ2mvH5Afw==",
+      "type": "package",
+      "path": "itext.bouncy-castle-adapter/8.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ITSC-avatar.png",
+        "itext.bouncy-castle-adapter.8.0.3.nupkg.sha512",
+        "itext.bouncy-castle-adapter.nuspec",
+        "lib/net461/itext.bouncy-castle-adapter.dll",
+        "lib/net461/itext.bouncy-castle-adapter.xml",
+        "lib/netstandard2.0/itext.bouncy-castle-adapter.dll",
+        "lib/netstandard2.0/itext.bouncy-castle-adapter.xml"
+      ]
+    },
     "itext.commons/8.0.3": {
       "sha512": "Nd6K3z1UA+OBonOUnQ5odUjvleTZfSH4rdMQFhPu0Y29JN/iKsCAznpw6vlFvoLa7cqP+/5bQOUlvVJaf/bK6A==",
       "type": "package",
@@ -2192,20 +2252,18 @@
         "itext7.nuspec"
       ]
     },
-    "iTextSharp/5.5.13.3": {
-      "sha512": "vtnMhTEJdZFCkLqaQLjD8aqTBIVKHPrSFuSXnxbLEJlvE/j/l88fvG9wtsejXTmhtErMo0lA9T2LdfdfbwplYw==",
+    "itext7.bouncy-castle-adapter/8.0.3": {
+      "sha512": "GEUO0qkEdiTW4OX9JqO6tbW1ylH9jrV4jhBpnlipW0OVI6yZoq5aCZ7XRHfTm7SL8oukPcf91c1eJES3wwLz3w==",
       "type": "package",
-      "path": "itextsharp/5.5.13.3",
+      "path": "itext7.bouncy-castle-adapter/8.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "ITSC-avatar.png",
         "LICENSE.md",
         "gnu-agpl-v3.0.md",
-        "itextsharp.5.5.13.3.nupkg.sha512",
-        "itextsharp.nuspec",
-        "lib/iTextSharp.xml",
-        "lib/itextsharp.dll",
-        "notice.txt"
+        "itext7.bouncy-castle-adapter.8.0.3.nupkg.sha512",
+        "itext7.bouncy-castle-adapter.nuspec"
       ]
     },
     "LanguageExt.Core/4.0.4": {
@@ -6552,8 +6610,8 @@
       "SigDeviceAPI >= 3.0.0",
       "SkiaSharp >= 2.88.7",
       "SkiaSharp.NativeAssets.Win32 >= 2.88.7",
-      "iTextSharp >= 5.5.13.3",
-      "itext7 >= 8.0.3"
+      "itext7 >= 8.0.3",
+      "itext7.bouncy-castle-adapter >= 8.0.3"
     ]
   },
   "packageFolders": {
@@ -6617,11 +6675,11 @@
             "target": "Package",
             "version": "[2.88.7, )"
           },
-          "iTextSharp": {
-            "target": "Package",
-            "version": "[5.5.13.3, )"
-          },
           "itext7": {
+            "target": "Package",
+            "version": "[8.0.3, )"
+          },
+          "itext7.bouncy-castle-adapter": {
             "target": "Package",
             "version": "[8.0.3, )"
           }
@@ -6696,16 +6754,6 @@
       "warningLevel": 1,
       "message": "Package 'ini-parser 3.4.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
       "libraryId": "ini-parser",
-      "targetGraphs": [
-        "net6.0-windows7.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'iTextSharp 5.5.13.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "iTextSharp",
       "targetGraphs": [
         "net6.0-windows7.0"
       ]
