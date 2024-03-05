@@ -319,9 +319,9 @@ namespace StepOverModel
             {
                 tb_x.Text = "0";
             }
-            else if (int.Parse(tb_x.Text) > (595 - int.Parse(tb_sigWidth.Text)))
+            else if (int.Parse(tb_x.Text) > (int.Parse(tb_a4x.Text) - int.Parse(tb_sigWidth.Text)))
             {
-                tb_x.Text = Convert.ToString(595 - int.Parse(tb_sigWidth.Text));
+                tb_x.Text = Convert.ToString(int.Parse(tb_a4x.Text) - int.Parse(tb_sigWidth.Text));
             }
             else if (int.Parse(tb_x.Text) < 0)
             {
@@ -330,7 +330,7 @@ namespace StepOverModel
 
             // Set the value of the scroll bar x
             sb_x.Value = int.Parse(tb_x.Text);
-            sb_x.Maximum = 595 - int.Parse(tb_sigWidth.Text);
+            sb_x.Maximum = int.Parse(tb_a4x.Text) - int.Parse(tb_sigWidth.Text);
         }
 
         // tb y adujstment
@@ -341,9 +341,9 @@ namespace StepOverModel
             {
                 tb_y.Text = "0";
             }
-            else if (int.Parse(tb_y.Text) > (842 - int.Parse(tb_sigHeight.Text)))
+            else if (int.Parse(tb_y.Text) > (int.Parse(tb_a4y.Text) - int.Parse(tb_sigHeight.Text)))
             {
-                tb_y.Text = Convert.ToString(842 - int.Parse(tb_sigHeight.Text));
+                tb_y.Text = Convert.ToString(int.Parse(tb_a4y.Text) - int.Parse(tb_sigHeight.Text));
             }
             else if (int.Parse(tb_y.Text) < 0)
             {
@@ -352,7 +352,7 @@ namespace StepOverModel
 
             // Set the value of the scroll bar y
             sb_y.Value = int.Parse(tb_y.Text);
-            sb_y.Maximum = 842 - int.Parse(tb_sigHeight.Text);
+            sb_y.Maximum = int.Parse(tb_a4y.Text) - int.Parse(tb_sigHeight.Text);
         }
 
         // tb sigWidth adujstment
@@ -363,9 +363,9 @@ namespace StepOverModel
             {
                 tb_sigWidth.Text = "0";
             }
-            else if (int.Parse(tb_sigWidth.Text) > 595)
+            else if (int.Parse(tb_sigWidth.Text) > int.Parse(tb_a4x.Text))
             {
-                tb_sigWidth.Text = "595";
+                tb_sigWidth.Text = tb_a4x.Text;
             }
             else if (int.Parse(tb_sigWidth.Text) < 0)
             {
@@ -383,9 +383,9 @@ namespace StepOverModel
             {
                 tb_sigHeight.Text = "0";
             }
-            else if (int.Parse(tb_sigHeight.Text) > 842)
+            else if (int.Parse(tb_sigHeight.Text) > int.Parse(tb_a4y.Text))
             {
-                tb_sigHeight.Text = "842";
+                tb_sigHeight.Text = tb_a4y.Text;
             }
             else if (int.Parse(tb_sigHeight.Text) < 0)
             {
