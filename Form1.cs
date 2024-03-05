@@ -25,9 +25,6 @@ namespace StepOverModel
         // Create an instance of the driver
         public static IDriver driverInterface = new Driver();
 
-        // Check if have signature image
-        public bool haveSignatureImage = false;
-
         // Create an instance of the IClient
         //public IClient clientInterface = ClientFactory.BuildDefault();
 
@@ -40,10 +37,16 @@ namespace StepOverModel
             if (r == Error.SUCCESS)
             {
                 gb_sign.Enabled = true;
+                bt_StopSignature.Enabled = false;
+                bt_saveImage.Enabled = false;
             }
 
             // Subscribe to events
             SubscribeToEvents();
+
+            // Set the value of the scroll bar x
+            sb_x.Value = int.Parse(tb_x.Text);
+            sb_x.Maximum = 595 - int.Parse(tb_sigWidth.Text);
         }
 
         // Error Message
@@ -67,6 +70,13 @@ namespace StepOverModel
             {
                 pb_signature.Invoke((MethodInvoker)(() => UpdateSignatureImage()));
             };
+
+            // Event for signature mode stopped
+            driverInterface.SignFinished += (object sender, EventArgs e) =>
+            {
+                bt_StopSignature_Click(sender, e);
+            };
+
         }
 
         // Get the PDF preview
@@ -89,6 +99,9 @@ namespace StepOverModel
 
             r = driverInterface.StartSignatureMode(SignMode.StandardSign);
             ShowErrorMessage(r);
+
+            bt_StopSignature.Enabled = true;
+            bt_saveImage.Enabled = true;
         }
 
         // Button to stop signature
@@ -110,16 +123,17 @@ namespace StepOverModel
             if (r != Error.SUCCESS)
                 ShowErrorMessage(r);
 
-            haveSignatureImage = true;
-
             driverInterface.ClearLcd();
+
+            // Disable the button
+            bt_StopSignature.Enabled = false;
         }
 
         // Button to save signature image
         private void bt_saveImage_Click(object sender, EventArgs e)
         {
             // Check if have signature image
-            if (pb_signature.Image == null && !haveSignatureImage)
+            if (pb_signature.Image == null)
             {
                 MessageBox.Show("No signature image to save");
                 return;
@@ -158,6 +172,9 @@ namespace StepOverModel
                     driverInterface.ReadSignatureImage(pb_signature.Width, pb_signature.Height, filePath);
                 }
             }
+
+            // Disable the button
+            bt_saveImage.Enabled = false;
         }
 
         // Update signature image in picture box
@@ -213,26 +230,44 @@ namespace StepOverModel
                 bt_signPDFImg.Enabled = true;
                 tb_x.Enabled = true;
                 tb_y.Enabled = true;
+                tb_sigWidth.Enabled = true;
+                tb_sigHeight.Enabled = true;
+                sb_x.Enabled = true;
+                sb_y.Enabled = true;
             }
         }
 
         // Button to sign PDF file with image
         private void bt_signPDFImg_Click(object sender, EventArgs e)
         {
+            // Set the destination PDF file path and name
             string destSource;
             if (source.Contains("_signed.pdf"))
             {
-                destSource = source.Replace(".pdf", "2.pdf");
+                // If the file is already signed, pick the file name, if have number, add 1
+                int number = 2;
+                while (File.Exists(source.Replace(".pdf", number + ".pdf"))) // Check if the file exists
+                {
+                    number++;
+                }
+                destSource = source.Replace(".pdf", number + ".pdf");
             }
             else
             {
-                destSource = source.Replace(".pdf", "_signed.pdf");
+                if (File.Exists(source.Replace(".pdf", "_signed.pdf")))
+                {
+                    int number = 2;
+                    while (File.Exists(source.Replace(".pdf", number + ".pdf"))) // Check if the file exists
+                    {
+                        number++;
+                    }
+                    destSource = source.Replace(".pdf", "_signed" + number + ".pdf");
+                }
+                else
+                {
+                    destSource = source.Replace(".pdf", "_signed.pdf");
+                }
             }
-            // Modify the PDF file
-            PdfDocument pdfDocument = new PdfDocument(new PdfReader(source), new PdfWriter(destSource));
-
-            // Document object to modify the PDF file
-            Document document = new Document(pdfDocument);
 
             // Select the image to add to the PDF file
             OpenFileDialog openFileDialogImage = new OpenFileDialog();
@@ -242,16 +277,19 @@ namespace StepOverModel
 
             if (openFileDialogImage.FileName != "")
             {
+                // Modify the PDF file
+                PdfDocument pdfDocument = new PdfDocument(new PdfReader(source), new PdfWriter(destSource));
+
+                // Document object to modify the PDF file
+                Document document = new Document(pdfDocument);
+
                 // Add the image
                 ImageData imageData = ImageDataFactory.Create(openFileDialogImage.FileName);
                 iText.Layout.Element.Image signImage = new iText.Layout.Element.Image(imageData);
-                signImage.ScaleAbsolute(200, 100);
-
-                // User Choice to set the page number
-                int pageNumber = Convert.ToInt32(tb_page.Text);
+                signImage.ScaleAbsolute(Convert.ToInt32(tb_sigWidth.Text), Convert.ToInt32(tb_sigHeight.Text));
 
                 // Set the position of the image
-                signImage.SetFixedPosition(pageNumber, 440, 4);
+                signImage.SetFixedPosition(Convert.ToInt32(tb_page.Text), Convert.ToInt32(tb_x.Text), Convert.ToInt32(tb_y.Text));
 
                 // Add the image to the PDF file
                 document.Add(signImage);
@@ -262,8 +300,109 @@ namespace StepOverModel
                 bt_signPDFImg.Enabled = false;
                 tb_x.Enabled = false;
                 tb_y.Enabled = false;
+                tb_sigWidth.Enabled = false;
+                tb_sigHeight.Enabled = false;
+                sb_x.Enabled = false;
+                sb_y.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("No image to sign");
             }
         }
 
+        // tb x adujstment
+        private void tb_x_TextChanged(object sender, EventArgs e)
+        {
+            // Check the value of the text box
+            if (string.IsNullOrEmpty(tb_x.Text) || !int.TryParse(tb_x.Text, out _))
+            {
+                tb_x.Text = "0";
+            }
+            else if (int.Parse(tb_x.Text) > (595 - int.Parse(tb_sigWidth.Text)))
+            {
+                tb_x.Text = Convert.ToString(595 - int.Parse(tb_sigWidth.Text));
+            }
+            else if (int.Parse(tb_x.Text) < 0)
+            {
+                tb_x.Text = "0";
+            }
+
+            // Set the value of the scroll bar x
+            sb_x.Value = int.Parse(tb_x.Text);
+            sb_x.Maximum = 595 - int.Parse(tb_sigWidth.Text);
+        }
+
+        // tb y adujstment
+        private void tb_y_TextChanged(object sender, EventArgs e)
+        {
+            // Check the value of the text box
+            if (string.IsNullOrEmpty(tb_y.Text) || !int.TryParse(tb_y.Text, out _))
+            {
+                tb_y.Text = "0";
+            }
+            else if (int.Parse(tb_y.Text) > (842 - int.Parse(tb_sigHeight.Text)))
+            {
+                tb_y.Text = Convert.ToString(842 - int.Parse(tb_sigHeight.Text));
+            }
+            else if (int.Parse(tb_y.Text) < 0)
+            {
+                tb_y.Text = "0";
+            }
+
+            // Set the value of the scroll bar y
+            sb_y.Value = int.Parse(tb_y.Text);
+            sb_y.Maximum = 842 - int.Parse(tb_sigHeight.Text);
+        }
+
+        // tb sigWidth adujstment
+        private void tb_sigWidth_TextChanged(object sender, EventArgs e)
+        {
+            // Check the value of the text box
+            if (string.IsNullOrEmpty(tb_sigWidth.Text) || !int.TryParse(tb_sigWidth.Text, out _))
+            {
+                tb_sigWidth.Text = "0";
+            }
+            else if (int.Parse(tb_sigWidth.Text) > 595)
+            {
+                tb_sigWidth.Text = "595";
+            }
+            else if (int.Parse(tb_sigWidth.Text) < 0)
+            {
+                tb_sigWidth.Text = "0";
+            }
+            // Adjust the value of the text box x
+            tb_x_TextChanged(sender, e);
+        }
+
+        // tb sigHeight adujstment
+        private void tb_sigHeight_TextChanged(object sender, EventArgs e)
+        {
+            // Check the value of the text box
+            if (string.IsNullOrEmpty(tb_sigHeight.Text) || !int.TryParse(tb_sigHeight.Text, out _))
+            {
+                tb_sigHeight.Text = "0";
+            }
+            else if (int.Parse(tb_sigHeight.Text) > 842)
+            {
+                tb_sigHeight.Text = "842";
+            }
+            else if (int.Parse(tb_sigHeight.Text) < 0)
+            {
+                tb_sigHeight.Text = "0";
+            }
+            // Adjust the value of the text box y
+            tb_y_TextChanged(sender, e);
+        }
+
+        private void sb_x_Scroll(object sender, System.Windows.Forms.ScrollEventArgs e)
+        {
+            tb_x.Text = sb_x.Value.ToString();
+        }
+
+        private void sb_y_Scroll(object sender, System.Windows.Forms.ScrollEventArgs e)
+        {
+            tb_y.Text = sb_y.Value.ToString();
+        }
     }
 }
