@@ -38,8 +38,11 @@ namespace StepOverModel
             bt_StopSignature = new Button();
             pb_signature = new PictureBox();
             gb_PDF = new GroupBox();
+            bt_nextPage = new Button();
+            bt_previousPage = new Button();
+            lb_nPages = new Label();
             label2 = new Label();
-            label1 = new Label();
+            lb_pdfSize = new Label();
             lb_page = new Label();
             tb_a4y = new TextBox();
             tb_page = new TextBox();
@@ -62,7 +65,6 @@ namespace StepOverModel
             lb_sigWidth = new Label();
             tb_sigWidth = new TextBox();
             pictureBox1 = new PictureBox();
-            lb_nPages = new Label();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
@@ -131,9 +133,11 @@ namespace StepOverModel
             // 
             // gb_PDF
             // 
+            gb_PDF.Controls.Add(bt_nextPage);
+            gb_PDF.Controls.Add(bt_previousPage);
             gb_PDF.Controls.Add(lb_nPages);
             gb_PDF.Controls.Add(label2);
-            gb_PDF.Controls.Add(label1);
+            gb_PDF.Controls.Add(lb_pdfSize);
             gb_PDF.Controls.Add(lb_page);
             gb_PDF.Controls.Add(tb_a4y);
             gb_PDF.Controls.Add(tb_page);
@@ -149,6 +153,43 @@ namespace StepOverModel
             gb_PDF.TabStop = false;
             gb_PDF.Text = "PDF Options";
             // 
+            // bt_nextPage
+            // 
+            bt_nextPage.Enabled = false;
+            bt_nextPage.FlatStyle = FlatStyle.Popup;
+            bt_nextPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
+            bt_nextPage.Location = new Point(89, 60);
+            bt_nextPage.Margin = new Padding(0);
+            bt_nextPage.Name = "bt_nextPage";
+            bt_nextPage.Size = new Size(16, 26);
+            bt_nextPage.TabIndex = 15;
+            bt_nextPage.Text = ">";
+            bt_nextPage.UseVisualStyleBackColor = true;
+            bt_nextPage.Click += bt_nextPage_Click;
+            // 
+            // bt_previousPage
+            // 
+            bt_previousPage.Enabled = false;
+            bt_previousPage.FlatStyle = FlatStyle.Popup;
+            bt_previousPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
+            bt_previousPage.Location = new Point(53, 60);
+            bt_previousPage.Margin = new Padding(0);
+            bt_previousPage.Name = "bt_previousPage";
+            bt_previousPage.Size = new Size(16, 26);
+            bt_previousPage.TabIndex = 14;
+            bt_previousPage.Text = "<";
+            bt_previousPage.UseVisualStyleBackColor = true;
+            bt_previousPage.Click += bt_previousPage_Click;
+            // 
+            // lb_nPages
+            // 
+            lb_nPages.AutoSize = true;
+            lb_nPages.Location = new Point(101, 64);
+            lb_nPages.Name = "lb_nPages";
+            lb_nPages.Size = new Size(22, 19);
+            lb_nPages.TabIndex = 13;
+            lb_nPages.Text = "/0";
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -159,15 +200,15 @@ namespace StepOverModel
             label2.TabIndex = 12;
             label2.Text = "Y:";
             // 
-            // label1
+            // lb_pdfSize
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(10, 173);
-            label1.Name = "label1";
-            label1.Size = new Size(58, 19);
-            label1.TabIndex = 5;
-            label1.Text = "A4 max:";
+            lb_pdfSize.AutoSize = true;
+            lb_pdfSize.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            lb_pdfSize.Location = new Point(10, 173);
+            lb_pdfSize.Name = "lb_pdfSize";
+            lb_pdfSize.Size = new Size(64, 19);
+            lb_pdfSize.TabIndex = 5;
+            lb_pdfSize.Text = "PDF Size:";
             // 
             // lb_page
             // 
@@ -184,7 +225,7 @@ namespace StepOverModel
             tb_a4y.BorderStyle = BorderStyle.None;
             tb_a4y.Enabled = false;
             tb_a4y.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tb_a4y.Location = new Point(98, 182);
+            tb_a4y.Location = new Point(98, 185);
             tb_a4y.Name = "tb_a4y";
             tb_a4y.ReadOnly = true;
             tb_a4y.Size = new Size(38, 16);
@@ -195,18 +236,20 @@ namespace StepOverModel
             // 
             // tb_page
             // 
-            tb_page.Location = new Point(72, 61);
+            tb_page.Enabled = false;
+            tb_page.Location = new Point(66, 61);
             tb_page.Name = "tb_page";
             tb_page.Size = new Size(26, 25);
             tb_page.TabIndex = 3;
-            tb_page.Text = "1";
+            tb_page.Text = "0";
             tb_page.TextAlign = HorizontalAlignment.Center;
+            tb_page.TextChanged += tb_page_TextChanged;
             // 
             // bt_signPDFImg
             // 
             bt_signPDFImg.Enabled = false;
             bt_signPDFImg.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            bt_signPDFImg.Location = new Point(5, 90);
+            bt_signPDFImg.Location = new Point(6, 116);
             bt_signPDFImg.Name = "bt_signPDFImg";
             bt_signPDFImg.Size = new Size(131, 33);
             bt_signPDFImg.TabIndex = 2;
@@ -240,7 +283,7 @@ namespace StepOverModel
             tb_a4x.BorderStyle = BorderStyle.None;
             tb_a4x.Enabled = false;
             tb_a4x.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tb_a4x.Location = new Point(98, 153);
+            tb_a4x.Location = new Point(98, 155);
             tb_a4x.Name = "tb_a4x";
             tb_a4x.ReadOnly = true;
             tb_a4x.Size = new Size(38, 16);
@@ -423,15 +466,6 @@ namespace StepOverModel
             pictureBox1.TabIndex = 14;
             pictureBox1.TabStop = false;
             // 
-            // lb_nPages
-            // 
-            lb_nPages.AutoSize = true;
-            lb_nPages.Location = new Point(101, 64);
-            lb_nPages.Name = "lb_nPages";
-            lb_nPages.Size = new Size(22, 19);
-            lb_nPages.TabIndex = 13;
-            lb_nPages.Text = "/0";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -478,7 +512,7 @@ namespace StepOverModel
         private WebBrowser webBrowser;
         private PictureBox pb_pdfView;
         private Label label2;
-        private Label label1;
+        private Label lb_pdfSize;
         private TextBox tb_a4y;
         private Label label3;
         private TextBox tb_a4x;
@@ -492,5 +526,7 @@ namespace StepOverModel
         private HScrollBar sb_y;
         private PictureBox pictureBox1;
         private Label lb_nPages;
+        private Button bt_nextPage;
+        private Button bt_previousPage;
     }
 }

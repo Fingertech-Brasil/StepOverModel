@@ -60,3 +60,10 @@ C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\Microsoft
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\BouncyCastle.Cryptography.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\itext.bouncy-castle-adapter.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\GemBox.Pdf.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\HarfBuzzSharp.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\Pkcs11Interop.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\osx\native\libHarfBuzzSharp.dylib
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-arm64\native\libHarfBuzzSharp.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x64\native\libHarfBuzzSharp.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x86\native\libHarfBuzzSharp.dll
