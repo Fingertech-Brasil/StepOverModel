@@ -575,7 +575,7 @@ namespace StepOverModel
         private void pb_pdfView_MouseClick(object sender, MouseEventArgs e)
         {
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
-            tb_y.Text = (((- e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text) - int.Parse(tb_sigHeight.Text))).ToString();
+            tb_y.Text = (((- e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
     }
 }
