@@ -565,7 +565,7 @@ namespace StepOverModel
 
         private void CoordnateSign()
         {
-            pb_signPrev.Location = new System.Drawing.Point(831,352);
+            pb_signPrev.Location = new System.Drawing.Point(((int.Parse(tb_x.Text) * pb_pdfView.Width) / int.Parse(tb_a4x.Text)) + 830, ((- int.Parse(tb_y.Text) * pb_pdfView.Height) / int.Parse(tb_a4y.Text)) + (387 - pb_signPrev.Height));
         }
     }
 }
