@@ -64,13 +64,13 @@ namespace StepOverModel
             tb_sigHeight = new TextBox();
             lb_sigWidth = new Label();
             tb_sigWidth = new TextBox();
-            pictureBox1 = new PictureBox();
+            pb_signPrev = new PictureBox();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_pdfView).BeginInit();
             gb_signatureOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pb_signPrev).BeginInit();
             SuspendLayout();
             // 
             // bt_StartSignature
@@ -194,17 +194,17 @@ namespace StepOverModel
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(72, 182);
+            label2.Location = new Point(16, 192);
             label2.Name = "label2";
-            label2.Size = new Size(20, 19);
+            label2.Size = new Size(53, 19);
             label2.TabIndex = 12;
-            label2.Text = "Y:";
+            label2.Text = "Height:";
             // 
             // lb_pdfSize
             // 
             lb_pdfSize.AutoSize = true;
             lb_pdfSize.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lb_pdfSize.Location = new Point(10, 173);
+            lb_pdfSize.Location = new Point(41, 152);
             lb_pdfSize.Name = "lb_pdfSize";
             lb_pdfSize.Size = new Size(64, 19);
             lb_pdfSize.TabIndex = 5;
@@ -214,7 +214,7 @@ namespace StepOverModel
             // 
             lb_page.AutoSize = true;
             lb_page.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lb_page.Location = new Point(9, 64);
+            lb_page.Location = new Point(6, 64);
             lb_page.Name = "lb_page";
             lb_page.Size = new Size(42, 19);
             lb_page.TabIndex = 4;
@@ -225,7 +225,7 @@ namespace StepOverModel
             tb_a4y.BorderStyle = BorderStyle.None;
             tb_a4y.Enabled = false;
             tb_a4y.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tb_a4y.Location = new Point(98, 185);
+            tb_a4y.Location = new Point(70, 192);
             tb_a4y.Name = "tb_a4y";
             tb_a4y.ReadOnly = true;
             tb_a4y.Size = new Size(38, 16);
@@ -261,11 +261,11 @@ namespace StepOverModel
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(72, 153);
+            label3.Location = new Point(20, 170);
             label3.Name = "label3";
-            label3.Size = new Size(20, 19);
+            label3.Size = new Size(49, 19);
             label3.TabIndex = 10;
-            label3.Text = "X:";
+            label3.Text = "Width:";
             // 
             // bt_loadPDF
             // 
@@ -283,7 +283,7 @@ namespace StepOverModel
             tb_a4x.BorderStyle = BorderStyle.None;
             tb_a4x.Enabled = false;
             tb_a4x.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tb_a4x.Location = new Point(98, 155);
+            tb_a4x.Location = new Point(70, 173);
             tb_a4x.Name = "tb_a4x";
             tb_a4x.ReadOnly = true;
             tb_a4x.Size = new Size(38, 16);
@@ -296,7 +296,7 @@ namespace StepOverModel
             // 
             sb_x.Enabled = false;
             sb_x.LargeChange = 1;
-            sb_x.Location = new Point(198, 51);
+            sb_x.Location = new Point(195, 51);
             sb_x.Maximum = 595;
             sb_x.Name = "sb_x";
             sb_x.RightToLeft = RightToLeft.No;
@@ -321,7 +321,7 @@ namespace StepOverModel
             tb_y.Name = "tb_y";
             tb_y.Size = new Size(47, 25);
             tb_y.TabIndex = 7;
-            tb_y.Text = "4";
+            tb_y.Text = "0";
             tb_y.TextAlign = HorizontalAlignment.Center;
             tb_y.TextChanged += tb_y_TextChanged;
             // 
@@ -342,7 +342,7 @@ namespace StepOverModel
             tb_x.Name = "tb_x";
             tb_x.Size = new Size(47, 25);
             tb_x.TabIndex = 5;
-            tb_x.Text = "440";
+            tb_x.Text = "0";
             tb_x.TextAlign = HorizontalAlignment.Center;
             tb_x.TextChanged += tb_x_TextChanged;
             // 
@@ -390,7 +390,7 @@ namespace StepOverModel
             // 
             sb_y.Enabled = false;
             sb_y.LargeChange = 1;
-            sb_y.Location = new Point(320, 51);
+            sb_y.Location = new Point(317, 51);
             sb_y.Maximum = 595;
             sb_y.Name = "sb_y";
             sb_y.RightToLeft = RightToLeft.No;
@@ -456,22 +456,24 @@ namespace StepOverModel
             tb_sigWidth.TextAlign = HorizontalAlignment.Center;
             tb_sigWidth.TextChanged += tb_sigWidth_TextChanged;
             // 
-            // pictureBox1
+            // pb_signPrev
             // 
-            pictureBox1.Image = Properties.Resources.signPrev;
-            pictureBox1.Location = new Point(1012, 338);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(100, 50);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 14;
-            pictureBox1.TabStop = false;
+            pb_signPrev.BackColor = Color.Transparent;
+            pb_signPrev.Image = Properties.Resources.signPrev;
+            pb_signPrev.Location = new Point(831, 352);
+            pb_signPrev.Name = "pb_signPrev";
+            pb_signPrev.Size = new Size(73, 34);
+            pb_signPrev.SizeMode = PictureBoxSizeMode.StretchImage;
+            pb_signPrev.TabIndex = 14;
+            pb_signPrev.TabStop = false;
+            pb_signPrev.Visible = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1124, 400);
-            Controls.Add(pictureBox1);
+            Controls.Add(pb_signPrev);
             Controls.Add(gb_signatureOptions);
             Controls.Add(pb_pdfView);
             Controls.Add(gb_PDF);
@@ -482,6 +484,7 @@ namespace StepOverModel
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "StepOverModel";
+            FormClosing += Form1_FormClosing;
             gb_sign.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pb_signature).EndInit();
             gb_PDF.ResumeLayout(false);
@@ -489,7 +492,7 @@ namespace StepOverModel
             ((System.ComponentModel.ISupportInitialize)pb_pdfView).EndInit();
             gb_signatureOptions.ResumeLayout(false);
             gb_signatureOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pb_signPrev).EndInit();
             ResumeLayout(false);
         }
 
@@ -524,7 +527,7 @@ namespace StepOverModel
         private Label lb_sigWidth;
         private TextBox tb_sigWidth;
         private HScrollBar sb_y;
-        private PictureBox pictureBox1;
+        private PictureBox pb_signPrev;
         private Label lb_nPages;
         private Button bt_nextPage;
         private Button bt_previousPage;

@@ -33,6 +33,7 @@ namespace StepOverModel
         // Create an instance of the IClient
         //public IClient clientInterface = ClientFactory.BuildDefault();
 
+        // Form is open
         public Form1(string deviceName0)
         {
             InitializeComponent();
@@ -52,7 +53,29 @@ namespace StepOverModel
             // Set the value of the scroll bar x
             sb_x.Value = int.Parse(tb_x.Text);
             sb_x.Maximum = 595 - int.Parse(tb_sigWidth.Text);
+
+            // Create the tmp folder
+            if (!Directory.Exists("tmp"))
+            {
+                Directory.CreateDirectory("tmp");
+            }
         }
+
+        // Form is closed
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Dispose the image
+            if (pb_pdfView.Image != null)
+            {
+                pb_pdfView.Image.Dispose();
+            }
+            // Delete the "tmp/" folder and its contents
+            if (Directory.Exists("tmp"))
+            {
+                Directory.Delete("tmp", true);
+            }
+        }
+
 
         // Error Message
         private void ShowErrorMessage(Error error)
@@ -79,29 +102,20 @@ namespace StepOverModel
             // Event for signature mode stopped
             driverInterface.SignFinished += (object sender, EventArgs e) =>
             {
-                bt_StopSignature_Click(sender, e);
+               
             };
 
-        }
-
-        // Get the PDF preview with web browser
-        private void GetPDFPreview(string docPath)
-        {
-            // Clear the web browser
-            webBrowser.Dispose();
-            webBrowser = new WebBrowser();
-
-            // Set the web browser properties
-            webBrowser.Dock = DockStyle.Fill;
-            webBrowser.Navigate(docPath);
-
-            // Add the web browser to the panel
-            pb_pdfView.Controls.Add(webBrowser);
         }
 
         // Convert PDF to TIFF
         public void ConvertPDFtoImg(string source, int page)
         {
+            // clear the pb_pdfView.image if have content
+            if (pb_pdfView.Image != null)
+            {
+                pb_pdfView.Image.Dispose();
+            }
+            
             // Se estiver usando a versão Professional, insira sua chave de serial abaixo.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
@@ -112,46 +126,17 @@ namespace StepOverModel
                 var imageOptions = new ImageSaveOptions(ImageSaveFormat.Bmp)
                 {
                     PageNumber = page, // Selecione a primeira página do PDF.
-                    Width = int.Parse(tb_a4x.Text), // Defina a largura da imagem e mantenha a proporção.
-                    Height = int.Parse(tb_a4y.Text) // Defina a altura da imagem e mantenha a proporção.
+                    Width = pb_pdfView.Width, // Set the FitToSizeWidth property to the width of pb_pdfView
+                    Height = pb_pdfView.Height // Set the FitToSizeHeight property to the height of pb_pdfView
                 };
 
                 // Salve um documento PDF em um arquivo JPEG.
                 document.Save("tmp/Output.bmp", imageOptions);
-            }
 
-        }
-
-        // Button to go to the previous page
-        private void bt_previousPage_Click(object sender, EventArgs e)
-        {
-            int currentPage = int.Parse(tb_page.Text);
-            if (currentPage > 1)
-            {
-                tb_page.Text = (currentPage - 1).ToString();
-            }
-            if (currentPage - 1 == 1)
-            {
-                bt_previousPage.Enabled = false;
-                bt_nextPage.Enabled = true;
+                // Load the image from the file and display it in the PictureBox
+                pb_pdfView.Image = System.Drawing.Image.FromFile("tmp/Output.bmp");
             }
         }
-
-        // Button to go to the next page
-        private void bt_nextPage_Click(object sender, EventArgs e)
-        {
-            int currentPage = int.Parse(tb_page.Text);
-            if (currentPage < pages)
-            {
-                tb_page.Text = (currentPage + 1).ToString();
-            }
-            if (currentPage + 1 == pages)
-            {
-                bt_nextPage.Enabled = false;
-                bt_previousPage.Enabled = true;
-            }
-        }
-        
 
         // Button to start signature
         private void bt_StartSignature_Click(object sender, EventArgs e)
@@ -185,6 +170,7 @@ namespace StepOverModel
             if (r != Error.SUCCESS)
                 ShowErrorMessage(r);
 
+            driverInterface.StopSignatureCapture();
             driverInterface.ClearLcd();
 
             // Disable the button
@@ -307,7 +293,7 @@ namespace StepOverModel
                 pdfDocument.Close();
 
                 // Convert the pages to images
-                ConvertPDFtoImg(source, 1);
+                 ConvertPDFtoImg(source, 0);
 
                 // Att tb_x, tb_y, tb_sigWidth, tb_sigHeight
                 tb_x_TextChanged(sender, e);
@@ -324,6 +310,8 @@ namespace StepOverModel
                 tb_sigHeight.Enabled = true;
                 sb_x.Enabled = true;
                 sb_y.Enabled = true;
+                pb_signPrev.Visible = true;
+
                 if (pages == 1)
                 {
                     bt_previousPage.Enabled = false;
@@ -381,7 +369,7 @@ namespace StepOverModel
                 iText.Kernel.Pdf.PdfDocument pdfDocument = new iText.Kernel.Pdf.PdfDocument(new PdfReader(source), new PdfWriter(destSource));
 
                 // Document object to modify the PDF file
-                iText.Layout.Document document = new iText.Layout.Document(pdfDocument);
+                Document document = new Document(pdfDocument);
 
                 // Add the image
                 ImageData imageData = ImageDataFactory.Create(openFileDialogImage.FileName);
@@ -396,7 +384,7 @@ namespace StepOverModel
 
                 // Close the document
                 document.Close();
-                GetPDFPreview(destSource);
+                ConvertPDFtoImg(destSource, int.Parse(tb_page.Text) - 1);
                 bt_signPDFImg.Enabled = false;
                 tb_page.Enabled = false;
                 tb_x.Enabled = false;
@@ -407,6 +395,7 @@ namespace StepOverModel
                 sb_y.Enabled = false;
                 bt_previousPage.Enabled = false;
                 bt_nextPage.Enabled = false;
+                pb_signPrev.Visible = false;
             }
             else
             {
@@ -432,6 +421,42 @@ namespace StepOverModel
             }
         }
 
+        // Button to go to the previous page
+        private void bt_previousPage_Click(object sender, EventArgs e)
+        {
+            int currentPage = int.Parse(tb_page.Text);
+            if (currentPage > 1)
+            {
+                tb_page.Text = (currentPage - 1).ToString();
+            }
+            if (currentPage - 1 == 1)
+            {
+                bt_previousPage.Enabled = false;
+                bt_nextPage.Enabled = true;
+            }
+
+            // Update the img
+            ConvertPDFtoImg(source, currentPage - 2);
+        }
+
+        // Button to go to the next page
+        private void bt_nextPage_Click(object sender, EventArgs e)
+        {
+            int currentPage = int.Parse(tb_page.Text);
+            if (currentPage < pages)
+            {
+                tb_page.Text = (currentPage + 1).ToString();
+            }
+            if (currentPage + 1 == pages)
+            {
+                bt_nextPage.Enabled = false;
+                bt_previousPage.Enabled = true;
+            }
+
+            // Update the img
+            ConvertPDFtoImg(source, currentPage);
+        }
+
         // tb x adujstment
         private void tb_x_TextChanged(object sender, EventArgs e)
         {
@@ -452,6 +477,8 @@ namespace StepOverModel
             // Set the value of the scroll bar x
             sb_x.Value = (int)Math.Round(float.Parse(tb_x.Text));
             sb_x.Maximum = (int)Math.Round(float.Parse(tb_a4x.Text)) - (int)Math.Round(float.Parse(tb_sigWidth.Text));
+            
+            CoordnateSign();
         }
 
         // tb y adujstment
@@ -474,6 +501,8 @@ namespace StepOverModel
             // Set the value of the scroll bar y
             sb_y.Value = (int)Math.Round(float.Parse(tb_y.Text));
             sb_y.Maximum = (int)Math.Round(float.Parse(tb_a4y.Text)) - (int)Math.Round(float.Parse(tb_sigHeight.Text));
+
+            CoordnateSign();
         }
 
         // tb sigWidth adujstment
@@ -494,6 +523,7 @@ namespace StepOverModel
             }
             // Adjust the value of the text box x
             tb_x_TextChanged(sender, e);
+            ScaleSign();
         }
 
         // tb sigHeight adujstment
@@ -514,6 +544,7 @@ namespace StepOverModel
             }
             // Adjust the value of the text box y
             tb_y_TextChanged(sender, e);
+            ScaleSign();
         }
 
         private void sb_x_Scroll(object sender, System.Windows.Forms.ScrollEventArgs e)
@@ -524,6 +555,17 @@ namespace StepOverModel
         private void sb_y_Scroll(object sender, System.Windows.Forms.ScrollEventArgs e)
         {
             tb_y.Text = sb_y.Value.ToString();
+        }
+
+        private void ScaleSign()
+        {
+            pb_signPrev.Width = (int.Parse(tb_sigWidth.Text) * pb_pdfView.Width) / int.Parse(tb_a4x.Text);
+            pb_signPrev.Height = (int.Parse(tb_sigHeight.Text) * pb_pdfView.Height) / int.Parse(tb_a4y.Text);
+        }
+
+        private void CoordnateSign()
+        {
+            pb_signPrev.Location = new System.Drawing.Point(831,352);
         }
     }
 }
