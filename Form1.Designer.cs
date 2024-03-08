@@ -155,7 +155,6 @@ namespace StepOverModel
             // 
             // bt_nextPage
             // 
-            bt_nextPage.Enabled = false;
             bt_nextPage.FlatStyle = FlatStyle.Popup;
             bt_nextPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
             bt_nextPage.Location = new Point(89, 60);
@@ -165,11 +164,11 @@ namespace StepOverModel
             bt_nextPage.TabIndex = 15;
             bt_nextPage.Text = ">";
             bt_nextPage.UseVisualStyleBackColor = true;
+            bt_nextPage.Visible = false;
             bt_nextPage.Click += bt_nextPage_Click;
             // 
             // bt_previousPage
             // 
-            bt_previousPage.Enabled = false;
             bt_previousPage.FlatStyle = FlatStyle.Popup;
             bt_previousPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
             bt_previousPage.Location = new Point(53, 60);
@@ -179,6 +178,7 @@ namespace StepOverModel
             bt_previousPage.TabIndex = 14;
             bt_previousPage.Text = "<";
             bt_previousPage.UseVisualStyleBackColor = true;
+            bt_previousPage.Visible = false;
             bt_previousPage.Click += bt_previousPage_Click;
             // 
             // lb_nPages
@@ -359,11 +359,13 @@ namespace StepOverModel
             pb_pdfView.BackColor = SystemColors.ControlLight;
             pb_pdfView.BorderStyle = BorderStyle.FixedSingle;
             pb_pdfView.Cursor = Cursors.Cross;
+            pb_pdfView.Enabled = false;
             pb_pdfView.Location = new Point(830, 12);
             pb_pdfView.Name = "pb_pdfView";
             pb_pdfView.Size = new Size(282, 375);
             pb_pdfView.TabIndex = 4;
             pb_pdfView.TabStop = false;
+            pb_pdfView.MouseClick += pb_pdfView_MouseClick;
             // 
             // gb_signatureOptions
             // 

@@ -102,7 +102,7 @@ namespace StepOverModel
             // Event for signature mode stopped
             driverInterface.SignFinished += (object sender, EventArgs e) =>
             {
-               
+
             };
 
         }
@@ -115,7 +115,7 @@ namespace StepOverModel
             {
                 pb_pdfView.Image.Dispose();
             }
-            
+
             // Se estiver usando a versão Professional, insira sua chave de serial abaixo.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
@@ -293,7 +293,7 @@ namespace StepOverModel
                 pdfDocument.Close();
 
                 // Convert the pages to images
-                 ConvertPDFtoImg(source, 0);
+                ConvertPDFtoImg(source, 0);
 
                 // Att tb_x, tb_y, tb_sigWidth, tb_sigHeight
                 tb_x_TextChanged(sender, e);
@@ -303,25 +303,28 @@ namespace StepOverModel
 
                 // Enable the button to sign PDF file with image
                 bt_signPDFImg.Enabled = true;
-                tb_page.Enabled = true;
                 tb_x.Enabled = true;
                 tb_y.Enabled = true;
                 tb_sigWidth.Enabled = true;
                 tb_sigHeight.Enabled = true;
                 sb_x.Enabled = true;
                 sb_y.Enabled = true;
+                pb_pdfView.Enabled = true;
                 pb_signPrev.Visible = true;
 
                 if (pages == 1)
                 {
-                    bt_previousPage.Enabled = false;
-                    bt_nextPage.Enabled = false;
+                    bt_previousPage.Visible = false;
+                    bt_nextPage.Visible = false;
                 }
                 else
                 {
-                    bt_previousPage.Enabled = false;
-                    bt_nextPage.Enabled = true;
+                    tb_page.Enabled = true;
+                    bt_previousPage.Visible = false;
+                    bt_nextPage.Visible = true;
                 }
+
+
             }
         }
 
@@ -393,8 +396,9 @@ namespace StepOverModel
                 tb_sigHeight.Enabled = false;
                 sb_x.Enabled = false;
                 sb_y.Enabled = false;
-                bt_previousPage.Enabled = false;
-                bt_nextPage.Enabled = false;
+                bt_previousPage.Visible = false;
+                bt_nextPage.Visible = false;
+                pb_pdfView.Enabled = false;
                 pb_signPrev.Visible = false;
             }
             else
@@ -477,7 +481,7 @@ namespace StepOverModel
             // Set the value of the scroll bar x
             sb_x.Value = (int)Math.Round(float.Parse(tb_x.Text));
             sb_x.Maximum = (int)Math.Round(float.Parse(tb_a4x.Text)) - (int)Math.Round(float.Parse(tb_sigWidth.Text));
-            
+
             CoordnateSign();
         }
 
@@ -565,7 +569,13 @@ namespace StepOverModel
 
         private void CoordnateSign()
         {
-            pb_signPrev.Location = new System.Drawing.Point(((int.Parse(tb_x.Text) * pb_pdfView.Width) / int.Parse(tb_a4x.Text)) + 830, ((- int.Parse(tb_y.Text) * pb_pdfView.Height) / int.Parse(tb_a4y.Text)) + (387 - pb_signPrev.Height));
+            pb_signPrev.Location = new System.Drawing.Point(((int.Parse(tb_x.Text) * pb_pdfView.Width) / int.Parse(tb_a4x.Text)) + 830, ((-int.Parse(tb_y.Text) * pb_pdfView.Height) / int.Parse(tb_a4y.Text)) + (387 - pb_signPrev.Height));
+        }
+
+        private void pb_pdfView_MouseClick(object sender, MouseEventArgs e)
+        {
+            tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
+            tb_y.Text = (((- e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text) - int.Parse(tb_sigHeight.Text))).ToString();
         }
     }
 }
