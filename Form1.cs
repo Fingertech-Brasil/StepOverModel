@@ -14,7 +14,6 @@ using iText.Layout.Element;
 using iText.IO.Image;
 using System.Windows.Forms;
 using GemBox.Pdf;
-using GemBox.Pdf.Content;
 
 namespace StepOverModel
 {
@@ -31,7 +30,7 @@ namespace StepOverModel
         public static IDriver driverInterface = new Driver();
 
         // Create an instance of the IClient
-        //public IClient clientInterface = ClientFactory.BuildDefault();
+        public IClient clientInterface = ClientFactory.BuildDefault();
 
         // Form is open
         public Form1(string deviceName0)
@@ -53,6 +52,9 @@ namespace StepOverModel
             // Set the value of the scroll bar x
             sb_x.Value = int.Parse(tb_x.Text);
             sb_x.Maximum = 595 - int.Parse(tb_sigWidth.Text);
+
+            r = driverInterface.LoadLicense("License/FingerTech.xml");
+            ShowErrorMessage(r);
 
             // Create the tmp folder
             if (!Directory.Exists("tmp"))
@@ -141,10 +143,7 @@ namespace StepOverModel
         // Button to start signature
         private void bt_StartSignature_Click(object sender, EventArgs e)
         {
-            Error r = driverInterface.LoadLicense("C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\FingerTech.xml");
-            ShowErrorMessage(r);
-
-            r = driverInterface.StartSignatureMode(SignMode.StandardSign);
+            Error r = driverInterface.StartSignatureMode(SignMode.StandardSign);
             ShowErrorMessage(r);
 
             bt_StopSignature.Enabled = true;
@@ -360,6 +359,11 @@ namespace StepOverModel
                 }
             }
 
+            if (pb_signature.Image != null)
+            {
+                DialogResult imageUse = MessageBox.Show("Use current signature?", "Signature", MessageBoxButtons.YesNo);
+            }
+
             // Select the image to add to the PDF file
             OpenFileDialog openFileDialogImage = new OpenFileDialog();
             openFileDialogImage.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
@@ -400,6 +404,10 @@ namespace StepOverModel
                 bt_nextPage.Visible = false;
                 pb_pdfView.Enabled = false;
                 pb_signPrev.Visible = false;
+                
+
+                // Clear source
+                source = null;
             }
             else
             {
@@ -575,7 +583,12 @@ namespace StepOverModel
         private void pb_pdfView_MouseClick(object sender, MouseEventArgs e)
         {
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
-            tb_y.Text = (((- e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
+            tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
+        }
+
+        private void bt_signForPad_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
