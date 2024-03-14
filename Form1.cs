@@ -334,7 +334,16 @@ namespace StepOverModel
             string destSource;
             int number = 2;
             string[] path = source.Split('\\');
-            destSource = source;
+            if (!path[path.Length - 1].Contains("_signed"))
+            {
+                destSource = source.Replace(".pdf", "_signed.pdf");
+            }
+            else
+            {
+                path[path.Length - 1] = path[path.Length - 1].Split("_signed")[0];
+                destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
+            }
+            // Check if have the signature image in the picture box
             if (pb_signature.Image != null)
             {
                 // Check if user like to use the current signature
