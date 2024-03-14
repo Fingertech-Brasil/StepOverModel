@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StepOverModel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ecc2b46bcf684ed0b27f3b40d31dc3e9c15e233")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0404fde029aae0b50dae64c52a59c85bf99255b4")]
 [assembly: System.Reflection.AssemblyProductAttribute("StepOverModel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StepOverModel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

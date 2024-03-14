@@ -65,7 +65,6 @@ namespace StepOverModel
             lb_sigWidth = new Label();
             tb_sigWidth = new TextBox();
             pb_signPrev = new PictureBox();
-            bt_signForPad = new Button();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
@@ -471,24 +470,11 @@ namespace StepOverModel
             pb_signPrev.TabStop = false;
             pb_signPrev.Visible = false;
             // 
-            // bt_signForPad
-            // 
-            bt_signForPad.Enabled = false;
-            bt_signForPad.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            bt_signForPad.Location = new Point(210, 327);
-            bt_signForPad.Name = "bt_signForPad";
-            bt_signForPad.Size = new Size(131, 33);
-            bt_signForPad.TabIndex = 16;
-            bt_signForPad.Text = "Sign PDF for Pad";
-            bt_signForPad.UseVisualStyleBackColor = true;
-            bt_signForPad.Click += bt_signForPad_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1124, 400);
-            Controls.Add(bt_signForPad);
             Controls.Add(pb_signPrev);
             Controls.Add(gb_signatureOptions);
             Controls.Add(pb_pdfView);
@@ -547,6 +533,5 @@ namespace StepOverModel
         private Label lb_nPages;
         private Button bt_nextPage;
         private Button bt_previousPage;
-        private Button bt_signForPad;
     }
 }

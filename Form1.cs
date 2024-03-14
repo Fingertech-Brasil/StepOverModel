@@ -332,36 +332,19 @@ namespace StepOverModel
         {
             // Set the destination PDF file path and name
             string destSource;
-            if (source.Contains("_signed.pdf"))
-            {
-                // If the file is already signed, pick the file name, if have number, add 1
-                int number = 2;
-                while (File.Exists(source.Replace(".pdf", number + ".pdf"))) // Check if the file exists
-                {
-                    number++;
-                }
-                destSource = source.Replace(".pdf", number + ".pdf");
-            }
-            else
-            {
-                if (File.Exists(source.Replace(".pdf", "_signed.pdf")))
-                {
-                    int number = 2;
-                    while (File.Exists(source.Replace(".pdf", number + ".pdf"))) // Check if the file exists
-                    {
-                        number++;
-                    }
-                    destSource = source.Replace(".pdf", "_signed" + number + ".pdf");
-                }
-                else
-                {
-                    destSource = source.Replace(".pdf", "_signed.pdf");
-                }
-            }
-
+            int number = 2;
+            string[] path = source.Split('\\');
+            destSource = source;
             if (pb_signature.Image != null)
             {
+                // Check if user like to use the current signature
                 DialogResult imageUse = MessageBox.Show("Use current signature?", "Signature", MessageBoxButtons.YesNo);
+
+                if (imageUse == DialogResult.Yes)
+                {
+                    // Save the temporary signature image
+                    pb_signature.Image.Save("tmp/Sign.bmp");
+                }
             }
 
             // Select the image to add to the PDF file
@@ -443,8 +426,8 @@ namespace StepOverModel
             }
             if (currentPage - 1 == 1)
             {
-                bt_previousPage.Enabled = false;
-                bt_nextPage.Enabled = true;
+                bt_previousPage.Visible = false;
+                bt_nextPage.Visible = true;
             }
 
             // Update the img
@@ -461,8 +444,8 @@ namespace StepOverModel
             }
             if (currentPage + 1 == pages)
             {
-                bt_nextPage.Enabled = false;
-                bt_previousPage.Enabled = true;
+                bt_nextPage.Visible = false;
+                bt_previousPage.Visible = true;
             }
 
             // Update the img
@@ -559,36 +542,37 @@ namespace StepOverModel
             ScaleSign();
         }
 
+        // Scroll bar x adujstment
         private void sb_x_Scroll(object sender, System.Windows.Forms.ScrollEventArgs e)
         {
             tb_x.Text = sb_x.Value.ToString();
         }
 
+        // Scroll bar y adujstment
         private void sb_y_Scroll(object sender, System.Windows.Forms.ScrollEventArgs e)
         {
             tb_y.Text = sb_y.Value.ToString();
         }
 
+        // Scale function for the sign preview
         private void ScaleSign()
         {
             pb_signPrev.Width = (int.Parse(tb_sigWidth.Text) * pb_pdfView.Width) / int.Parse(tb_a4x.Text);
             pb_signPrev.Height = (int.Parse(tb_sigHeight.Text) * pb_pdfView.Height) / int.Parse(tb_a4y.Text);
         }
 
+        // Coordinate function for the sign preview
         private void CoordnateSign()
         {
             pb_signPrev.Location = new System.Drawing.Point(((int.Parse(tb_x.Text) * pb_pdfView.Width) / int.Parse(tb_a4x.Text)) + pb_pdfView.Location.X, ((-int.Parse(tb_y.Text) * pb_pdfView.Height) / int.Parse(tb_a4y.Text)) + ((pb_pdfView.Location.Y + pb_pdfView.Height) - pb_signPrev.Height));
         }
 
+        // Mouse click event for the sign preview
         private void pb_pdfView_MouseClick(object sender, MouseEventArgs e)
         {
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
 
-        private void bt_signForPad_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
