@@ -501,37 +501,43 @@ namespace StepOverModel
         #endregion
 
         private Button bt_StartSignature;
-        private GroupBox gb_sign;
         private Button bt_StopSignature;
-        private PictureBox pb_signature;
         private Button bt_saveImage;
-        private GroupBox gb_PDF;
         private Button bt_signPDFImg;
         private Button bt_loadPDF;
-        private Label lb_page;
-        private TextBox tb_page;
-        private Label lb_y;
-        private TextBox tb_y;
-        private Label lb_x;
-        private TextBox tb_x;
-        private WebBrowser webBrowser;
-        private PictureBox pb_pdfView;
-        private Label label2;
-        private Label lb_pdfSize;
-        private TextBox tb_a4y;
-        private Label label3;
-        private TextBox tb_a4x;
-        private HScrollBar sb_x;
-        private GroupBox gb_signatureOptions;
-        private Label lb_sigHeight;
-        private Label lb_sigSize;
-        private TextBox tb_sigHeight;
-        private Label lb_sigWidth;
-        private TextBox tb_sigWidth;
-        private HScrollBar sb_y;
-        private PictureBox pb_signPrev;
-        private Label lb_nPages;
         private Button bt_nextPage;
         private Button bt_previousPage;
+
+        private GroupBox gb_sign;
+        private GroupBox gb_PDF;
+        private GroupBox gb_signatureOptions;
+
+        private PictureBox pb_signature;
+        private PictureBox pb_pdfView;
+        private PictureBox pb_signPrev;
+
+        private WebBrowser webBrowser;
+
+        private HScrollBar sb_x;
+        private HScrollBar sb_y;
+
+        private Label lb_page;
+        private Label lb_y;
+        private Label lb_x;
+        private Label label2;
+        private Label lb_pdfSize;
+        private Label label3;
+        private Label lb_sigHeight;
+        private Label lb_sigSize;
+        private Label lb_sigWidth;
+        private Label lb_nPages;
+
+        private TextBox tb_page;
+        private TextBox tb_y;
+        private TextBox tb_x;
+        private TextBox tb_a4y;
+        private TextBox tb_a4x;
+        private TextBox tb_sigHeight;
+        private TextBox tb_sigWidth;
     }
 }

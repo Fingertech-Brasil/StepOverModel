@@ -62,6 +62,7 @@ namespace StepOverModel
             {
                 Directory.CreateDirectory("tmp");
             }
+            driverInterface.IsSignFinishedEnabled = false;
         }
 
         // Form is closed
@@ -276,7 +277,17 @@ namespace StepOverModel
             {
                 // Set the origin PDF file path and save the signed PDF file path
                 source = openFileDialog.FileName;
-                // GetPDFPreview(source);
+
+                // Convert the pages to images
+                try
+                {
+                    ConvertPDFtoImg(source, 0);
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show("Error: \n" + ex.Message);
+                    return;
+                }
 
                 // Initialize the PDF file
                 iText.Kernel.Pdf.PdfDocument pdfDocument = new iText.Kernel.Pdf.PdfDocument(new PdfReader(source));
@@ -293,9 +304,6 @@ namespace StepOverModel
 
                 // Dispose the pdf document
                 pdfDocument.Close();
-
-                // Convert the pages to images
-                ConvertPDFtoImg(source, 0);
 
                 // Att tb_x, tb_y, tb_sigWidth, tb_sigHeight
                 tb_x_TextChanged(sender, e);
@@ -325,8 +333,6 @@ namespace StepOverModel
                     bt_previousPage.Visible = false;
                     bt_nextPage.Visible = true;
                 }
-
-
             }
         }
 
@@ -443,7 +449,6 @@ namespace StepOverModel
                 bt_nextPage.Visible = false;
                 pb_pdfView.Enabled = false;
                 pb_signPrev.Visible = false;
-                
 
                 // Clear source
                 source = null;
