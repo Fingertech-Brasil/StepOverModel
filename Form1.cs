@@ -14,6 +14,7 @@ using iText.Layout.Element;
 using iText.IO.Image;
 using System.Windows.Forms;
 using GemBox.Pdf;
+using System.Windows;
 
 namespace StepOverModel
 {
@@ -83,7 +84,7 @@ namespace StepOverModel
         private void ShowErrorMessage(Error error)
         {
             if (error != Error.SUCCESS)
-                MessageBox.Show("Error: \n" + error.ToString());
+                System.Windows.Forms.MessageBox.Show("Error: \n" + error.ToString());
         }
 
         // Subscribe to events
@@ -182,7 +183,7 @@ namespace StepOverModel
             // Check if have signature image
             if (pb_signature.Image == null)
             {
-                MessageBox.Show("No signature image to save");
+                System.Windows.Forms.MessageBox.Show("No signature image to save");
                 return;
             }
             // Show save file dialog
@@ -199,7 +200,7 @@ namespace StepOverModel
                 return;
 
             // Show a message box with the save options
-            DialogResult result = MessageBox.Show("Save without background?", "Save", MessageBoxButtons.YesNo);
+            DialogResult result = System.Windows.Forms.MessageBox.Show("Save without background?", "Save", MessageBoxButtons.YesNo);
 
             // Check the result
             if (result == DialogResult.Yes)
@@ -258,7 +259,7 @@ namespace StepOverModel
         private void Handlebuttonevent(ButtonEventArgs args)
         {
             // Show the button event
-            MessageBox.Show("Button Event = " + args.ButtonKind.ToString());
+            System.Windows.Forms.MessageBox.Show("Button Event = " + args.ButtonKind.ToString());
         }
 
         // Load PDF file
@@ -333,21 +334,51 @@ namespace StepOverModel
             // Set the destination PDF file path and name
             string destSource;
             int number = 2;
-            string[] path = source.Split('\\');
-            if (!path[path.Length - 1].Contains("_signed"))
+            if (!source.Contains("_signed") && !File.Exists(source.Replace(".pdf", "_signed.pdf")))
             {
                 destSource = source.Replace(".pdf", "_signed.pdf");
             }
             else
             {
-                path[path.Length - 1] = path[path.Length - 1].Split("_signed")[0];
-                destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
+                if (source.Contains("_signed.pdf"))
+                {
+                    if (!File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
+                    {
+                        destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
+                    }
+                    else
+                    {
+                        number++;
+                        while (File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
+                        {
+                            number++;
+                        }
+                        destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
+                    }
+                }
+                else if (!source.Contains("_signed"))
+                {
+                    while (File.Exists(source.Replace(".pdf", "_signed" + number + ".pdf")))
+                    {
+                        number++;
+                    }
+                    destSource = source.Replace(".pdf", "_signed" + number + ".pdf");
+                }
+                else
+                {
+                    string letter = source[^5..];
+                    while (File.Exists(source.Replace(letter, number + ".pdf")))
+                    {
+                        number++;
+                    }
+                    destSource = source.Replace(letter, number + ".pdf");
+                }
             }
             // Check if have the signature image in the picture box
             if (pb_signature.Image != null)
             {
                 // Check if user like to use the current signature
-                DialogResult imageUse = MessageBox.Show("Use current signature?", "Signature", MessageBoxButtons.YesNo);
+                DialogResult imageUse = System.Windows.Forms.MessageBox.Show("Use current signature?", "Signature", MessageBoxButtons.YesNo);
 
                 if (imageUse == DialogResult.Yes)
                 {
@@ -403,7 +434,7 @@ namespace StepOverModel
             }
             else
             {
-                MessageBox.Show("No image to sign");
+                System.Windows.Forms.MessageBox.Show("No image to sign");
             }
         }
 
