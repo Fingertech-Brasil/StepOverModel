@@ -461,6 +461,8 @@ namespace StepOverModel
             // pb_signPrev
             // 
             pb_signPrev.BackColor = Color.Transparent;
+            pb_signPrev.BackgroundImageLayout = ImageLayout.None;
+            pb_signPrev.Enabled = false;
             pb_signPrev.Image = Properties.Resources.signPrev;
             pb_signPrev.Location = new Point(831, 352);
             pb_signPrev.Name = "pb_signPrev";

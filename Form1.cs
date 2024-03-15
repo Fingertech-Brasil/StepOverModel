@@ -47,13 +47,11 @@ namespace StepOverModel
                 bt_saveImage.Enabled = false;
             }
 
-            // Subscribe to events
-            SubscribeToEvents();
-
             // Set the value of the scroll bar x
             sb_x.Value = int.Parse(tb_x.Text);
             sb_x.Maximum = 595 - int.Parse(tb_sigWidth.Text);
 
+            // Load the license
             r = driverInterface.LoadLicense("License/FingerTech.xml");
             ShowErrorMessage(r);
 
@@ -63,6 +61,9 @@ namespace StepOverModel
                 Directory.CreateDirectory("tmp");
             }
             driverInterface.IsSignFinishedEnabled = false;
+            
+            // Subscribe to events
+            SubscribeToEvents();
         }
 
         // Form is closed
@@ -91,10 +92,20 @@ namespace StepOverModel
         // Subscribe to events
         private void SubscribeToEvents()
         {
-            // Event for button or sign event
-            driverInterface.ButtonEvent += (object sender, ButtonEventArgs args) =>
+            driverInterface.ButtonEvent += (object sender, ButtonEventArgs e) =>
             {
-                Handlebuttonevent(args);        // User defined function
+                switch (e.ButtonKind)
+                {
+                    case ButtonKind.Ok:
+                        break;
+                    case ButtonKind.Cancel:
+                        pb_signature.Image = null;
+                        bt_saveImage.Enabled = false;
+                        break;
+                    case ButtonKind.Repeat:
+                        bt_StartSignature_Click(sender, null);
+                        break;
+                }
             };
 
             // Event for signature image changed
@@ -102,13 +113,6 @@ namespace StepOverModel
             {
                 pb_signature.Invoke((MethodInvoker)(() => UpdateSignatureImage()));
             };
-
-            // Event for signature mode stopped
-            driverInterface.SignFinished += (object sender, EventArgs e) =>
-            {
-
-            };
-
         }
 
         // Convert PDF to TIFF
@@ -256,13 +260,6 @@ namespace StepOverModel
 
             pb_signature.Image = resized;
             pb_signPrev.Image = resized;
-        }
-
-        // Handle button event
-        private void Handlebuttonevent(ButtonEventArgs args)
-        {
-            // Show the button event
-            System.Windows.Forms.MessageBox.Show("Button Event = " + args.ButtonKind.ToString());
         }
 
         // Load PDF file
