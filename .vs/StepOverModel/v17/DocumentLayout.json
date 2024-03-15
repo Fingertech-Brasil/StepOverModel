@@ -39,8 +39,7 @@
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAAoAAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-01T13:38:57.058Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -53,8 +52,7 @@
               "ViewState": "AQIAABIAAAAAAAAAAAAAwPgBAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-05T15:56:42.31Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -64,7 +62,7 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAAMBAAAAAAAAAAAYwCEBAAARAAAA",
+              "ViewState": "AQIAAD8CAAAAAAAAAAAAAEcCAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-29T18:22:28.348Z",
               "EditorCaption": ""
@@ -78,8 +76,7 @@
               "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs [Design]",
               "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T14:44:23.201Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-03-14T14:44:23.201Z"
             }
           ]
         }

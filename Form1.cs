@@ -578,8 +578,8 @@ namespace StepOverModel
                 tb_sigWidth.Text = "0";
             }
             // Adjust the value of the text box x
-            tb_x_TextChanged(sender, e);
             ScaleSign();
+            tb_x_TextChanged(sender, e);
         }
 
         // tb sigHeight adujstment
@@ -599,8 +599,8 @@ namespace StepOverModel
                 tb_sigHeight.Text = "0";
             }
             // Adjust the value of the text box y
-            tb_y_TextChanged(sender, e);
             ScaleSign();
+            tb_y_TextChanged(sender, e);
         }
 
         // Scroll bar x adujstment
