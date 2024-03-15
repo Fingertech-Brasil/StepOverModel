@@ -230,10 +230,11 @@ namespace StepOverModel
         {
             Error error = driverInterface.ReadSignatureImage(pb_signature.Width, pb_signature.Height, out Bitmap bitmap); // API which gets the Signature image
 
-            // ----------------- Application specific code to adjust size of the signature image to the picture box  can be ignored ---------------------------
             bool source_is_wider = (float)bitmap.Width / bitmap.Height > (float)pb_signature.Width / pb_signature.Height;
             var resized = new Bitmap(pb_signature.Width, pb_signature.Height);
             var g = Graphics.FromImage(resized);
+            g.Clear(Color.Transparent); // Set the background color to transparent
+
             var dest_rect = new System.Drawing.Rectangle(0, 0, pb_signature.Width, pb_signature.Height);
             System.Drawing.Rectangle src_rect;
 
@@ -253,6 +254,7 @@ namespace StepOverModel
             g.Dispose();
 
             pb_signature.Image = resized;
+            pb_signPrev.Image = resized;
         }
 
         // Handle button event
@@ -331,24 +333,29 @@ namespace StepOverModel
         // Button to sign PDF file with image
         private void bt_signPDFImg_Click(object sender, EventArgs e)
         {
-            // Set the destination PDF file path and name
+            // Create variable to destination PDF file path
             string destSource;
+            // Create variable to number of the signature if necessary
             int number = 2;
+
+            // Check if source file is unsigned and if exist a signed file
             if (!source.Contains("_signed") && !File.Exists(source.Replace(".pdf", "_signed.pdf")))
             {
                 destSource = source.Replace(".pdf", "_signed.pdf");
             }
-            else
+            else // If the file is signed
             {
-                if (source.Contains("_signed.pdf"))
+                if (source.Contains("_signed.pdf")) // If the file is signed and dont have a number in the end
                 {
+                    // Check if the file with the number 2 dont exists
                     if (!File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
                     {
                         destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
                     }
-                    else
+                    else // If the file with the number 2 exists
                     {
-                        number++;
+                        number++; // Increment the number
+                        // Check if the file with the next number exists
                         while (File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
                         {
                             number++;
@@ -356,24 +363,29 @@ namespace StepOverModel
                         destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
                     }
                 }
-                else if (!source.Contains("_signed"))
+                else if (!source.Contains("_signed")) // If the file is signed and have a number in the end
                 {
+                    // Check if the file with the number 2 dont exists and if the file with the number 2 exists increment the number
+                    // And check if the file with the next number exists
                     while (File.Exists(source.Replace(".pdf", "_signed" + number + ".pdf")))
                     {
                         number++;
                     }
                     destSource = source.Replace(".pdf", "_signed" + number + ".pdf");
                 }
-                else
+                else // If the file is signed and have a number in the end
                 {
-                    string letter = source[^5..];
-                    while (File.Exists(source.Replace(letter, number + ".pdf")))
+                    string letter = source[^5..]; // Get the number of the file
+                    while (File.Exists(source.Replace(letter, number + ".pdf"))) // Check the file with the number exists, ascending the number sequentially
                     {
                         number++;
                     }
                     destSource = source.Replace(letter, number + ".pdf");
                 }
             }
+
+            string imgpath = "";
+
             // Check if have the signature image in the picture box
             if (pb_signature.Image != null)
             {
@@ -384,16 +396,20 @@ namespace StepOverModel
                 {
                     // Save the temporary signature image
                     pb_signature.Image.Save("tmp/Sign.bmp");
+                    imgpath = "tmp/Sign.bmp";
+                }
+                else
+                {
+                    // Select the image to add to the PDF file
+                    OpenFileDialog openFileDialogImage = new OpenFileDialog();
+                    openFileDialogImage.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
+                    openFileDialogImage.Title = "Select an sign Image File";
+                    openFileDialogImage.ShowDialog();
+                    imgpath = openFileDialogImage.FileName;
                 }
             }
 
-            // Select the image to add to the PDF file
-            OpenFileDialog openFileDialogImage = new OpenFileDialog();
-            openFileDialogImage.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
-            openFileDialogImage.Title = "Select an sign Image File";
-            openFileDialogImage.ShowDialog();
-
-            if (openFileDialogImage.FileName != "")
+            if (imgpath != "")
             {
                 // Modify the PDF file
                 iText.Kernel.Pdf.PdfDocument pdfDocument = new iText.Kernel.Pdf.PdfDocument(new PdfReader(source), new PdfWriter(destSource));
@@ -402,7 +418,7 @@ namespace StepOverModel
                 Document document = new Document(pdfDocument);
 
                 // Add the image
-                ImageData imageData = ImageDataFactory.Create(openFileDialogImage.FileName);
+                ImageData imageData = ImageDataFactory.Create(imgpath);
                 iText.Layout.Element.Image signImage = new iText.Layout.Element.Image(imageData);
                 signImage.ScaleAbsolute(Convert.ToInt32(tb_sigWidth.Text), Convert.ToInt32(tb_sigHeight.Text));
 
