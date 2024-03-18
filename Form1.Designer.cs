@@ -93,7 +93,7 @@ namespace StepOverModel
             gb_sign.Controls.Add(bt_StartSignature);
             gb_sign.Enabled = false;
             gb_sign.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_sign.Location = new Point(12, 12);
+            gb_sign.Location = new Point(30, 318);
             gb_sign.Name = "gb_sign";
             gb_sign.Size = new Size(142, 160);
             gb_sign.TabIndex = 1;
@@ -139,7 +139,7 @@ namespace StepOverModel
             pb_signature.BackColor = SystemColors.ControlLight;
             pb_signature.BorderStyle = BorderStyle.FixedSingle;
             pb_signature.Cursor = Cursors.Cross;
-            pb_signature.Location = new Point(210, 12);
+            pb_signature.Location = new Point(12, 12);
             pb_signature.Name = "pb_signature";
             pb_signature.Size = new Size(600, 300);
             pb_signature.TabIndex = 2;
@@ -160,7 +160,7 @@ namespace StepOverModel
             gb_PDF.Controls.Add(bt_loadPDF);
             gb_PDF.Controls.Add(tb_a4x);
             gb_PDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_PDF.Location = new Point(12, 174);
+            gb_PDF.Location = new Point(470, 342);
             gb_PDF.Name = "gb_PDF";
             gb_PDF.Size = new Size(142, 213);
             gb_PDF.TabIndex = 3;
@@ -374,9 +374,9 @@ namespace StepOverModel
             pb_pdfView.BorderStyle = BorderStyle.FixedSingle;
             pb_pdfView.Cursor = Cursors.Cross;
             pb_pdfView.Enabled = false;
-            pb_pdfView.Location = new Point(830, 12);
+            pb_pdfView.Location = new Point(633, 13);
             pb_pdfView.Name = "pb_pdfView";
-            pb_pdfView.Size = new Size(282, 375);
+            pb_pdfView.Size = new Size(405, 567);
             pb_pdfView.TabIndex = 4;
             pb_pdfView.TabStop = false;
             pb_pdfView.MouseClick += pb_pdfView_MouseClick;
@@ -395,7 +395,7 @@ namespace StepOverModel
             gb_signatureOptions.Controls.Add(tb_x);
             gb_signatureOptions.Controls.Add(tb_sigWidth);
             gb_signatureOptions.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_signatureOptions.Location = new Point(408, 318);
+            gb_signatureOptions.Location = new Point(30, 485);
             gb_signatureOptions.Name = "gb_signatureOptions";
             gb_signatureOptions.Size = new Size(416, 70);
             gb_signatureOptions.TabIndex = 13;
@@ -478,7 +478,7 @@ namespace StepOverModel
             pb_signPrev.BackgroundImageLayout = ImageLayout.None;
             pb_signPrev.Enabled = false;
             pb_signPrev.Image = Properties.Resources.signPrev;
-            pb_signPrev.Location = new Point(831, 352);
+            pb_signPrev.Location = new Point(633, 546);
             pb_signPrev.Name = "pb_signPrev";
             pb_signPrev.Size = new Size(73, 34);
             pb_signPrev.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -490,7 +490,7 @@ namespace StepOverModel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1124, 400);
+            ClientSize = new Size(1055, 595);
             Controls.Add(pb_signPrev);
             Controls.Add(gb_signatureOptions);
             Controls.Add(pb_pdfView);
