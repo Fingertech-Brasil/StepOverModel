@@ -2,6 +2,8 @@ using DeviceAPI_Csharp_DLL;
 using LanguageExt;
 using LanguageExt.Pipes;
 using Sig.DeviceAPI;
+using StepOverSignatureAPI4;
+using StepOverSignatureDevice1;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -26,9 +28,12 @@ namespace StepOverModel
         // Origin PDF file path
         string source;
 
-        // Create an instance of the driver
+        // Create objects of the DeviceAPI
         public static IDriver driverInterface = new Driver();
         public static IReadSignatureImageOptions imageOptions = driverInterface.ReadSignatureImageOptions;
+
+        // Create the object of the StepOverSignatureAPI4
+        public IStepOverSignatureAPIv4 signatureAPI = new StepOverSignatureAPIv4();
 
         // ------------------------------Methods For Forms---------------------------
         // Form is open
@@ -60,7 +65,8 @@ namespace StepOverModel
             }
             driverInterface.IsSignFinishedEnabled = false;
 
-
+            // Connecting SignAPI and DeviceAPI
+            signatureAPI.SignatureDevice = (IStepOverSignatureDevice)driverInterface.GetOcx();
 
             // Subscribe to events
             SubscribeToEvents();
