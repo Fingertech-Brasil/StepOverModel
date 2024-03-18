@@ -21,6 +21,7 @@ namespace StepOverModel
 
     public partial class Form1 : Form
     {
+        // ------------------------------Variables-----------------------------------
         // number of pages
         int pages = 0;
 
@@ -35,6 +36,7 @@ namespace StepOverModel
         // Create an instance of the IClient
         public IClient clientInterface = ClientFactory.BuildDefault();
 
+        // ------------------------------Methods For Forms---------------------------
         // Form is open
         public Form1(string deviceName0)
         {
@@ -83,7 +85,7 @@ namespace StepOverModel
             }
         }
 
-
+        // ------------------------------Methods Called------------------------------
         // Error Message
         private void ShowErrorMessage(Error error)
         {
@@ -148,6 +150,7 @@ namespace StepOverModel
             }
         }
 
+        // ------------------------------Methods For Singing--------------------------
         // Button to start signature
         private void bt_StartSignature_Click(object sender, EventArgs e)
         {
@@ -232,6 +235,15 @@ namespace StepOverModel
             bt_saveImage.Enabled = false;
         }
 
+        // Button to modify the color of the signature line
+        private void bt_lineColor_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
+            colorDialog.Color = imageOptions.LineColor;
+            colorDialog.ShowDialog();
+            imageOptions.LineColor = colorDialog.Color;
+        }
+
         // Update signature image in picture box
         void UpdateSignatureImage()
         {
@@ -264,6 +276,7 @@ namespace StepOverModel
             pb_signPrev.Image = resized;
         }
 
+        // ------------------------------Methods For PDF------------------------------
         // Load PDF file
         private void bt_loadPDF_Click(object sender, EventArgs e)
         {
@@ -477,6 +490,7 @@ namespace StepOverModel
             }
         }
 
+        // ------------------------------Methods For Adjustments----------------------
         // Limit the value of the text box page
         private void tb_page_TextChanged(object sender, EventArgs e)
         {
@@ -633,6 +647,7 @@ namespace StepOverModel
             tb_y.Text = sb_y.Value.ToString();
         }
 
+        // ------------------------------Methods For Sign Preview Scale and Coordinate
         // Scale function for the sign preview
         private void ScaleSign()
         {
@@ -651,14 +666,6 @@ namespace StepOverModel
         {
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
-        }
-
-        private void bt_lineColor_Click(object sender, EventArgs e)
-        {
-            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
-            colorDialog.Color = imageOptions.LineColor;
-            colorDialog.ShowDialog();
-            imageOptions.LineColor = colorDialog.Color;
         }
     }
 }

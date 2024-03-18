@@ -95,7 +95,7 @@ namespace StepOverModel
             gb_sign.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             gb_sign.Location = new Point(12, 12);
             gb_sign.Name = "gb_sign";
-            gb_sign.Size = new Size(142, 156);
+            gb_sign.Size = new Size(142, 160);
             gb_sign.TabIndex = 1;
             gb_sign.TabStop = false;
             gb_sign.Text = "Signature Options";
