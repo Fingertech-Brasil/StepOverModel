@@ -30,6 +30,8 @@ namespace StepOverModel
         // Create an instance of the driver
         public static IDriver driverInterface = new Driver();
 
+        public static IReadSignatureImageOptions imageOptions = driverInterface.ReadSignatureImageOptions;
+
         // Create an instance of the IClient
         public IClient clientInterface = ClientFactory.BuildDefault();
 
@@ -61,7 +63,7 @@ namespace StepOverModel
                 Directory.CreateDirectory("tmp");
             }
             driverInterface.IsSignFinishedEnabled = false;
-            
+
             // Subscribe to events
             SubscribeToEvents();
         }
@@ -632,5 +634,11 @@ namespace StepOverModel
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
 
+        private void bt_lineColor_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
+            colorDialog.ShowDialog();
+            imageOptions.LineColor = colorDialog.Color;
+        }
     }
 }

@@ -34,6 +34,7 @@ namespace StepOverModel
         {
             bt_StartSignature = new Button();
             gb_sign = new GroupBox();
+            bt_lineColor = new Button();
             bt_saveImage = new Button();
             bt_StopSignature = new Button();
             pb_signature = new PictureBox();
@@ -86,6 +87,7 @@ namespace StepOverModel
             // 
             // gb_sign
             // 
+            gb_sign.Controls.Add(bt_lineColor);
             gb_sign.Controls.Add(bt_saveImage);
             gb_sign.Controls.Add(bt_StopSignature);
             gb_sign.Controls.Add(bt_StartSignature);
@@ -93,10 +95,22 @@ namespace StepOverModel
             gb_sign.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             gb_sign.Location = new Point(12, 12);
             gb_sign.Name = "gb_sign";
-            gb_sign.Size = new Size(142, 142);
+            gb_sign.Size = new Size(142, 156);
             gb_sign.TabIndex = 1;
             gb_sign.TabStop = false;
             gb_sign.Text = "Signature Options";
+            // 
+            // bt_lineColor
+            // 
+            bt_lineColor.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            bt_lineColor.Location = new Point(36, 136);
+            bt_lineColor.Name = "bt_lineColor";
+            bt_lineColor.Size = new Size(72, 20);
+            bt_lineColor.TabIndex = 15;
+            bt_lineColor.Text = "Line Color";
+            bt_lineColor.UseCompatibleTextRendering = true;
+            bt_lineColor.UseVisualStyleBackColor = true;
+            bt_lineColor.Click += bt_lineColor_Click;
             // 
             // bt_saveImage
             // 
@@ -194,7 +208,7 @@ namespace StepOverModel
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(16, 192);
+            label2.Location = new Point(16, 189);
             label2.Name = "label2";
             label2.Size = new Size(53, 19);
             label2.TabIndex = 12;
@@ -386,7 +400,7 @@ namespace StepOverModel
             gb_signatureOptions.Size = new Size(416, 70);
             gb_signatureOptions.TabIndex = 13;
             gb_signatureOptions.TabStop = false;
-            gb_signatureOptions.Text = "Signature Options";
+            gb_signatureOptions.Text = "PDF Signature Options";
             // 
             // sb_y
             // 
@@ -541,5 +555,6 @@ namespace StepOverModel
         private TextBox tb_a4x;
         private TextBox tb_sigHeight;
         private TextBox tb_sigWidth;
+        private Button bt_lineColor;
     }
 }
