@@ -42,9 +42,6 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions">
       <HintPath>bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="SigCrypto">
-      <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SigCrypto.dll</HintPath>
-    </Reference>
     <Reference Include="SigDeviceAPI">
       <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\SigDeviceAPI.dll</HintPath>
     </Reference>

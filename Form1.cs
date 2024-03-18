@@ -1,9 +1,7 @@
 using DeviceAPI_Csharp_DLL;
 using LanguageExt;
 using LanguageExt.Pipes;
-using Sig.Crypto;
 using Sig.DeviceAPI;
-using Sig.PdfClient;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -21,7 +19,7 @@ namespace StepOverModel
 
     public partial class Form1 : Form
     {
-        // ------------------------------Variables-----------------------------------
+        // ------------------------------Variables and Objects-----------------------
         // number of pages
         int pages = 0;
 
@@ -30,11 +28,7 @@ namespace StepOverModel
 
         // Create an instance of the driver
         public static IDriver driverInterface = new Driver();
-
         public static IReadSignatureImageOptions imageOptions = driverInterface.ReadSignatureImageOptions;
-
-        // Create an instance of the IClient
-        public IClient clientInterface = ClientFactory.BuildDefault();
 
         // ------------------------------Methods For Forms---------------------------
         // Form is open
@@ -65,6 +59,8 @@ namespace StepOverModel
                 Directory.CreateDirectory("tmp");
             }
             driverInterface.IsSignFinishedEnabled = false;
+
+
 
             // Subscribe to events
             SubscribeToEvents();
@@ -545,6 +541,7 @@ namespace StepOverModel
             ConvertPDFtoImg(source, currentPage);
         }
 
+        // ------------------------------Methods For Coordnates----------------------
         // tb x adujstment
         private void tb_x_TextChanged(object sender, EventArgs e)
         {
@@ -647,7 +644,7 @@ namespace StepOverModel
             tb_y.Text = sb_y.Value.ToString();
         }
 
-        // ------------------------------Methods For Sign Preview Scale and Coordinate
+        // ------------------------------Methods For Sign Preview Scale and Coordinate----------------------
         // Scale function for the sign preview
         private void ScaleSign()
         {
