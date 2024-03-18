@@ -285,6 +285,25 @@ namespace StepOverModel
                 catch (Exception ex)
                 {
                     System.Windows.Forms.MessageBox.Show("Error: \n" + ex.Message);
+
+                    // Clear the picture box and disable the buttons
+                    pb_pdfView.Image = null;
+                    bt_signPDFImg.Enabled = false;
+                    tb_page.Enabled = false;
+                    tb_x.Enabled = false;
+                    tb_y.Enabled = false;
+                    tb_sigWidth.Enabled = false;
+                    tb_sigHeight.Enabled = false;
+                    sb_x.Enabled = false;
+                    sb_y.Enabled = false;
+                    bt_previousPage.Visible = false;
+                    bt_nextPage.Visible = false;
+                    pb_pdfView.Enabled = false;
+                    pb_signPrev.Visible = false;
+
+                    // Clear source
+                    source = null;
+
                     return;
                 }
 
@@ -637,6 +656,7 @@ namespace StepOverModel
         private void bt_lineColor_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
+            colorDialog.Color = imageOptions.LineColor;
             colorDialog.ShowDialog();
             imageOptions.LineColor = colorDialog.Color;
         }
