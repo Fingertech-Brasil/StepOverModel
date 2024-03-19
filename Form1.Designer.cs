@@ -56,7 +56,6 @@ namespace StepOverModel
             tb_y = new TextBox();
             lb_x = new Label();
             tb_x = new TextBox();
-            webBrowser = new WebBrowser();
             pb_pdfView = new PictureBox();
             gb_signatureOptions = new GroupBox();
             sb_y = new HScrollBar();
@@ -66,6 +65,7 @@ namespace StepOverModel
             lb_sigWidth = new Label();
             tb_sigWidth = new TextBox();
             pb_signPrev = new PictureBox();
+            bt_signPDF = new Button();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
@@ -93,7 +93,7 @@ namespace StepOverModel
             gb_sign.Controls.Add(bt_StartSignature);
             gb_sign.Enabled = false;
             gb_sign.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_sign.Location = new Point(12, 342);
+            gb_sign.Location = new Point(12, 332);
             gb_sign.Name = "gb_sign";
             gb_sign.Size = new Size(142, 167);
             gb_sign.TabIndex = 1;
@@ -147,6 +147,7 @@ namespace StepOverModel
             // 
             // gb_PDF
             // 
+            gb_PDF.Controls.Add(bt_signPDF);
             gb_PDF.Controls.Add(bt_nextPage);
             gb_PDF.Controls.Add(bt_previousPage);
             gb_PDF.Controls.Add(lb_nPages);
@@ -160,7 +161,7 @@ namespace StepOverModel
             gb_PDF.Controls.Add(bt_loadPDF);
             gb_PDF.Controls.Add(tb_a4x);
             gb_PDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_PDF.Location = new Point(332, 342);
+            gb_PDF.Location = new Point(332, 332);
             gb_PDF.Name = "gb_PDF";
             gb_PDF.Size = new Size(280, 148);
             gb_PDF.TabIndex = 3;
@@ -267,7 +268,7 @@ namespace StepOverModel
             bt_signPDFImg.Name = "bt_signPDFImg";
             bt_signPDFImg.Size = new Size(131, 33);
             bt_signPDFImg.TabIndex = 2;
-            bt_signPDFImg.Text = "Sign img PDF";
+            bt_signPDFImg.Text = "Sign.img PDF";
             bt_signPDFImg.UseVisualStyleBackColor = true;
             bt_signPDFImg.Click += bt_signPDFImg_Click;
             // 
@@ -359,14 +360,6 @@ namespace StepOverModel
             tb_x.Text = "0";
             tb_x.TextAlign = HorizontalAlignment.Center;
             tb_x.TextChanged += tb_x_TextChanged;
-            // 
-            // webBrowser
-            // 
-            webBrowser.Location = new Point(830, 12);
-            webBrowser.Name = "webBrowser";
-            webBrowser.Size = new Size(282, 375);
-            webBrowser.TabIndex = 4;
-            webBrowser.TabStop = false;
             // 
             // pb_pdfView
             // 
@@ -486,6 +479,18 @@ namespace StepOverModel
             pb_signPrev.TabStop = false;
             pb_signPrev.Visible = false;
             // 
+            // bt_signPDF
+            // 
+            bt_signPDF.Enabled = false;
+            bt_signPDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            bt_signPDF.Location = new Point(6, 102);
+            bt_signPDF.Name = "bt_signPDF";
+            bt_signPDF.Size = new Size(131, 33);
+            bt_signPDF.TabIndex = 15;
+            bt_signPDF.Text = "Sign PDF";
+            bt_signPDF.UseVisualStyleBackColor = true;
+            bt_signPDF.Click += bt_signPDF_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -523,6 +528,7 @@ namespace StepOverModel
         private Button bt_loadPDF;
         private Button bt_nextPage;
         private Button bt_previousPage;
+        private Button bt_lineColor;
 
         private GroupBox gb_sign;
         private GroupBox gb_PDF;
@@ -531,8 +537,6 @@ namespace StepOverModel
         private PictureBox pb_signature;
         private PictureBox pb_pdfView;
         private PictureBox pb_signPrev;
-
-        private WebBrowser webBrowser;
 
         private HScrollBar sb_x;
         private HScrollBar sb_y;
@@ -555,6 +559,6 @@ namespace StepOverModel
         private TextBox tb_a4x;
         private TextBox tb_sigHeight;
         private TextBox tb_sigWidth;
-        private Button bt_lineColor;
+        private Button bt_signPDF;
     }
 }

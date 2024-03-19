@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
     <PackageReference Include="itext7" Version="8.0.3" />
     <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
     <PackageReference Include="SigDeviceAPI" Version="3.0.1" />
+    <PackageReference Include="SigSignAPI" Version="3.0.7" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
     <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.7" />
   </ItemGroup>
@@ -35,6 +37,9 @@
     </Reference>
     <Reference Include="Grpc.Net.Common">
       <HintPath>bin\Debug\net6.0-windows\Grpc.Net.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.StepOverSignatureDevice1">
+      <HintPath>bin\x86\Debug\Interop.StepOverSignatureDevice1.dll</HintPath>
     </Reference>
     <Reference Include="LanguageExt.Core">
       <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\LanguageExt.Core.dll</HintPath>

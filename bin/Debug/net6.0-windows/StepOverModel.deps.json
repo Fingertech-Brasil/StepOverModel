@@ -10,17 +10,12 @@
         "dependencies": {
           "GemBox.Pdf": "17.0.1508",
           "SigDeviceAPI": "3.0.1",
+          "SigSignAPI": "3.0.7",
           "SkiaSharp": "2.88.7",
           "SkiaSharp.NativeAssets.Win32": "2.88.7",
           "itext7": "8.0.3",
           "itext7.bouncy-castle-adapter": "8.0.3",
-          "Google.Protobuf": "3.14.0.0",
-          "Grpc.Core.Api": "2.0.0.0",
-          "Grpc.Net.Client": "2.0.0.0",
-          "Grpc.Net.Common": "2.0.0.0",
-          "SigPdfClient": "5.0.5.0",
-          "SigPdfClientProtobuf": "3.2.0.0",
-          "SigPdfService": "5.0.1.0"
+          "Interop.StepOverSignatureDevice1": "1.5.0.0"
         },
         "runtime": {
           "StepOverModel.dll": {}
@@ -64,6 +59,52 @@
           "lib/net6.0-windows7.0/GemBox.Pdf.dll": {
             "assemblyVersion": "17.0.0.1508",
             "fileVersion": "17.0.600.1508"
+          }
+        }
+      },
+      "Google.Protobuf/3.14.0": {
+        "dependencies": {
+          "System.Memory": "4.5.4",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.14.0.0",
+            "fileVersion": "3.14.0.0"
+          }
+        }
+      },
+      "Grpc.Core.Api/2.41.0": {
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Grpc.Core.Api.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.41.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Client/2.41.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.41.0",
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Grpc.Net.Client.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.41.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Common/2.41.0": {
+        "dependencies": {
+          "Grpc.Core.Api": "2.41.0"
+        },
+        "runtime": {
+          "lib/net6.0/Grpc.Net.Common.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.41.0.0"
           }
         }
       },
@@ -346,25 +387,19 @@
           }
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.1": {},
+      "Microsoft.NETCore.Platforms/5.0.0": {},
       "Microsoft.NETCore.Targets/1.1.3": {},
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
       },
-      "Microsoft.Win32.Registry/4.3.0": {
+      "Microsoft.Win32.Registry/5.0.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
-          "System.Collections": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.0",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0"
+          "System.Security.AccessControl": "5.0.0",
+          "System.Security.Principal.Windows": "5.0.0"
         }
       },
       "Microsoft.Win32.SystemEvents/6.0.0": {},
@@ -408,13 +443,13 @@
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.native.System/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3"
         }
       },
       "runtime.native.System.Net.Http/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3"
         }
       },
@@ -501,6 +536,118 @@
           }
         }
       },
+      "SigPdfClient/6.0.0": {
+        "dependencies": {
+          "BouncyCastle": "1.8.9",
+          "Grpc.Net.Client": "2.41.0",
+          "LanguageExt.Core": "4.0.4",
+          "NLog": "4.7.6",
+          "SigCrypto": "3.0.0",
+          "SigPdfClientProtobuf": "3.2.0",
+          "SigPdfService": "5.0.1",
+          "SkiaSharp": "2.88.7",
+          "SkiaSharp.Views.Desktop.Common": "2.88.2",
+          "StrongNamer": "0.2.5",
+          "System.Collections.Immutable": "5.0.0",
+          "System.Drawing.Common": "6.0.0",
+          "System.Security.Cryptography.Pkcs": "5.0.0",
+          "System.Security.Cryptography.X509Certificates": "4.3.2"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/SigPdfClient.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.0.0"
+          }
+        }
+      },
+      "SigPdfClientProtobuf/3.2.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.14.0",
+          "Grpc.Core.Api": "2.41.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SigPdfClientProtobuf.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
+          }
+        }
+      },
+      "SigPdfService/5.0.1": {
+        "dependencies": {
+          "LanguageExt.Core": "4.0.4",
+          "NLog": "4.7.6",
+          "StrongNamer": "0.2.5"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SigPdfService.dll": {
+            "assemblyVersion": "5.0.1.0",
+            "fileVersion": "5.0.1.0"
+          }
+        }
+      },
+      "SigSignAPI/3.0.7": {
+        "dependencies": {
+          "HtmlAgilityPack": "1.11.29",
+          "LanguageExt.Core": "4.0.4",
+          "NLog": "4.7.6",
+          "SigCrypto": "3.0.0",
+          "SigDeviceAPI": "3.0.1",
+          "SigPdfClient": "6.0.0",
+          "SigSignAPI.Translation": "2.0.0",
+          "SimpleDialogFrameWork": "4.0.4",
+          "StepOverLicenseLib": "1.1.1",
+          "StrongNamer": "0.2.5"
+        },
+        "runtime": {
+          "lib/net6.0/SigSignAPI.dll": {
+            "assemblyVersion": "3.0.7.0",
+            "fileVersion": "3.0.7.0"
+          }
+        }
+      },
+      "SigSignAPI.Translation/2.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/SigSignAPI.Translation.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/de/SigSignAPI.Translation.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/SigSignAPI.Translation.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fr/SigSignAPI.Translation.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/it/SigSignAPI.Translation.resources.dll": {
+            "locale": "it"
+          },
+          "lib/netstandard2.0/nl/SigSignAPI.Translation.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/netstandard2.0/pl/SigSignAPI.Translation.resources.dll": {
+            "locale": "pl"
+          }
+        }
+      },
+      "SimpleDialogFrameWork/4.0.4": {
+        "dependencies": {
+          "NLog": "4.7.6",
+          "SigDeviceAPI": "3.0.1",
+          "SkiaSharp": "2.88.7",
+          "SkiaSharp.Views.Desktop.Common": "2.88.2",
+          "StrongNamer": "0.2.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/SimpleDialogFrameWork.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
       "SkiaSharp/2.88.7": {
         "dependencies": {
           "SkiaSharp.NativeAssets.Win32": "2.88.7",
@@ -553,6 +700,21 @@
           }
         }
       },
+      "StepOverLicenseLib/1.1.1": {
+        "dependencies": {
+          "BouncyCastle": "1.8.9",
+          "HtmlAgilityPack": "1.11.29",
+          "LanguageExt.Core": "4.0.4",
+          "Microsoft.Win32.Registry": "5.0.0",
+          "NLog": "4.7.6"
+        },
+        "runtime": {
+          "lib/netstandard2.0/StepOverLicenseLib.dll": {
+            "assemblyVersion": "1.1.1.0",
+            "fileVersion": "1.1.1.0"
+          }
+        }
+      },
       "StrongNamer/0.2.5": {},
       "System.AppContext/4.1.0": {
         "dependencies": {
@@ -562,7 +724,7 @@
       "System.Buffers/4.5.1": {},
       "System.Collections/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
@@ -599,7 +761,7 @@
       },
       "System.Diagnostics.Debug/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
@@ -615,9 +777,9 @@
       },
       "System.Diagnostics.Process/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.Win32.Primitives": "4.3.0",
-          "Microsoft.Win32.Registry": "4.3.0",
+          "Microsoft.Win32.Registry": "5.0.0",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Globalization": "4.3.0",
@@ -640,7 +802,7 @@
       },
       "System.Diagnostics.Tracing/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
@@ -672,14 +834,14 @@
       "System.Formats.Asn1/5.0.0": {},
       "System.Globalization/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
       },
       "System.Globalization.Calendars/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Globalization": "4.3.0",
           "System.Runtime": "4.3.1"
@@ -687,7 +849,7 @@
       },
       "System.Globalization.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Globalization": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.1",
@@ -697,7 +859,7 @@
       },
       "System.IO/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1",
           "System.Text.Encoding": "4.3.0",
@@ -706,7 +868,7 @@
       },
       "System.IO.FileSystem/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.IO": "4.3.0",
           "System.IO.FileSystem.Primitives": "4.3.0",
@@ -766,7 +928,7 @@
       "System.Memory/4.5.4": {},
       "System.Net.Http/4.3.4": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Diagnostics.DiagnosticSource": "4.3.0",
@@ -785,7 +947,7 @@
           "System.Security.Cryptography.Encoding": "4.3.0",
           "System.Security.Cryptography.OpenSsl": "4.3.0",
           "System.Security.Cryptography.Primitives": "4.3.0",
-          "System.Security.Cryptography.X509Certificates": "4.3.0",
+          "System.Security.Cryptography.X509Certificates": "4.3.2",
           "System.Text.Encoding": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Threading.Tasks": "4.3.0",
@@ -796,7 +958,7 @@
       },
       "System.Net.Primitives/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1",
           "System.Runtime.Handles": "4.3.0"
@@ -813,7 +975,7 @@
       },
       "System.Reflection/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.IO": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
@@ -846,7 +1008,7 @@
       },
       "System.Reflection.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Reflection": "4.3.0",
           "System.Runtime": "4.3.1"
@@ -854,7 +1016,7 @@
       },
       "System.Reflection.Primitives/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
@@ -867,7 +1029,7 @@
       },
       "System.Resources.ResourceManager/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Globalization": "4.3.0",
           "System.Reflection": "4.3.0",
@@ -876,28 +1038,28 @@
       },
       "System.Runtime/4.3.1": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3"
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "System.Runtime.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
       },
       "System.Runtime.Handles/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
       },
       "System.Runtime.InteropServices/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Reflection": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
@@ -907,7 +1069,7 @@
       },
       "System.Runtime.InteropServices.RuntimeInformation/4.0.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Reflection": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.1",
@@ -946,9 +1108,15 @@
           "System.Runtime": "4.3.1"
         }
       },
+      "System.Security.AccessControl/5.0.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "5.0.0",
+          "System.Security.Principal.Windows": "5.0.0"
+        }
+      },
       "System.Security.Cryptography.Algorithms/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Collections": "4.3.0",
           "System.IO": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
@@ -971,7 +1139,7 @@
       },
       "System.Security.Cryptography.Csp/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "System.IO": "4.3.0",
           "System.Reflection": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
@@ -988,7 +1156,7 @@
       },
       "System.Security.Cryptography.Encoding/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Collections": "4.3.0",
           "System.Collections.Concurrent": "4.3.0",
           "System.Linq": "4.3.0",
@@ -1036,9 +1204,9 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Security.Cryptography.X509Certificates/4.3.0": {
+      "System.Security.Cryptography.X509Certificates/4.3.2": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Globalization": "4.3.0",
@@ -1068,7 +1236,7 @@
       "System.Security.Principal.Windows/5.0.0": {},
       "System.Text.Encoding/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
@@ -1080,7 +1248,7 @@
       },
       "System.Text.Encoding.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1",
           "System.Text.Encoding": "4.3.0"
@@ -1099,7 +1267,7 @@
       },
       "System.Threading.Tasks/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Platforms": "5.0.0",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1"
         }
@@ -1150,59 +1318,11 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Google.Protobuf/3.14.0.0": {
+      "Interop.StepOverSignatureDevice1/1.5.0.0": {
         "runtime": {
-          "Google.Protobuf.dll": {
-            "assemblyVersion": "3.14.0.0",
-            "fileVersion": "3.14.0.0"
-          }
-        }
-      },
-      "Grpc.Core.Api/2.0.0.0": {
-        "runtime": {
-          "Grpc.Core.Api.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.41.0.0"
-          }
-        }
-      },
-      "Grpc.Net.Client/2.0.0.0": {
-        "runtime": {
-          "Grpc.Net.Client.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.41.0.0"
-          }
-        }
-      },
-      "Grpc.Net.Common/2.0.0.0": {
-        "runtime": {
-          "Grpc.Net.Common.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.41.0.0"
-          }
-        }
-      },
-      "SigPdfClient/5.0.5.0": {
-        "runtime": {
-          "SigPdfClient.dll": {
-            "assemblyVersion": "5.0.5.0",
-            "fileVersion": "5.0.5.0"
-          }
-        }
-      },
-      "SigPdfClientProtobuf/3.2.0.0": {
-        "runtime": {
-          "SigPdfClientProtobuf.dll": {
-            "assemblyVersion": "3.2.0.0",
-            "fileVersion": "3.2.0.0"
-          }
-        }
-      },
-      "SigPdfService/5.0.1.0": {
-        "runtime": {
-          "SigPdfService.dll": {
-            "assemblyVersion": "5.0.1.0",
-            "fileVersion": "5.0.1.0"
+          "Interop.StepOverSignatureDevice1.dll": {
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.0.0"
           }
         }
       }
@@ -1241,6 +1361,34 @@
       "sha512": "sha512-/vgU1hwrGtPO/9apWBuX+qAJ7EpLxRSxRjw+EF9hh4535fl2ofsgxaaNWwu5v0jgkqWJzWLJJcWLXqH7I+m/5A==",
       "path": "gembox.pdf/17.0.1508",
       "hashPath": "gembox.pdf.17.0.1508.nupkg.sha512"
+    },
+    "Google.Protobuf/3.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9AkodyGNmLI+wJJPbwpWLmh4BMHoXDQ9+8qvDPhQQi/BNsleqKMBn3OlyLwC6CALwan2kc5+Cenb8fJSITX3nQ==",
+      "path": "google.protobuf/3.14.0",
+      "hashPath": "google.protobuf.3.14.0.nupkg.sha512"
+    },
+    "Grpc.Core.Api/2.41.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bQ/mLaeACJ16hINQzKZA0ge648acF0OUiHd8JMdvpywJ41UFilDOd+t3yDG0M2XxgbB98z8EUf0HnprHLOO0qg==",
+      "path": "grpc.core.api/2.41.0",
+      "hashPath": "grpc.core.api.2.41.0.nupkg.sha512"
+    },
+    "Grpc.Net.Client/2.41.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hKuRI7eHxIdrBtricxXuNu+vzjErt7n+zcIr47M56pnajKnzFlG4zwLiPCuxKC22cZTI5S6ef50jCrI/vQrL2w==",
+      "path": "grpc.net.client/2.41.0",
+      "hashPath": "grpc.net.client.2.41.0.nupkg.sha512"
+    },
+    "Grpc.Net.Common/2.41.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Mcb6ybFRZYEqn1UVpfCADL2HSTJSK9+V2BBLyS6vebMNkmGwqa0KQ3x++kC+n28MAP4BlrR+jxW0XGNP6V9amw==",
+      "path": "grpc.net.common/2.41.0",
+      "hashPath": "grpc.net.common.2.41.0.nupkg.sha512"
     },
     "HarfBuzzSharp/7.3.0": {
       "type": "package",
@@ -1396,12 +1544,12 @@
       "path": "microsoft.extensions.primitives/5.0.0",
       "hashPath": "microsoft.extensions.primitives.5.0.0.nupkg.sha512"
     },
-    "Microsoft.NETCore.Platforms/1.1.1": {
+    "Microsoft.NETCore.Platforms/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-TMBuzAHpTenGbGgk0SMTwyEkyijY/Eae4ZGsFNYJvAr/LDn1ku3Etp3FPxChmDp5HHF3kzJuoaa08N0xjqAJfQ==",
-      "path": "microsoft.netcore.platforms/1.1.1",
-      "hashPath": "microsoft.netcore.platforms.1.1.1.nupkg.sha512"
+      "sha512": "sha512-VyPlqzH2wavqquTcYpkIIAQ6WdenuKoFN0BdYBbCWsclXacSOHNQn66Gt4z5NBqEYW0FAPm5rlvki9ZiCij5xQ==",
+      "path": "microsoft.netcore.platforms/5.0.0",
+      "hashPath": "microsoft.netcore.platforms.5.0.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Targets/1.1.3": {
       "type": "package",
@@ -1417,12 +1565,12 @@
       "path": "microsoft.win32.primitives/4.3.0",
       "hashPath": "microsoft.win32.primitives.4.3.0.nupkg.sha512"
     },
-    "Microsoft.Win32.Registry/4.3.0": {
+    "Microsoft.Win32.Registry/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Lw1/VwLH1yxz6SfFEjVRCN0pnflLEsWgnV4qsdJ512/HhTwnKXUG+zDQ4yTO3K/EJQemGoNaBHX5InISNKTzUQ==",
-      "path": "microsoft.win32.registry/4.3.0",
-      "hashPath": "microsoft.win32.registry.4.3.0.nupkg.sha512"
+      "sha512": "sha512-dDoKi0PnDz31yAyETfRntsLArTlVAVzUzCIvvEDsDsucrl33Dl8pIJG06ePTJTI3tGpeyHS9Cq7Foc/s4EeKcg==",
+      "path": "microsoft.win32.registry/5.0.0",
+      "hashPath": "microsoft.win32.registry.5.0.0.nupkg.sha512"
     },
     "Microsoft.Win32.SystemEvents/6.0.0": {
       "type": "package",
@@ -1578,6 +1726,48 @@
       "path": "sigdeviceapi/3.0.1",
       "hashPath": "sigdeviceapi.3.0.1.nupkg.sha512"
     },
+    "SigPdfClient/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IogPchro+BSNppBw9m58LMZefmf/2XjLYvzlgW/PZ8tRZ8aEmj+fhAEZ9IVJssfey0P9XecovB1KBdJLUK1dqA==",
+      "path": "sigpdfclient/6.0.0",
+      "hashPath": "sigpdfclient.6.0.0.nupkg.sha512"
+    },
+    "SigPdfClientProtobuf/3.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kJwtWxrB0NAYR/jt9nKioReJWShwYlWYUZm6hIZNAH9OpCss3w31clrIqu6m3tYhYBQCGrLW5zHYbqNJCGW08Q==",
+      "path": "sigpdfclientprotobuf/3.2.0",
+      "hashPath": "sigpdfclientprotobuf.3.2.0.nupkg.sha512"
+    },
+    "SigPdfService/5.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MAOyjq2OnSh5XbMNdgil7wOkH5L5KNgaU/DVac+N1SkkOMXKYJjzp7Wes/0wDQsCjb+ytKAoho3ODI78R2AboA==",
+      "path": "sigpdfservice/5.0.1",
+      "hashPath": "sigpdfservice.5.0.1.nupkg.sha512"
+    },
+    "SigSignAPI/3.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ABNC2gGJ2Ma2PVGjM+jVqE5PVFnQ1VWbI4U1QC8QM/a2i9nIxpIZ7TjTwcj3Ai9WW4Zg2uwTCGVQyWvREzbOZg==",
+      "path": "sigsignapi/3.0.7",
+      "hashPath": "sigsignapi.3.0.7.nupkg.sha512"
+    },
+    "SigSignAPI.Translation/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8u/3tTBb9mljSy+9yJlAIK6ey+RcPWkwe50zPBY7m5/ouRNaCzuIFJ8MlHXQmOXf/Rv5sVktx08G50DYnumFEA==",
+      "path": "sigsignapi.translation/2.0.0",
+      "hashPath": "sigsignapi.translation.2.0.0.nupkg.sha512"
+    },
+    "SimpleDialogFrameWork/4.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BZw1zRKWbI1o6DEn3DVdYTodrBXXn4G+kW1fF87ZHq9+4pzyzzd4zKezXeyGkdjZ9zPyfPU2mfj9krrTASLjRQ==",
+      "path": "simpledialogframework/4.0.4",
+      "hashPath": "simpledialogframework.4.0.4.nupkg.sha512"
+    },
     "SkiaSharp/2.88.7": {
       "type": "package",
       "serviceable": true,
@@ -1605,6 +1795,13 @@
       "sha512": "sha512-vjQ7mcjOZRdhygCRmgzjUlSZ1Nserk171M5WEd8XPWYMLJV0oJp/dmkFlIQOo9LETpO3VFp/kFo9Vxm5stN6Ng==",
       "path": "skiasharp.views.desktop.common/2.88.2",
       "hashPath": "skiasharp.views.desktop.common.2.88.2.nupkg.sha512"
+    },
+    "StepOverLicenseLib/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3CVz1MPpWC+tA78rB/xjVQuGXm2Dc2pm0+Qhhi5G3cbDUJm0jaNKvHAgZ0gvMDvPp4C5KC0IqNXlPJJNp13SvQ==",
+      "path": "stepoverlicenselib/1.1.1",
+      "hashPath": "stepoverlicenselib.1.1.1.nupkg.sha512"
     },
     "StrongNamer/0.2.5": {
       "type": "package",
@@ -1928,6 +2125,13 @@
       "path": "system.runtime.serialization.primitives/4.3.0",
       "hashPath": "system.runtime.serialization.primitives.4.3.0.nupkg.sha512"
     },
+    "System.Security.AccessControl/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dagJ1mHZO3Ani8GH0PHpPEe/oYO+rVdbQjvjJkBRNQkX4t0r1iaeGn8+/ybkSLEan3/slM0t59SVdHzuHf2jmw==",
+      "path": "system.security.accesscontrol/5.0.0",
+      "hashPath": "system.security.accesscontrol.5.0.0.nupkg.sha512"
+    },
     "System.Security.Cryptography.Algorithms/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1977,12 +2181,12 @@
       "path": "system.security.cryptography.primitives/4.3.0",
       "hashPath": "system.security.cryptography.primitives.4.3.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.X509Certificates/4.3.0": {
+    "System.Security.Cryptography.X509Certificates/4.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-t2Tmu6Y2NtJ2um0RtcuhP7ZdNNxXEgUm2JeoA/0NvlMjAhKCnM1NX07TDl3244mVp3QU6LPEhT3HTtH1uF7IYw==",
-      "path": "system.security.cryptography.x509certificates/4.3.0",
-      "hashPath": "system.security.cryptography.x509certificates.4.3.0.nupkg.sha512"
+      "sha512": "sha512-uwlfOnvJd7rXRvP3aV126Q9XebIIEGEaZ245Rd5/ZwOg7U7AU+AmpE0vRh2F0DFjfOTuk7MAexv4nYiNP/RYnQ==",
+      "path": "system.security.cryptography.x509certificates/4.3.2",
+      "hashPath": "system.security.cryptography.x509certificates.4.3.2.nupkg.sha512"
     },
     "System.Security.Principal.Windows/5.0.0": {
       "type": "package",
@@ -2075,37 +2279,7 @@
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
-    "Google.Protobuf/3.14.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Grpc.Core.Api/2.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Grpc.Net.Client/2.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Grpc.Net.Common/2.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SigPdfClient/5.0.5.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SigPdfClientProtobuf/3.2.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SigPdfService/5.0.1.0": {
+    "Interop.StepOverSignatureDevice1/1.5.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

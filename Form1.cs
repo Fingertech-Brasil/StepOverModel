@@ -2,8 +2,9 @@ using DeviceAPI_Csharp_DLL;
 using LanguageExt;
 using LanguageExt.Pipes;
 using Sig.DeviceAPI;
-using StepOverSignatureAPI4;
-using StepOverSignatureDevice1;
+using Sig.SignAPI;
+using Sig.SignAPI.Utils;
+using Sig.PdfClient;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -15,6 +16,9 @@ using iText.IO.Image;
 using System.Windows.Forms;
 using GemBox.Pdf;
 using System.Windows;
+using System.Windows.Media.TextFormatting;
+using Com.So.PdfService;
+using System.Windows.Forms.Design.Behavior;
 
 namespace StepOverModel
 {
@@ -22,6 +26,7 @@ namespace StepOverModel
     public partial class Form1 : Form
     {
         // ------------------------------Variables and Objects-----------------------
+
         // number of pages
         int pages = 0;
 
@@ -32,10 +37,11 @@ namespace StepOverModel
         public static IDriver driverInterface = new Driver();
         public static IReadSignatureImageOptions imageOptions = driverInterface.ReadSignatureImageOptions;
 
-        // Create the object of the StepOverSignatureAPI4
-        public IStepOverSignatureAPIv4 signatureAPI = new StepOverSignatureAPIv4();
+        // Create objects of the SignAPI
+        ISigning theSigningObject = null;
 
         // ------------------------------Methods For Forms---------------------------
+
         // Form is open
         public Form1(string deviceName0)
         {
@@ -63,10 +69,8 @@ namespace StepOverModel
             {
                 Directory.CreateDirectory("tmp");
             }
-            driverInterface.IsSignFinishedEnabled = false;
 
-            // Connecting SignAPI and DeviceAPI
-            signatureAPI.SignatureDevice = (IStepOverSignatureDevice)driverInterface.GetOcx();
+            driverInterface.IsSignFinishedEnabled = false;
 
             // Subscribe to events
             SubscribeToEvents();
@@ -87,13 +91,7 @@ namespace StepOverModel
             }
         }
 
-        // ------------------------------Methods Called------------------------------
-        // Error Message
-        private void ShowErrorMessage(Error error)
-        {
-            if (error != Error.SUCCESS)
-                System.Windows.Forms.MessageBox.Show("Error: \n" + error.ToString());
-        }
+        // ------------------------------Methods For Events--------------------------
 
         // Subscribe to events
         private void SubscribeToEvents()
@@ -119,6 +117,15 @@ namespace StepOverModel
             {
                 pb_signature.Invoke((MethodInvoker)(() => UpdateSignatureImage()));
             };
+        }
+
+        // ------------------------------Methods Called------------------------------
+
+        // Error Message
+        private void ShowErrorMessage(Error error)
+        {
+            if (error != Error.SUCCESS)
+                System.Windows.Forms.MessageBox.Show("Error: \n" + error.ToString());
         }
 
         // Convert PDF to TIFF
@@ -149,10 +156,69 @@ namespace StepOverModel
 
                 // Load the image from the file and display it in the PictureBox
                 pb_pdfView.Image = System.Drawing.Image.FromFile("tmp/Output.bmp");
+
+                // Dispose the document
+                document.Unload();
             }
         }
 
+        // Get the destination path
+        private string GetDestinPath()
+        {
+            string destSource = "";
+            // Create variable to number of the signature if necessary
+            int number = 2;
+
+            // Check if source file is unsigned and if exist a signed file
+            if (!source.Contains("_signed") && !File.Exists(source.Replace(".pdf", "_signed.pdf")))
+            {
+                destSource = source.Replace(".pdf", "_signed.pdf");
+            }
+            else // If the file is signed
+            {
+                if (source.Contains("_signed.pdf")) // If the file is signed and dont have a number in the end
+                {
+                    // Check if the file with the number 2 dont exists
+                    if (!File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
+                    {
+                        destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
+                    }
+                    else // If the file with the number 2 exists
+                    {
+                        number++; // Increment the number
+                        // Check if the file with the next number exists
+                        while (File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
+                        {
+                            number++;
+                        }
+                        destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
+                    }
+                }
+                else if (!source.Contains("_signed")) // If the file is signed and have a number in the end
+                {
+                    // Check if the file with the number 2 dont exists and if the file with the number 2 exists increment the number
+                    // And check if the file with the next number exists
+                    while (File.Exists(source.Replace(".pdf", "_signed" + number + ".pdf")))
+                    {
+                        number++;
+                    }
+                    destSource = source.Replace(".pdf", "_signed" + number + ".pdf");
+                }
+                else // If the file is signed and have a number in the end
+                {
+                    string letter = source[^5..]; // Get the number of the file
+                    while (File.Exists(source.Replace(letter, number + ".pdf"))) // Check the file with the number exists, ascending the number sequentially
+                    {
+                        number++;
+                    }
+                    destSource = source.Replace(letter, number + ".pdf");
+                }
+            }
+            return destSource;
+        }
+
         // ------------------------------Methods For Singing--------------------------
+
         // Button to start signature
         private void bt_StartSignature_Click(object sender, EventArgs e)
         {
@@ -278,7 +344,8 @@ namespace StepOverModel
             pb_signPrev.Image = resized;
         }
 
-        // ------------------------------Methods For PDF------------------------------
+        // ------------------------------Methods For PDF SigImg------------------------------
+
         // Load PDF file
         private void bt_loadPDF_Click(object sender, EventArgs e)
         {
@@ -346,6 +413,7 @@ namespace StepOverModel
 
                 // Enable the button to sign PDF file with image
                 bt_signPDFImg.Enabled = true;
+                bt_signPDF.Enabled = true;
                 tb_x.Enabled = true;
                 tb_y.Enabled = true;
                 tb_sigWidth.Enabled = true;
@@ -373,56 +441,9 @@ namespace StepOverModel
         private void bt_signPDFImg_Click(object sender, EventArgs e)
         {
             // Create variable to destination PDF file path
-            string destSource;
-            // Create variable to number of the signature if necessary
-            int number = 2;
+            string destSource = GetDestinPath();
 
-            // Check if source file is unsigned and if exist a signed file
-            if (!source.Contains("_signed") && !File.Exists(source.Replace(".pdf", "_signed.pdf")))
-            {
-                destSource = source.Replace(".pdf", "_signed.pdf");
-            }
-            else // If the file is signed
-            {
-                if (source.Contains("_signed.pdf")) // If the file is signed and dont have a number in the end
-                {
-                    // Check if the file with the number 2 dont exists
-                    if (!File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
-                    {
-                        destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
-                    }
-                    else // If the file with the number 2 exists
-                    {
-                        number++; // Increment the number
-                        // Check if the file with the next number exists
-                        while (File.Exists(source.Replace("_signed.pdf", "_signed" + number + ".pdf")))
-                        {
-                            number++;
-                        }
-                        destSource = source.Replace("_signed.pdf", "_signed" + number + ".pdf");
-                    }
-                }
-                else if (!source.Contains("_signed")) // If the file is signed and have a number in the end
-                {
-                    // Check if the file with the number 2 dont exists and if the file with the number 2 exists increment the number
-                    // And check if the file with the next number exists
-                    while (File.Exists(source.Replace(".pdf", "_signed" + number + ".pdf")))
-                    {
-                        number++;
-                    }
-                    destSource = source.Replace(".pdf", "_signed" + number + ".pdf");
-                }
-                else // If the file is signed and have a number in the end
-                {
-                    string letter = source[^5..]; // Get the number of the file
-                    while (File.Exists(source.Replace(letter, number + ".pdf"))) // Check the file with the number exists, ascending the number sequentially
-                    {
-                        number++;
-                    }
-                    destSource = source.Replace(letter, number + ".pdf");
-                }
-            }
-
+            // Create variable to signature image path
             string imgpath = "";
 
             // Check if have the signature image in the picture box
@@ -437,15 +458,15 @@ namespace StepOverModel
                     pb_signature.Image.Save("tmp/Sign.bmp");
                     imgpath = "tmp/Sign.bmp";
                 }
-                else
-                {
-                    // Select the image to add to the PDF file
-                    OpenFileDialog openFileDialogImage = new OpenFileDialog();
-                    openFileDialogImage.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
-                    openFileDialogImage.Title = "Select an sign Image File";
-                    openFileDialogImage.ShowDialog();
-                    imgpath = openFileDialogImage.FileName;
-                }
+            }
+            else
+            {
+                // Select the image to add to the PDF file
+                OpenFileDialog openFileDialogImage = new OpenFileDialog();
+                openFileDialogImage.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
+                openFileDialogImage.Title = "Select an sign Image File";
+                openFileDialogImage.ShowDialog();
+                imgpath = openFileDialogImage.FileName;
             }
 
             if (imgpath != "")
@@ -471,6 +492,7 @@ namespace StepOverModel
                 document.Close();
                 ConvertPDFtoImg(destSource, int.Parse(tb_page.Text) - 1);
                 bt_signPDFImg.Enabled = false;
+                bt_signPDF.Enabled = false;
                 tb_page.Enabled = false;
                 tb_x.Enabled = false;
                 tb_y.Enabled = false;
@@ -492,7 +514,24 @@ namespace StepOverModel
             }
         }
 
-        // ------------------------------Methods For Adjustments----------------------
+        // ------------------------------Methods For sign PDF------------------------------
+
+        private async void bt_signPDF_Click(object sender, EventArgs e)
+        {
+            // Create variable to destination PDF file path
+            string destSource = GetDestinPath();
+            byte[] documentOctets = File.ReadAllBytes(source);
+
+            using (theSigningObject = await SigningFactory.StartAsync(driverInterface, documentOctets)) // Auto-Dispose in the end
+            {
+                Behaviour behaviour = Behaviour.GetDefault().UseRectangle(Sig.SignAPI.Rectangle.FromBottomLeft(0,0,100,100)); // Set the SigImg in device
+                FieldPosition fieldPosition = FieldPosition();
+            }
+
+        }
+
+        // ------------------------------Methods For PDF Page----------------------
+
         // Limit the value of the text box page
         private void tb_page_TextChanged(object sender, EventArgs e)
         {
@@ -547,7 +586,8 @@ namespace StepOverModel
             ConvertPDFtoImg(source, currentPage);
         }
 
-        // ------------------------------Methods For Coordnates----------------------
+        // ------------------------------Methods For Sign Coordnates----------------------
+
         // tb x adujstment
         private void tb_x_TextChanged(object sender, EventArgs e)
         {
@@ -651,6 +691,7 @@ namespace StepOverModel
         }
 
         // ------------------------------Methods For Sign Preview Scale and Coordinate----------------------
+
         // Scale function for the sign preview
         private void ScaleSign()
         {
