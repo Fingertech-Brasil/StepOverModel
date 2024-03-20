@@ -14,8 +14,7 @@
           "SkiaSharp": "2.88.7",
           "SkiaSharp.NativeAssets.Win32": "2.88.7",
           "itext7": "8.0.3",
-          "itext7.bouncy-castle-adapter": "8.0.3",
-          "Interop.StepOverSignatureDevice1": "1.5.0.0"
+          "itext7.bouncy-castle-adapter": "8.0.3"
         },
         "runtime": {
           "StepOverModel.dll": {}
@@ -1317,14 +1316,6 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
-      },
-      "Interop.StepOverSignatureDevice1/1.5.0.0": {
-        "runtime": {
-          "Interop.StepOverSignatureDevice1.dll": {
-            "assemblyVersion": "1.5.0.0",
-            "fileVersion": "1.5.0.0"
-          }
-        }
       }
     }
   },
@@ -2278,11 +2269,6 @@
       "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
-    },
-    "Interop.StepOverSignatureDevice1/1.5.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

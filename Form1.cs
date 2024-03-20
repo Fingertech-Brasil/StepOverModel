@@ -15,10 +15,7 @@ using iText.Layout.Element;
 using iText.IO.Image;
 using System.Windows.Forms;
 using GemBox.Pdf;
-using System.Windows;
-using System.Windows.Media.TextFormatting;
-using Com.So.PdfService;
-using System.Windows.Forms.Design.Behavior;
+using System.Drawing.Printing;
 
 namespace StepOverModel
 {
@@ -26,6 +23,9 @@ namespace StepOverModel
     public partial class Form1 : Form
     {
         // ------------------------------Variables and Objects-----------------------
+
+        // Time of the signature asinc
+        DateTimeOffset DateTimeOffset;
 
         // number of pages
         int pages = 0;
@@ -137,7 +137,7 @@ namespace StepOverModel
                 pb_pdfView.Image.Dispose();
             }
 
-            // Se estiver usando a versão Professional, insira sua chave de serial abaixo.
+            // If use the professional version, set the license key
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             // Carregue um documento PDF.
@@ -214,7 +214,7 @@ namespace StepOverModel
                     destSource = source.Replace(letter, number + ".pdf");
                 }
             }
-            return destSource;
+            return destSource; // Old path + _Signed
         }
 
         // ------------------------------Methods For Singing--------------------------
@@ -344,7 +344,7 @@ namespace StepOverModel
             pb_signPrev.Image = resized;
         }
 
-        // ------------------------------Methods For PDF SigImg------------------------------
+        // ------------------------------Methods For manipulate PDF----------------------
 
         // Load PDF file
         private void bt_loadPDF_Click(object sender, EventArgs e)
@@ -413,7 +413,6 @@ namespace StepOverModel
 
                 // Enable the button to sign PDF file with image
                 bt_signPDFImg.Enabled = true;
-                bt_signPDF.Enabled = true;
                 tb_x.Enabled = true;
                 tb_y.Enabled = true;
                 tb_sigWidth.Enabled = true;
@@ -433,6 +432,11 @@ namespace StepOverModel
                     tb_page.Enabled = true;
                     bt_previousPage.Visible = false;
                     bt_nextPage.Visible = true;
+                }
+
+                if (bt_StartSignature.Enabled)
+                {
+                    bt_signPDF.Enabled = true;
                 }
             }
         }
@@ -506,7 +510,8 @@ namespace StepOverModel
                 pb_signPrev.Visible = false;
 
                 // Clear source
-                source = null;
+                source = "";
+                
             }
             else
             {
@@ -520,12 +525,66 @@ namespace StepOverModel
         {
             // Create variable to destination PDF file path
             string destSource = GetDestinPath();
+
+            // Create variable to document octets
             byte[] documentOctets = File.ReadAllBytes(source);
 
+            // Set the object of the Signing
             using (theSigningObject = await SigningFactory.StartAsync(driverInterface, documentOctets)) // Auto-Dispose in the end
             {
-                Behaviour behaviour = Behaviour.GetDefault().UseRectangle(Sig.SignAPI.Rectangle.FromBottomLeft(0,0,100,100)); // Set the SigImg in device
-                FieldPosition fieldPosition = FieldPosition();
+                // Set the device signature image
+                Behaviour behaviour = Behaviour.GetDefault().UseRectangle(Sig.SignAPI.Rectangle.FromBottomLeft(0, 0, 100, 100)); // Set the SigImg size in device
+
+                // Set the coordinate of the signature
+                FieldPosition fieldPosition = new FieldPosition(int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text),
+                                                                int.Parse(tb_x.Text),
+                                                                int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text) - int.Parse(tb_sigHeight.Text),
+                                                                int.Parse(tb_x.Text) + int.Parse(tb_sigWidth.Text));
+
+                // Show the signInfo form
+                SignInfo signInfo = new SignInfo();
+                signInfo.ShowDialog();
+
+                if (!signInfo.Ok)
+                {
+                    MessageBox.Show("signature canceled");
+                    signInfo.Dispose();
+                    return;
+                }
+
+                behaviour = Behaviour.GetDefault().StampWithTextBuilder(Sig.SignAPI.Stamp.DefaultTextBuilder.Get(true, true, true, true));
+
+                // Set the device end sign in 3 seconds
+                driverInterface.IsSignFinishedEnabled = true;
+
+                // Sign the PDF file
+                _ = await theSigningObject.SignAsync(signInfo.signatureInfo.Name, fieldPosition, signInfo.signatureInfo, behaviour);
+
+                // Download the signed PDF file
+                byte[] signedDocument = await theSigningObject.Client.DownloadPdfAsync();
+                File.WriteAllBytes(destSource, signedDocument);
+
+                // Restore the device end sign
+                driverInterface.IsSignFinishedEnabled = false;
+
+                // Get new imag and Disable the buttons
+                ConvertPDFtoImg(destSource, int.Parse(tb_page.Text) - 1);
+                bt_signPDFImg.Enabled = false;
+                bt_signPDF.Enabled = false;
+                tb_page.Enabled = false;
+                tb_x.Enabled = false;
+                tb_y.Enabled = false;
+                tb_sigWidth.Enabled = false;
+                tb_sigHeight.Enabled = false;
+                sb_x.Enabled = false;
+                sb_y.Enabled = false;
+                bt_previousPage.Visible = false;
+                bt_nextPage.Visible = false;
+                pb_pdfView.Enabled = false;
+                pb_signPrev.Visible = false;
+
+                // Clear source
+                source = "";
             }
 
         }
@@ -711,5 +770,6 @@ namespace StepOverModel
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
+
     }
 }

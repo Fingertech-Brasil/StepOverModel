@@ -221,3 +221,6 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
+
+# Licence
+.bin/Debug/net6.0-windows/License/FingerTech.xml

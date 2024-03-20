@@ -38,9 +38,6 @@
     <Reference Include="Grpc.Net.Common">
       <HintPath>bin\Debug\net6.0-windows\Grpc.Net.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.StepOverSignatureDevice1">
-      <HintPath>bin\x86\Debug\Interop.StepOverSignatureDevice1.dll</HintPath>
-    </Reference>
     <Reference Include="LanguageExt.Core">
       <HintPath>..\..\Test for StepOver Classic\NativeDeviceAPI-3.0.0-win-x64\NativeDeviceAPI-win-x64\LanguageExt.Core.dll</HintPath>
     </Reference>
