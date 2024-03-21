@@ -118,6 +118,66 @@ namespace StepOverModel
         // Form is closed
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Save the certificate path and password
+            // if certPath is empty, return
+            if (!string.IsNullOrEmpty(certPath))
+            {
+                // Create a file to write to.
+                string filepath = "cache.txt";
+
+                // Create a byte array for additional entropy when using Protect method
+                byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 };
+
+                // Encrypt the password
+                byte[] encryptedPassword = ProtectedData.Protect(Encoding.UTF8.GetBytes(tb_passCert.Text), entropy, DataProtectionScope.CurrentUser);
+
+                // Convert the encrypted data to a string
+                string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+
+                // Combine the certPath and passCert
+                string combinedStrings = certPath + Environment.NewLine + encryptedPasswordString;
+
+                // Verify if the file exists
+                if (!File.Exists(filepath))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(filepath))
+                    {
+                        sw.WriteLine(combinedStrings);
+                    }
+                }
+                else
+                {
+                    // Open the file to read from.
+                    using (StreamReader sr = File.OpenText(filepath))
+                    {
+                        // Verify if the certPath and passCert already modified
+                        bool change = false;
+
+                        string s = "";
+                        // Count the lines
+                        int line = 0;
+
+                        // Read the file
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            if (s != tb_passCert.Text && s.Contains(".pfx") || s != certPath && line == 1)
+                            {
+                                change = true;
+                            }
+                            line++;
+                        }
+                        sr.Close();
+
+                        // If the certPath and passCert already modified
+                        if (change)
+                        {
+                            File.WriteAllText(filepath, combinedStrings);
+                        }
+                    }
+                }
+            }
+
             // Dispose the image
             if (pb_pdfView.Image != null)
             {
@@ -578,14 +638,19 @@ namespace StepOverModel
             // Set the object of the Signing
             using (theSigningObject = await SigningFactory.StartAsync(driverInterface, documentOctets)) // Auto-Dispose in the end
             {
+                // Get the device properties
+                IDeviceProperties deviceProperties = driverInterface.DeviceProperties;
+
                 // Set the device signature image
-                Behaviour behaviour = Behaviour.GetDefault().UseRectangle(Sig.SignAPI.Rectangle.FromBottomLeft(0, 0, 100, 100)); // Set the SigImg size in device
+                Behaviour behaviour = Behaviour.GetDefault().UseRectangle(Sig.SignAPI.Rectangle.FromBottomLeft(0, 0, deviceProperties.Hardware.DisplayWidth, deviceProperties.Hardware.DisplayHeight)); // Set the SigImg size in device
 
                 // Set the coordinate of the signature
-                FieldPosition fieldPosition = new FieldPosition(int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text),
+                FieldPosition fieldPosition = new FieldPosition((int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text)),
                                                                 int.Parse(tb_x.Text),
-                                                                int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text) - int.Parse(tb_sigHeight.Text),
+                                                                (int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text) - int.Parse(tb_sigHeight.Text)),
                                                                 int.Parse(tb_x.Text) + int.Parse(tb_sigWidth.Text));
+
+                fieldPosition.PageNumber = int.Parse(tb_page.Text) - 1;
 
                 // Show the signInfo form
                 SignInfo signInfo = new SignInfo();
@@ -637,66 +702,6 @@ namespace StepOverModel
 
         // ------------------------------Methods For Certificate------------------------------
 
-        // when the text box passCert is changed save the value crypted
-        private void tb_passCert_TextChanged(object sender, EventArgs e)
-        {
-            // if certPath is empty, return
-            if (!string.IsNullOrEmpty(certPath))
-            {
-                // Create a file to write to.
-                string filepath = "cache.txt";
-
-                // Create a byte array for additional entropy when using Protect method
-                byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 };
-
-                // Encrypt the password
-                byte[] encryptedPassword = ProtectedData.Protect(Encoding.UTF8.GetBytes(tb_passCert.Text), entropy, DataProtectionScope.CurrentUser);
-
-                // Convert the encrypted data to a string
-                string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
-
-                // Combine the certPath and passCert
-                string combinedStrings = certPath + Environment.NewLine + encryptedPasswordString;
-
-                // Verify if the file exists
-                if (!File.Exists(filepath))
-                {
-                    // Create a file to write to.
-                    using (StreamWriter sw = File.CreateText(filepath))
-                    {
-                        sw.WriteLine(combinedStrings);
-                    }
-                }
-                else
-                {
-                    // Open the file to read from.
-                    using (StreamReader sr = File.OpenText(filepath))
-                    {
-                        string s = "";
-                        while ((s = sr.ReadLine()) != null)
-                        {
-                            if (s != combinedStrings)
-                            {
-                                // Create a file to write to.
-                                using (StreamWriter sw = File.CreateText(filepath))
-                                {
-                                    sw.WriteLine(combinedStrings);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (File.Exists("cache.txt"))
-                {
-                    File.Delete("cache.txt");
-                }
-                System.Windows.Forms.MessageBox.Show("No certificate selected");
-            }
-        }
-
         // Get the certificate path
         private void bt_setCert_Click(object sender, EventArgs e)
         {
@@ -745,6 +750,9 @@ namespace StepOverModel
                 bt_nextPage.Visible = true;
             }
 
+            // Focus the Sign PDF button
+            bt_signPDFImg.Focus();
+
             // Update the img
             ConvertPDFtoImg(source, currentPage - 2);
         }
@@ -762,6 +770,9 @@ namespace StepOverModel
                 bt_nextPage.Visible = false;
                 bt_previousPage.Visible = true;
             }
+
+            // Focus the Sign PDF button
+            bt_signPDFImg.Focus();
 
             // Update the img
             ConvertPDFtoImg(source, currentPage);

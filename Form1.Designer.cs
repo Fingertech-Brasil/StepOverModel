@@ -181,7 +181,6 @@ namespace StepOverModel
             tb_passCert.Size = new Size(100, 25);
             tb_passCert.TabIndex = 16;
             tb_passCert.TextAlign = HorizontalAlignment.Center;
-            tb_passCert.TextChanged += tb_passCert_TextChanged;
             // 
             // bt_signPDF
             // 

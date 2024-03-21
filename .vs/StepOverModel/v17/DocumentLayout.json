@@ -11,12 +11,20 @@
       "RelativeMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|c:\\users\\finger\\desktop\\project\\stepovermodel\\signinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|solutionrelative:signinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|c:\\users\\finger\\desktop\\project\\stepovermodel\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB0A7492-AE2B-4652-8CE2-F2AB1BE76CA7}|StepOverModel.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,11 +34,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -39,21 +47,46 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-01T13:38:57.058Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "ViewState": "AQIAAJYAAAAAAAAAAAAAALYAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T15:56:42.31Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "Form1.Designer.cs",
-              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.Designer.cs",
-              "RelativeToolTip": "Form1.Designer.cs",
-              "ViewState": "AQIAAAICAAAAAAAAAAAiwKgAAAAoAAAA",
+              "Title": "SignInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\SignInfo.cs",
+              "RelativeDocumentMoniker": "SignInfo.cs",
+              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\SignInfo.cs",
+              "RelativeToolTip": "SignInfo.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-05T15:56:42.31Z",
-              "IsPinned": true,
+              "WhenOpened": "2024-03-21T14:20:41.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AQIAALkAAAAAAAAAAAAAAOMAAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-03-21T13:19:58.783Z",
               "EditorCaption": ""
             },
             {
@@ -62,9 +95,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAP4BAAAAAAAAAAAAABYCAAAAAAAA",
+              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs*",
+              "RelativeToolTip": "Form1.cs*",
+              "ViewState": "AQIAAHQCAAAAAAAAAAAAAIwCAABGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-29T18:22:28.348Z",
               "EditorCaption": ""
@@ -75,8 +108,8 @@
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs [Design]",
-              "RelativeToolTip": "Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs [Design]*",
+              "RelativeToolTip": "Form1.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T14:44:23.201Z",
               "EditorCaption": " [Design]"
