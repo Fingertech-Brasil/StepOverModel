@@ -39,6 +39,7 @@ namespace StepOverModel
             bt_StopSignature = new Button();
             pb_signature = new PictureBox();
             gb_PDF = new GroupBox();
+            bt_signPDF = new Button();
             bt_nextPage = new Button();
             bt_previousPage = new Button();
             lb_nPages = new Label();
@@ -56,7 +57,6 @@ namespace StepOverModel
             tb_y = new TextBox();
             lb_x = new Label();
             tb_x = new TextBox();
-            webBrowser = new WebBrowser();
             pb_pdfView = new PictureBox();
             gb_signatureOptions = new GroupBox();
             sb_y = new HScrollBar();
@@ -66,6 +66,8 @@ namespace StepOverModel
             lb_sigWidth = new Label();
             tb_sigWidth = new TextBox();
             pb_signPrev = new PictureBox();
+            bt_setCert = new Button();
+            tb_passCert = new TextBox();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
@@ -93,9 +95,9 @@ namespace StepOverModel
             gb_sign.Controls.Add(bt_StartSignature);
             gb_sign.Enabled = false;
             gb_sign.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_sign.Location = new Point(12, 12);
+            gb_sign.Location = new Point(12, 332);
             gb_sign.Name = "gb_sign";
-            gb_sign.Size = new Size(142, 160);
+            gb_sign.Size = new Size(142, 167);
             gb_sign.TabIndex = 1;
             gb_sign.TabStop = false;
             gb_sign.Text = "Signature Options";
@@ -103,7 +105,7 @@ namespace StepOverModel
             // bt_lineColor
             // 
             bt_lineColor.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            bt_lineColor.Location = new Point(36, 136);
+            bt_lineColor.Location = new Point(36, 141);
             bt_lineColor.Name = "bt_lineColor";
             bt_lineColor.Size = new Size(72, 20);
             bt_lineColor.TabIndex = 15;
@@ -139,7 +141,7 @@ namespace StepOverModel
             pb_signature.BackColor = SystemColors.ControlLight;
             pb_signature.BorderStyle = BorderStyle.FixedSingle;
             pb_signature.Cursor = Cursors.Cross;
-            pb_signature.Location = new Point(210, 12);
+            pb_signature.Location = new Point(12, 12);
             pb_signature.Name = "pb_signature";
             pb_signature.Size = new Size(600, 300);
             pb_signature.TabIndex = 2;
@@ -147,6 +149,9 @@ namespace StepOverModel
             // 
             // gb_PDF
             // 
+            gb_PDF.Controls.Add(tb_passCert);
+            gb_PDF.Controls.Add(bt_signPDF);
+            gb_PDF.Controls.Add(bt_setCert);
             gb_PDF.Controls.Add(bt_nextPage);
             gb_PDF.Controls.Add(bt_previousPage);
             gb_PDF.Controls.Add(lb_nPages);
@@ -160,18 +165,30 @@ namespace StepOverModel
             gb_PDF.Controls.Add(bt_loadPDF);
             gb_PDF.Controls.Add(tb_a4x);
             gb_PDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_PDF.Location = new Point(12, 174);
+            gb_PDF.Location = new Point(332, 332);
             gb_PDF.Name = "gb_PDF";
-            gb_PDF.Size = new Size(142, 213);
+            gb_PDF.Size = new Size(280, 172);
             gb_PDF.TabIndex = 3;
             gb_PDF.TabStop = false;
             gb_PDF.Text = "PDF Options";
+            // 
+            // bt_signPDF
+            // 
+            bt_signPDF.Enabled = false;
+            bt_signPDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            bt_signPDF.Location = new Point(6, 122);
+            bt_signPDF.Name = "bt_signPDF";
+            bt_signPDF.Size = new Size(131, 33);
+            bt_signPDF.TabIndex = 15;
+            bt_signPDF.Text = "Sign PDF";
+            bt_signPDF.UseVisualStyleBackColor = true;
+            bt_signPDF.Click += bt_signPDF_Click;
             // 
             // bt_nextPage
             // 
             bt_nextPage.FlatStyle = FlatStyle.Popup;
             bt_nextPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
-            bt_nextPage.Location = new Point(89, 60);
+            bt_nextPage.Location = new Point(235, 84);
             bt_nextPage.Margin = new Padding(0);
             bt_nextPage.Name = "bt_nextPage";
             bt_nextPage.Size = new Size(16, 26);
@@ -185,7 +202,7 @@ namespace StepOverModel
             // 
             bt_previousPage.FlatStyle = FlatStyle.Popup;
             bt_previousPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
-            bt_previousPage.Location = new Point(53, 60);
+            bt_previousPage.Location = new Point(199, 84);
             bt_previousPage.Margin = new Padding(0);
             bt_previousPage.Name = "bt_previousPage";
             bt_previousPage.Size = new Size(16, 26);
@@ -198,7 +215,7 @@ namespace StepOverModel
             // lb_nPages
             // 
             lb_nPages.AutoSize = true;
-            lb_nPages.Location = new Point(101, 64);
+            lb_nPages.Location = new Point(247, 88);
             lb_nPages.Name = "lb_nPages";
             lb_nPages.Size = new Size(22, 19);
             lb_nPages.TabIndex = 13;
@@ -208,7 +225,7 @@ namespace StepOverModel
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(16, 189);
+            label2.Location = new Point(182, 54);
             label2.Name = "label2";
             label2.Size = new Size(53, 19);
             label2.TabIndex = 12;
@@ -218,7 +235,7 @@ namespace StepOverModel
             // 
             lb_pdfSize.AutoSize = true;
             lb_pdfSize.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lb_pdfSize.Location = new Point(41, 152);
+            lb_pdfSize.Location = new Point(207, 17);
             lb_pdfSize.Name = "lb_pdfSize";
             lb_pdfSize.Size = new Size(64, 19);
             lb_pdfSize.TabIndex = 5;
@@ -228,7 +245,7 @@ namespace StepOverModel
             // 
             lb_page.AutoSize = true;
             lb_page.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            lb_page.Location = new Point(6, 64);
+            lb_page.Location = new Point(152, 88);
             lb_page.Name = "lb_page";
             lb_page.Size = new Size(42, 19);
             lb_page.TabIndex = 4;
@@ -239,7 +256,7 @@ namespace StepOverModel
             tb_a4y.BorderStyle = BorderStyle.None;
             tb_a4y.Enabled = false;
             tb_a4y.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tb_a4y.Location = new Point(70, 192);
+            tb_a4y.Location = new Point(236, 57);
             tb_a4y.Name = "tb_a4y";
             tb_a4y.ReadOnly = true;
             tb_a4y.Size = new Size(38, 16);
@@ -251,7 +268,7 @@ namespace StepOverModel
             // tb_page
             // 
             tb_page.Enabled = false;
-            tb_page.Location = new Point(66, 61);
+            tb_page.Location = new Point(212, 85);
             tb_page.Name = "tb_page";
             tb_page.Size = new Size(26, 25);
             tb_page.TabIndex = 3;
@@ -263,11 +280,11 @@ namespace StepOverModel
             // 
             bt_signPDFImg.Enabled = false;
             bt_signPDFImg.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            bt_signPDFImg.Location = new Point(6, 116);
+            bt_signPDFImg.Location = new Point(6, 74);
             bt_signPDFImg.Name = "bt_signPDFImg";
             bt_signPDFImg.Size = new Size(131, 33);
             bt_signPDFImg.TabIndex = 2;
-            bt_signPDFImg.Text = "Sign img PDF";
+            bt_signPDFImg.Text = "Sign.img PDF";
             bt_signPDFImg.UseVisualStyleBackColor = true;
             bt_signPDFImg.Click += bt_signPDFImg_Click;
             // 
@@ -275,7 +292,7 @@ namespace StepOverModel
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(20, 170);
+            label3.Location = new Point(186, 35);
             label3.Name = "label3";
             label3.Size = new Size(49, 19);
             label3.TabIndex = 10;
@@ -284,7 +301,7 @@ namespace StepOverModel
             // bt_loadPDF
             // 
             bt_loadPDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            bt_loadPDF.Location = new Point(6, 22);
+            bt_loadPDF.Location = new Point(6, 24);
             bt_loadPDF.Name = "bt_loadPDF";
             bt_loadPDF.Size = new Size(131, 33);
             bt_loadPDF.TabIndex = 0;
@@ -297,7 +314,7 @@ namespace StepOverModel
             tb_a4x.BorderStyle = BorderStyle.None;
             tb_a4x.Enabled = false;
             tb_a4x.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            tb_a4x.Location = new Point(70, 173);
+            tb_a4x.Location = new Point(236, 38);
             tb_a4x.Name = "tb_a4x";
             tb_a4x.ReadOnly = true;
             tb_a4x.Size = new Size(38, 16);
@@ -360,23 +377,15 @@ namespace StepOverModel
             tb_x.TextAlign = HorizontalAlignment.Center;
             tb_x.TextChanged += tb_x_TextChanged;
             // 
-            // webBrowser
-            // 
-            webBrowser.Location = new Point(830, 12);
-            webBrowser.Name = "webBrowser";
-            webBrowser.Size = new Size(282, 375);
-            webBrowser.TabIndex = 4;
-            webBrowser.TabStop = false;
-            // 
             // pb_pdfView
             // 
             pb_pdfView.BackColor = SystemColors.ControlLight;
             pb_pdfView.BorderStyle = BorderStyle.FixedSingle;
             pb_pdfView.Cursor = Cursors.Cross;
             pb_pdfView.Enabled = false;
-            pb_pdfView.Location = new Point(830, 12);
+            pb_pdfView.Location = new Point(633, 13);
             pb_pdfView.Name = "pb_pdfView";
-            pb_pdfView.Size = new Size(282, 375);
+            pb_pdfView.Size = new Size(405, 567);
             pb_pdfView.TabIndex = 4;
             pb_pdfView.TabStop = false;
             pb_pdfView.MouseClick += pb_pdfView_MouseClick;
@@ -395,7 +404,7 @@ namespace StepOverModel
             gb_signatureOptions.Controls.Add(tb_x);
             gb_signatureOptions.Controls.Add(tb_sigWidth);
             gb_signatureOptions.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            gb_signatureOptions.Location = new Point(408, 318);
+            gb_signatureOptions.Location = new Point(196, 510);
             gb_signatureOptions.Name = "gb_signatureOptions";
             gb_signatureOptions.Size = new Size(416, 70);
             gb_signatureOptions.TabIndex = 13;
@@ -478,7 +487,7 @@ namespace StepOverModel
             pb_signPrev.BackgroundImageLayout = ImageLayout.None;
             pb_signPrev.Enabled = false;
             pb_signPrev.Image = Properties.Resources.signPrev;
-            pb_signPrev.Location = new Point(831, 352);
+            pb_signPrev.Location = new Point(633, 546);
             pb_signPrev.Name = "pb_signPrev";
             pb_signPrev.Size = new Size(73, 34);
             pb_signPrev.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -486,11 +495,32 @@ namespace StepOverModel
             pb_signPrev.TabStop = false;
             pb_signPrev.Visible = false;
             // 
+            // bt_setCert
+            // 
+            bt_setCert.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            bt_setCert.Location = new Point(154, 142);
+            bt_setCert.Name = "bt_setCert";
+            bt_setCert.Size = new Size(120, 23);
+            bt_setCert.TabIndex = 15;
+            bt_setCert.Text = "Set Certificate Path";
+            bt_setCert.UseVisualStyleBackColor = true;
+            bt_setCert.Click += bt_setCert_Click;
+            // 
+            // tb_passCert
+            // 
+            tb_passCert.Location = new Point(171, 116);
+            tb_passCert.Name = "tb_passCert";
+            tb_passCert.PasswordChar = '*';
+            tb_passCert.PlaceholderText = "Cert. Password";
+            tb_passCert.Size = new Size(100, 25);
+            tb_passCert.TabIndex = 16;
+            tb_passCert.TextAlign = HorizontalAlignment.Center;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1124, 400);
+            ClientSize = new Size(1055, 595);
             Controls.Add(pb_signPrev);
             Controls.Add(gb_signatureOptions);
             Controls.Add(pb_pdfView);
@@ -523,6 +553,7 @@ namespace StepOverModel
         private Button bt_loadPDF;
         private Button bt_nextPage;
         private Button bt_previousPage;
+        private Button bt_lineColor;
 
         private GroupBox gb_sign;
         private GroupBox gb_PDF;
@@ -531,8 +562,6 @@ namespace StepOverModel
         private PictureBox pb_signature;
         private PictureBox pb_pdfView;
         private PictureBox pb_signPrev;
-
-        private WebBrowser webBrowser;
 
         private HScrollBar sb_x;
         private HScrollBar sb_y;
@@ -555,6 +584,8 @@ namespace StepOverModel
         private TextBox tb_a4x;
         private TextBox tb_sigHeight;
         private TextBox tb_sigWidth;
-        private Button bt_lineColor;
+        private Button bt_signPDF;
+        private Button bt_setCert;
+        private TextBox tb_passCert;
     }
 }
