@@ -40,6 +40,10 @@ namespace StepOverModel
         // Create objects of the SignAPI
         ISigning theSigningObject = null;
 
+        // Create objects of the SetCertificate and create certificate path
+        ISetCertificate setCertificate = driverInterface.SetCertificate;
+        string certPath;
+
         // ------------------------------Methods For Forms---------------------------
 
         // Form is open
@@ -511,7 +515,7 @@ namespace StepOverModel
 
                 // Clear source
                 source = "";
-                
+
             }
             else
             {
@@ -528,6 +532,13 @@ namespace StepOverModel
 
             // Create variable to document octets
             byte[] documentOctets = File.ReadAllBytes(source);
+
+            // Set the certificate
+            if (certPath != "" && tb_passCert.Text != "")
+            {
+                Error r = setCertificate.FromPKCS12File(certPath, tb_passCert.Text);
+                ShowErrorMessage(r);
+            }
 
             // Set the object of the Signing
             using (theSigningObject = await SigningFactory.StartAsync(driverInterface, documentOctets)) // Auto-Dispose in the end
@@ -552,7 +563,7 @@ namespace StepOverModel
                     return;
                 }
 
-                behaviour = Behaviour.GetDefault().StampWithTextBuilder(Sig.SignAPI.Stamp.DefaultTextBuilder.Get(true, true, true, true));
+                behaviour = signInfo.behaviour;
 
                 // Set the device end sign in 3 seconds
                 driverInterface.IsSignFinishedEnabled = true;
@@ -587,6 +598,20 @@ namespace StepOverModel
                 source = "";
             }
 
+        }
+
+        // Get the certificate path
+        private void bt_setCert_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "PFX Files|*.pfx";
+            openFileDialog.Title = "Select a PFX File";
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName != "")
+            {
+                certPath = openFileDialog.FileName;
+            }
         }
 
         // ------------------------------Methods For PDF Page----------------------
@@ -770,6 +795,5 @@ namespace StepOverModel
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
-
     }
 }

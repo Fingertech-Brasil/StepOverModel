@@ -48,30 +48,31 @@
             // 
             tb_reason.Location = new Point(142, 79);
             tb_reason.Name = "tb_reason";
+            tb_reason.PlaceholderText = "I agree the terms";
             tb_reason.Size = new Size(100, 23);
             tb_reason.TabIndex = 1;
-            tb_reason.Text = "I agree to the terms";
             // 
             // tb_name
             // 
             tb_name.Location = new Point(142, 30);
             tb_name.Name = "tb_name";
+            tb_name.PlaceholderText = "Signer";
             tb_name.Size = new Size(100, 23);
             tb_name.TabIndex = 0;
-            tb_name.Text = "Signer";
             // 
             // tb_location
             // 
             tb_location.Location = new Point(142, 122);
             tb_location.Name = "tb_location";
+            tb_location.PlaceholderText = "City - States";
             tb_location.Size = new Size(100, 23);
             tb_location.TabIndex = 2;
-            tb_location.Text = "Here";
             // 
             // tb_contactInfo
             // 
             tb_contactInfo.Location = new Point(142, 171);
             tb_contactInfo.Name = "tb_contactInfo";
+            tb_contactInfo.PlaceholderText = "E-mail / Tel";
             tb_contactInfo.Size = new Size(100, 23);
             tb_contactInfo.TabIndex = 3;
             // 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Design.Behavior;
 using Sig.PdfClient;
 using Sig.SignAPI;
 
@@ -15,7 +16,7 @@ namespace StepOverModel
     public partial class SignInfo : Form
     {
         // DefaultTextBuilder is a class from the Sig.SignAPI.Stamp namespace
-        Sig.SignAPI.Stamp.DefaultTextBuilder defaultTextBuilder;
+        public Behaviour behaviour;
 
         // SignatureInfo is a class from the Sig.PdfClient namespace
         public SignatureInfo signatureInfo = new SignatureInfo(DateTimeOffset.Now);
@@ -65,7 +66,7 @@ namespace StepOverModel
             signatureInfo.Reason = tb_reason.Text;
             signatureInfo.Location = tb_location.Text;
 
-            defaultTextBuilder = Behaviour.GetDefault().StampWithTextBuilder(Sig.SignAPI.Stamp.DefaultTextBuilder.Get(cb_by.Checked,cb_reason.Checked,cb_location.Checked,cb_time.Checked));
+            behaviour = Behaviour.GetDefault().StampWithTextBuilder(Sig.SignAPI.Stamp.DefaultTextBuilder.Get(cb_by.Checked, cb_reason.Checked, cb_location.Checked, cb_time.Checked));
 
             // Optional field
             if (tb_contactInfo.Text != "")
