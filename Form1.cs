@@ -1,4 +1,3 @@
-using DeviceAPI_Csharp_DLL;
 using LanguageExt;
 using LanguageExt.Pipes;
 using Sig.DeviceAPI;
