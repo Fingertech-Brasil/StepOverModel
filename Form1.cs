@@ -16,6 +16,8 @@ using iText.IO.Image;
 using System.Windows.Forms;
 using GemBox.Pdf;
 using System.Drawing.Printing;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace StepOverModel
 {
@@ -75,6 +77,39 @@ namespace StepOverModel
             }
 
             driverInterface.IsSignFinishedEnabled = false;
+
+            if(File.Exists("cache.txt"))
+            {
+                // Open the file to read from.
+                using (StreamReader sr = File.OpenText("cache.txt"))
+                {
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        if (s.Contains(".pfx"))
+                        {
+                            certPath = s;
+                        }
+                        else
+                        {
+                            // Convert the encrypted data to a byte array
+                            byte[] encryptedPasswordBytes = Convert.FromBase64String(s);
+
+                            // Define the entropy used during encryption (if any).
+                            byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 }; // This should match the entropy used during encryption.
+
+                            // Decrypt the byte array.
+                            byte[] decryptedPasswordBytes = ProtectedData.Unprotect(encryptedPasswordBytes, entropy, DataProtectionScope.CurrentUser);
+
+                            // Convert the decrypted byte array back to a string.
+                            string decryptedPassword = Encoding.UTF8.GetString(decryptedPasswordBytes);
+
+                            // Set the value of the text box passCert
+                            tb_passCert.Text = decryptedPassword;
+                        }
+                    }
+                }
+            }
 
             // Subscribe to events
             SubscribeToEvents();
@@ -600,6 +635,68 @@ namespace StepOverModel
 
         }
 
+        // ------------------------------Methods For Certificate------------------------------
+
+        // when the text box passCert is changed save the value crypted
+        private void tb_passCert_TextChanged(object sender, EventArgs e)
+        {
+            // if certPath is empty, return
+            if (!string.IsNullOrEmpty(certPath))
+            {
+                // Create a file to write to.
+                string filepath = "cache.txt";
+
+                // Create a byte array for additional entropy when using Protect method
+                byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 };
+
+                // Encrypt the password
+                byte[] encryptedPassword = ProtectedData.Protect(Encoding.UTF8.GetBytes(tb_passCert.Text), entropy, DataProtectionScope.CurrentUser);
+
+                // Convert the encrypted data to a string
+                string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+
+                // Combine the certPath and passCert
+                string combinedStrings = certPath + Environment.NewLine + encryptedPasswordString;
+
+                // Verify if the file exists
+                if (!File.Exists(filepath))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(filepath))
+                    {
+                        sw.WriteLine(combinedStrings);
+                    }
+                }
+                else
+                {
+                    // Open the file to read from.
+                    using (StreamReader sr = File.OpenText(filepath))
+                    {
+                        string s = "";
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            if (s != combinedStrings)
+                            {
+                                // Create a file to write to.
+                                using (StreamWriter sw = File.CreateText(filepath))
+                                {
+                                    sw.WriteLine(combinedStrings);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (File.Exists("cache.txt"))
+                {
+                    File.Delete("cache.txt");
+                }
+                System.Windows.Forms.MessageBox.Show("No certificate selected");
+            }
+        }
+
         // Get the certificate path
         private void bt_setCert_Click(object sender, EventArgs e)
         {
@@ -795,5 +892,6 @@ namespace StepOverModel
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
+
     }
 }

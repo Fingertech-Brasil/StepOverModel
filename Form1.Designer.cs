@@ -39,7 +39,9 @@ namespace StepOverModel
             bt_StopSignature = new Button();
             pb_signature = new PictureBox();
             gb_PDF = new GroupBox();
+            tb_passCert = new TextBox();
             bt_signPDF = new Button();
+            bt_setCert = new Button();
             bt_nextPage = new Button();
             bt_previousPage = new Button();
             lb_nPages = new Label();
@@ -66,8 +68,6 @@ namespace StepOverModel
             lb_sigWidth = new Label();
             tb_sigWidth = new TextBox();
             pb_signPrev = new PictureBox();
-            bt_setCert = new Button();
-            tb_passCert = new TextBox();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
@@ -172,6 +172,17 @@ namespace StepOverModel
             gb_PDF.TabStop = false;
             gb_PDF.Text = "PDF Options";
             // 
+            // tb_passCert
+            // 
+            tb_passCert.Location = new Point(171, 116);
+            tb_passCert.Name = "tb_passCert";
+            tb_passCert.PasswordChar = '*';
+            tb_passCert.PlaceholderText = "Cert. Password";
+            tb_passCert.Size = new Size(100, 25);
+            tb_passCert.TabIndex = 16;
+            tb_passCert.TextAlign = HorizontalAlignment.Center;
+            tb_passCert.TextChanged += tb_passCert_TextChanged;
+            // 
             // bt_signPDF
             // 
             bt_signPDF.Enabled = false;
@@ -183,6 +194,17 @@ namespace StepOverModel
             bt_signPDF.Text = "Sign PDF";
             bt_signPDF.UseVisualStyleBackColor = true;
             bt_signPDF.Click += bt_signPDF_Click;
+            // 
+            // bt_setCert
+            // 
+            bt_setCert.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            bt_setCert.Location = new Point(154, 142);
+            bt_setCert.Name = "bt_setCert";
+            bt_setCert.Size = new Size(120, 23);
+            bt_setCert.TabIndex = 15;
+            bt_setCert.Text = "Set Certificate Path";
+            bt_setCert.UseVisualStyleBackColor = true;
+            bt_setCert.Click += bt_setCert_Click;
             // 
             // bt_nextPage
             // 
@@ -494,27 +516,6 @@ namespace StepOverModel
             pb_signPrev.TabIndex = 14;
             pb_signPrev.TabStop = false;
             pb_signPrev.Visible = false;
-            // 
-            // bt_setCert
-            // 
-            bt_setCert.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            bt_setCert.Location = new Point(154, 142);
-            bt_setCert.Name = "bt_setCert";
-            bt_setCert.Size = new Size(120, 23);
-            bt_setCert.TabIndex = 15;
-            bt_setCert.Text = "Set Certificate Path";
-            bt_setCert.UseVisualStyleBackColor = true;
-            bt_setCert.Click += bt_setCert_Click;
-            // 
-            // tb_passCert
-            // 
-            tb_passCert.Location = new Point(171, 116);
-            tb_passCert.Name = "tb_passCert";
-            tb_passCert.PasswordChar = '*';
-            tb_passCert.PlaceholderText = "Cert. Password";
-            tb_passCert.Size = new Size(100, 25);
-            tb_passCert.TabIndex = 16;
-            tb_passCert.TextAlign = HorizontalAlignment.Center;
             // 
             // Form1
             // 

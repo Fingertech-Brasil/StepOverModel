@@ -222,5 +222,6 @@ Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
 
-# Licence
+# Licence and Cert
 .bin/Debug/net6.0-windows/License/FingerTech.xml
+.bin/Debug/net6.0-windows/cache.txt
