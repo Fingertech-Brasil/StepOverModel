@@ -17,16 +17,13 @@ using GemBox.Pdf;
 using System.Drawing.Printing;
 using System.Security.Cryptography;
 using System.Text;
+using System.Management;
 
 namespace StepOverModel
 {
-
     public partial class Form1 : Form
     {
         // ------------------------------Variables and Objects-----------------------
-
-        // Time of the signature asinc
-        DateTimeOffset DateTimeOffset;
 
         // number of pages
         int pages = 0;
@@ -45,29 +42,26 @@ namespace StepOverModel
         ISetCertificate setCertificate = driverInterface.SetCertificate;
         string certPath;
 
+        // WMI query to monitor for device arrival events
+        private ManagementEventWatcher arrivalWatcher;
+        // WMI query to monitor for device removal events
+        private ManagementEventWatcher removalWatcher;
+        // Device is plugged
+        private bool deviceArrival = false;
+
         // ------------------------------Methods For Forms---------------------------
 
         // Form is open
-        public Form1(string deviceName0)
+        public Form1()
         {
             InitializeComponent();
 
             // Set the device
-            Error r = driverInterface.SetDevice(deviceName0);
-            if (r == Error.SUCCESS)
-            {
-                gb_sign.Enabled = true;
-                bt_StopSignature.Enabled = false;
-                bt_saveImage.Enabled = false;
-            }
+            SearchDevice(deviceArrival);
 
             // Set the value of the scroll bar x
             sb_x.Value = int.Parse(tb_x.Text);
             sb_x.Maximum = 595 - int.Parse(tb_sigWidth.Text);
-
-            // Load the license
-            r = driverInterface.LoadLicense("License/FingerTech.xml");
-            ShowErrorMessage(r);
 
             // Create the tmp folder
             if (!Directory.Exists("tmp"))
@@ -77,7 +71,8 @@ namespace StepOverModel
 
             driverInterface.IsSignFinishedEnabled = false;
 
-            if(File.Exists("cache.txt"))
+            // Check if the cache file exists
+            if(File.Exists("cache.txt"))// Get saved certificate path and password
             {
                 // Open the file to read from.
                 using (StreamReader sr = File.OpenText("cache.txt"))
@@ -110,7 +105,10 @@ namespace StepOverModel
                 }
             }
 
-            // Subscribe to events
+            // Initialize the WMI event watchers
+            InitializeWmiWatchers();
+
+            // Events
             SubscribeToEvents();
         }
 
@@ -187,6 +185,13 @@ namespace StepOverModel
             {
                 Directory.Delete("tmp", true);
             }
+
+            // Stop the WMI event watchers
+            arrivalWatcher.Stop();
+            arrivalWatcher.Dispose();
+
+            removalWatcher.Stop();
+            removalWatcher.Dispose();
         }
 
         // ------------------------------Methods For Events--------------------------
@@ -194,27 +199,27 @@ namespace StepOverModel
         // Subscribe to events
         private void SubscribeToEvents()
         {
-            driverInterface.ButtonEvent += (object sender, ButtonEventArgs e) =>
-            {
-                switch (e.ButtonKind)
-                {
-                    case ButtonKind.Ok:
-                        break;
-                    case ButtonKind.Cancel:
-                        pb_signature.Image = null;
-                        bt_saveImage.Enabled = false;
-                        break;
-                    case ButtonKind.Repeat:
-                        bt_StartSignature_Click(sender, null);
-                        break;
-                }
-            };
-
             // Event for signature image changed
             driverInterface.SignImgChanged += (object sender, EventArgs e) =>
             {
                 pb_signature.Invoke((MethodInvoker)(() => UpdateSignatureImage()));
             };
+        }
+
+        // Initialize WMI event watchers
+        private void InitializeWmiWatchers()
+        {
+            // WMI query to monitor for device arrival events
+            string arrivalQuery = "SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 2";
+            arrivalWatcher = new ManagementEventWatcher(arrivalQuery);
+            arrivalWatcher.EventArrived += ArrivalEventArrived;
+            arrivalWatcher.Start();
+
+            // WMI query to monitor for device removal events
+            string removalQuery = "SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 3";
+            removalWatcher = new ManagementEventWatcher(removalQuery);
+            removalWatcher.EventArrived += RemovalEventArrived;
+            removalWatcher.Start();
         }
 
         // ------------------------------Methods Called------------------------------
@@ -223,7 +228,7 @@ namespace StepOverModel
         private void ShowErrorMessage(Error error)
         {
             if (error != Error.SUCCESS)
-                System.Windows.Forms.MessageBox.Show("Error: \n" + error.ToString());
+                MessageBox.Show("Error: \n" + error.ToString());
         }
 
         // Convert PDF to TIFF
@@ -315,6 +320,119 @@ namespace StepOverModel
             return destSource; // Old path + _Signed
         }
 
+        // For the usb arrival and removal events
+        private void ArrivalEventArrived(object sender, EventArgs e)
+        {
+            // USB device was plugged in
+            SearchDevice(deviceArrival);
+        }
+
+        private void RemovalEventArrived(object sender, EventArgs e)
+        {
+            // USB device was removed
+            SearchDevice(deviceArrival);
+        }
+
+        // Search the device
+        private void SearchDevice(bool plugged)
+        {
+            string[]? deviceNames;
+
+            int guiOption = 0;
+
+            // Filter the device
+            FilterDeviceKind DeviceFilter = FilterDeviceKind.dkStepOver;
+            driverInterface.DeviceSearch(out deviceNames, guiOption, DeviceFilter);
+            if (deviceNames.Length == 0)
+            {
+                // Show the message
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => lb_DeviceInfo.Text = ("No device found!" +
+                                                                       "\nSignature options is disable.")));
+                }
+                else
+                {
+                    lb_DeviceInfo.Text = ("No device found!" +
+                                          "\nSignature options is disable.");
+                }
+
+                // Disable the buttons
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => gb_sign.Enabled = false));
+                    this.Invoke(new Action(() => bt_StopSignature.Enabled = false));
+                    this.Invoke(new Action(() => bt_saveImage.Enabled = false));
+                    this.Invoke(new Action(() => bt_lineColor.Enabled = false));
+                    
+                    if (bt_signPDFImg.Enabled == true)
+                    {
+                        this.Invoke(new Action(() => bt_signPDF.Enabled = false));
+                    }
+                }
+                else
+                {
+                    gb_sign.Enabled = false;
+                    bt_StopSignature.Enabled = false;
+                    bt_saveImage.Enabled = false;
+                    bt_lineColor.Enabled = false;
+
+                    if (bt_signPDFImg.Enabled == true)
+                    {
+                        bt_signPDF.Enabled = false;
+                    }
+                }
+                deviceArrival = false;
+            }
+            else if (deviceArrival != true)
+            {
+                // Set the device
+                Error r = driverInterface.SetDevice(deviceNames[0]);
+                if (r == Error.SUCCESS)
+                {
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => gb_sign.Enabled = true));
+                        this.Invoke(new Action(() => bt_StopSignature.Enabled = false));
+                        this.Invoke(new Action(() => bt_saveImage.Enabled = false));
+                        this.Invoke(new Action(() => bt_lineColor.Enabled = true));
+
+                        if (bt_signPDFImg.Enabled == true)
+                        {
+                            this.Invoke(new Action(() => bt_signPDF.Enabled = true));
+                        }
+                    }
+                    else
+                    {
+                        gb_sign.Enabled = true;
+                        bt_StopSignature.Enabled = false;
+                        bt_saveImage.Enabled = false;
+                        bt_lineColor.Enabled = true;
+
+                        if (bt_signPDFImg.Enabled == true)
+                        {
+                            bt_signPDF.Enabled = true;
+                        }
+                    }
+                    deviceArrival = true;
+                }
+
+                // Load the license
+                r = driverInterface.LoadLicense("License/FingerTech.xml");
+                ShowErrorMessage(r);
+
+                // Show the device info
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => lb_DeviceInfo.Text = ("Device Info: " + deviceNames[0])));
+                }
+                else
+                {
+                    lb_DeviceInfo.Text = ("Device Info: " + deviceNames[0]);
+                }
+            }
+        }
+
         // ------------------------------Methods For Singing--------------------------
 
         // Button to start signature
@@ -359,7 +477,7 @@ namespace StepOverModel
             // Check if have signature image
             if (pb_signature.Image == null)
             {
-                System.Windows.Forms.MessageBox.Show("No signature image to save");
+                MessageBox.Show("No signature image to save");
                 return;
             }
             // Show save file dialog
@@ -376,7 +494,7 @@ namespace StepOverModel
                 return;
 
             // Show a message box with the save options
-            DialogResult result = System.Windows.Forms.MessageBox.Show("Save without background?", "Save", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Save without background?", "Save", MessageBoxButtons.YesNo);
 
             // Check the result
             if (result == DialogResult.Yes)
@@ -404,7 +522,7 @@ namespace StepOverModel
         // Button to modify the color of the signature line
         private void bt_lineColor_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
+            ColorDialog colorDialog = new ColorDialog();
             colorDialog.Color = imageOptions.LineColor;
             colorDialog.ShowDialog();
             imageOptions.LineColor = colorDialog.Color;
@@ -464,7 +582,7 @@ namespace StepOverModel
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show("Error: \n" + ex.Message);
+                    MessageBox.Show("Error: \n" + ex.Message);
 
                     // Clear the picture box and disable the buttons
                     pb_pdfView.Image = null;
@@ -552,7 +670,7 @@ namespace StepOverModel
             if (pb_signature.Image != null)
             {
                 // Check if user like to use the current signature
-                DialogResult imageUse = System.Windows.Forms.MessageBox.Show("Use current signature?", "Signature", MessageBoxButtons.YesNo);
+                DialogResult imageUse = MessageBox.Show("Use current signature?", "Signature", MessageBoxButtons.YesNo);
 
                 if (imageUse == DialogResult.Yes)
                 {
@@ -613,7 +731,7 @@ namespace StepOverModel
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("No image to sign");
+                MessageBox.Show("No image to sign");
             }
         }
 
@@ -640,15 +758,13 @@ namespace StepOverModel
                 // Get the device properties
                 IDeviceProperties deviceProperties = driverInterface.DeviceProperties;
 
-                // Set the device signature image
-                Behaviour behaviour = Behaviour.GetDefault().UseRectangle(Sig.SignAPI.Rectangle.FromBottomLeft(0, 0, deviceProperties.Hardware.DisplayWidth, deviceProperties.Hardware.DisplayHeight)); // Set the SigImg size in device
-
                 // Set the coordinate of the signature
                 FieldPosition fieldPosition = new FieldPosition((int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text)),
                                                                 int.Parse(tb_x.Text),
                                                                 (int.Parse(tb_a4y.Text) - int.Parse(tb_y.Text) - int.Parse(tb_sigHeight.Text)),
                                                                 int.Parse(tb_x.Text) + int.Parse(tb_sigWidth.Text));
 
+                // Get the page number
                 fieldPosition.PageNumber = int.Parse(tb_page.Text) - 1;
 
                 // Show the signInfo form
@@ -662,13 +778,14 @@ namespace StepOverModel
                     return;
                 }
 
-                behaviour = signInfo.behaviour;
+                // Set the device signature image
+                signInfo.behaviour.UseRectangle(Sig.SignAPI.Rectangle.FromBottomLeft(0, 0, deviceProperties.Hardware.DisplayWidth, deviceProperties.Hardware.DisplayHeight)); // Set the SigImg size in device
 
                 // Set the device end sign in 3 seconds
                 driverInterface.IsSignFinishedEnabled = true;
 
                 // Sign the PDF file
-                _ = await theSigningObject.SignAsync(signInfo.signatureInfo.Name, fieldPosition, signInfo.signatureInfo, behaviour);
+                _ = await theSigningObject.SignAsync(signInfo.signatureInfo.Name, fieldPosition, signInfo.signatureInfo, signInfo.behaviour);
 
                 // Download the signed PDF file
                 byte[] signedDocument = await theSigningObject.Client.DownloadPdfAsync();

@@ -23,7 +23,6 @@ C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x64\native\libSkiaSharp.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x86\native\libSkiaSharp.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.csproj.AssemblyReference.cache
-C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.Form1.resources
 C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.csproj.GenerateResource.cache
 C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.AssemblyInfoInputs.cache
@@ -154,3 +153,7 @@ C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\it\SigSig
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\nl\SigSignAPI.Translation.resources.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\pl\SigSignAPI.Translation.resources.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.SignInfo.resources
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\System.CodeDom.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\System.Management.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Management.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.Form1.resources

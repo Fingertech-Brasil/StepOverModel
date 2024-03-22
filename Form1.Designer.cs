@@ -68,12 +68,15 @@ namespace StepOverModel
             lb_sigWidth = new Label();
             tb_sigWidth = new TextBox();
             pb_signPrev = new PictureBox();
+            gb_infoDevice = new GroupBox();
+            lb_DeviceInfo = new Label();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_pdfView).BeginInit();
             gb_signatureOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signPrev).BeginInit();
+            gb_infoDevice.SuspendLayout();
             SuspendLayout();
             // 
             // bt_StartSignature
@@ -104,6 +107,7 @@ namespace StepOverModel
             // 
             // bt_lineColor
             // 
+            bt_lineColor.Enabled = false;
             bt_lineColor.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             bt_lineColor.Location = new Point(36, 141);
             bt_lineColor.Name = "bt_lineColor";
@@ -516,11 +520,32 @@ namespace StepOverModel
             pb_signPrev.TabStop = false;
             pb_signPrev.Visible = false;
             // 
+            // gb_infoDevice
+            // 
+            gb_infoDevice.Controls.Add(lb_DeviceInfo);
+            gb_infoDevice.Location = new Point(12, 510);
+            gb_infoDevice.Name = "gb_infoDevice";
+            gb_infoDevice.Size = new Size(178, 73);
+            gb_infoDevice.TabIndex = 15;
+            gb_infoDevice.TabStop = false;
+            gb_infoDevice.Text = "Info Device";
+            // 
+            // lb_DeviceInfo
+            // 
+            lb_DeviceInfo.AutoSize = true;
+            lb_DeviceInfo.Location = new Point(6, 18);
+            lb_DeviceInfo.MaximumSize = new Size(170, 60);
+            lb_DeviceInfo.Name = "lb_DeviceInfo";
+            lb_DeviceInfo.Size = new Size(61, 15);
+            lb_DeviceInfo.TabIndex = 0;
+            lb_DeviceInfo.Text = "No Device";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1055, 595);
+            Controls.Add(gb_infoDevice);
             Controls.Add(pb_signPrev);
             Controls.Add(gb_signatureOptions);
             Controls.Add(pb_pdfView);
@@ -541,6 +566,8 @@ namespace StepOverModel
             gb_signatureOptions.ResumeLayout(false);
             gb_signatureOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signPrev).EndInit();
+            gb_infoDevice.ResumeLayout(false);
+            gb_infoDevice.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -587,5 +614,7 @@ namespace StepOverModel
         private Button bt_signPDF;
         private Button bt_setCert;
         private TextBox tb_passCert;
+        private GroupBox gb_infoDevice;
+        private Label lb_DeviceInfo;
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "48cJXnth/Z39/EghcXEHz5sySEvzD37XEuXOVgJkdZRh8qnork+Xq5Wwh7aqT8Q+lZ3wKeOib7T43iDkHAL5iw==",
+  "dgSpecHash": "iAXTGP/nQACeMylmWMMlg0NXfsYxoXFd67xFfh0t9u6i5VJFW9FpeIXxZt4dWbRHGOe2KCZXWwnmGd4CNy12rw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\StepOverModel.csproj",
   "expectedPackageFiles": [
@@ -74,6 +74,7 @@
     "C:\\Users\\Finger\\.nuget\\packages\\strongnamer\\0.2.5\\strongnamer.0.2.5.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\Finger\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
@@ -95,6 +96,7 @@
     "C:\\Users\\Finger\\.nuget\\packages\\system.linq\\4.3.0\\system.linq.4.3.0.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.linq.expressions\\4.3.0\\system.linq.expressions.4.3.0.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.linq.queryable\\4.3.0\\system.linq.queryable.4.3.0.nupkg.sha512",
+    "C:\\Users\\Finger\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
     "C:\\Users\\Finger\\.nuget\\packages\\system.net.primitives\\4.3.0\\system.net.primitives.4.3.0.nupkg.sha512",
