@@ -47,8 +47,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-01T13:38:57.058Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -74,8 +73,7 @@
               "RelativeToolTip": "SignInfo.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-21T14:20:41.913Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-21T14:20:41.913Z"
             },
             {
               "$type": "Document",
@@ -87,8 +85,7 @@
               "RelativeToolTip": ".gitignore",
               "ViewState": "AQIAALkAAAAAAAAAAAAAAOMAAAAAAAAA",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
-              "WhenOpened": "2024-03-21T13:19:58.783Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-21T13:19:58.783Z"
             },
             {
               "$type": "Document",
@@ -98,7 +95,7 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Finger\\Desktop\\Project\\StepOverModel\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAJgBAAAAAAAAAAAgwI4BAAAnAAAA",
+              "ViewState": "AQIAAMcBAAAAAAAAAAAAAD4AAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-29T18:22:28.348Z",
               "EditorCaption": ""

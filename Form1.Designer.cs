@@ -69,8 +69,9 @@ namespace StepOverModel
             tb_sigWidth = new TextBox();
             pb_signPrev = new PictureBox();
             gb_infoDevice = new GroupBox();
-            lb_deviceArrival = new Label();
+            lb_license = new Label();
             lb_DeviceInfo = new Label();
+            bt_license = new Button();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
             gb_PDF.SuspendLayout();
@@ -523,7 +524,7 @@ namespace StepOverModel
             // 
             // gb_infoDevice
             // 
-            gb_infoDevice.Controls.Add(lb_deviceArrival);
+            gb_infoDevice.Controls.Add(lb_license);
             gb_infoDevice.Controls.Add(lb_DeviceInfo);
             gb_infoDevice.Location = new Point(12, 510);
             gb_infoDevice.Name = "gb_infoDevice";
@@ -532,15 +533,15 @@ namespace StepOverModel
             gb_infoDevice.TabStop = false;
             gb_infoDevice.Text = "Info Device";
             // 
-            // lb_deviceArrival
+            // lb_license
             // 
-            lb_deviceArrival.AutoSize = true;
-            lb_deviceArrival.ForeColor = Color.FromArgb(192, 0, 0);
-            lb_deviceArrival.Location = new Point(165, 61);
-            lb_deviceArrival.Name = "lb_deviceArrival";
-            lb_deviceArrival.Size = new Size(19, 15);
-            lb_deviceArrival.TabIndex = 16;
-            lb_deviceArrival.Text = "❌";
+            lb_license.AutoSize = true;
+            lb_license.ForeColor = Color.FromArgb(192, 0, 0);
+            lb_license.Location = new Point(165, 61);
+            lb_license.Name = "lb_license";
+            lb_license.Size = new Size(14, 15);
+            lb_license.TabIndex = 16;
+            lb_license.Text = "X";
             // 
             // lb_DeviceInfo
             // 
@@ -552,11 +553,24 @@ namespace StepOverModel
             lb_DeviceInfo.TabIndex = 0;
             lb_DeviceInfo.Text = "No Device";
             // 
+            // bt_license
+            // 
+            bt_license.FlatStyle = FlatStyle.Popup;
+            bt_license.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point);
+            bt_license.Location = new Point(105, 570);
+            bt_license.Name = "bt_license";
+            bt_license.Size = new Size(71, 19);
+            bt_license.TabIndex = 16;
+            bt_license.Text = "Set License";
+            bt_license.UseVisualStyleBackColor = true;
+            bt_license.Click += bt_license_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1055, 595);
+            Controls.Add(bt_license);
             Controls.Add(gb_infoDevice);
             Controls.Add(pb_signPrev);
             Controls.Add(gb_signatureOptions);
@@ -628,6 +642,7 @@ namespace StepOverModel
         private TextBox tb_passCert;
         private GroupBox gb_infoDevice;
         private Label lb_DeviceInfo;
-        private Label lb_deviceArrival;
+        private Label lb_license;
+        private Button bt_license;
     }
 }

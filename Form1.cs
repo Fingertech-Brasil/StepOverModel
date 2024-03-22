@@ -31,6 +31,9 @@ namespace StepOverModel
         // Origin PDF file path
         string source;
 
+        // License path
+        string licensePath = "License/FingerTech.xml";
+
         // Create objects of the DeviceAPI
         public static IDriver driverInterface = new Driver();
         public static IReadSignatureImageOptions imageOptions = driverInterface.ReadSignatureImageOptions;
@@ -47,7 +50,7 @@ namespace StepOverModel
         // WMI query to monitor for device removal events
         private ManagementEventWatcher removalWatcher;
         // Device is plugged
-        private bool deviceArrival = false;
+        private bool devicePlugged = false;
 
         // ------------------------------Methods For Forms---------------------------
 
@@ -56,8 +59,11 @@ namespace StepOverModel
         {
             InitializeComponent();
 
+            // Check if the cache file exists
+            LoadConfig();
+
             // Set the device
-            SearchDevice(deviceArrival);
+            SearchDevice(devicePlugged);
 
             // Set the value of the scroll bar x
             sb_x.Value = int.Parse(tb_x.Text);
@@ -71,40 +77,6 @@ namespace StepOverModel
 
             driverInterface.IsSignFinishedEnabled = false;
 
-            // Check if the cache file exists
-            if(File.Exists("cache.txt"))// Get saved certificate path and password
-            {
-                // Open the file to read from.
-                using (StreamReader sr = File.OpenText("cache.txt"))
-                {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
-                    {
-                        if (s.Contains(".pfx"))
-                        {
-                            certPath = s;
-                        }
-                        else
-                        {
-                            // Convert the encrypted data to a byte array
-                            byte[] encryptedPasswordBytes = Convert.FromBase64String(s);
-
-                            // Define the entropy used during encryption (if any).
-                            byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 }; // This should match the entropy used during encryption.
-
-                            // Decrypt the byte array.
-                            byte[] decryptedPasswordBytes = ProtectedData.Unprotect(encryptedPasswordBytes, entropy, DataProtectionScope.CurrentUser);
-
-                            // Convert the decrypted byte array back to a string.
-                            string decryptedPassword = Encoding.UTF8.GetString(decryptedPasswordBytes);
-
-                            // Set the value of the text box passCert
-                            tb_passCert.Text = decryptedPassword;
-                        }
-                    }
-                }
-            }
-
             // Initialize the WMI event watchers
             InitializeWmiWatchers();
 
@@ -115,65 +87,8 @@ namespace StepOverModel
         // Form is closed
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Save the certificate path and password
-            // if certPath is empty, return
-            if (!string.IsNullOrEmpty(certPath))
-            {
-                // Create a file to write to.
-                string filepath = "cache.txt";
-
-                // Create a byte array for additional entropy when using Protect method
-                byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 };
-
-                // Encrypt the password
-                byte[] encryptedPassword = ProtectedData.Protect(Encoding.UTF8.GetBytes(tb_passCert.Text), entropy, DataProtectionScope.CurrentUser);
-
-                // Convert the encrypted data to a string
-                string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
-
-                // Combine the certPath and passCert
-                string combinedStrings = certPath + Environment.NewLine + encryptedPasswordString;
-
-                // Verify if the file exists
-                if (!File.Exists(filepath))
-                {
-                    // Create a file to write to.
-                    using (StreamWriter sw = File.CreateText(filepath))
-                    {
-                        sw.WriteLine(combinedStrings);
-                    }
-                }
-                else
-                {
-                    // Open the file to read from.
-                    using (StreamReader sr = File.OpenText(filepath))
-                    {
-                        // Verify if the certPath and passCert already modified
-                        bool change = false;
-
-                        string s = "";
-                        // Count the lines
-                        int line = 0;
-
-                        // Read the file
-                        while ((s = sr.ReadLine()) != null)
-                        {
-                            if (s != tb_passCert.Text && s.Contains(".pfx") || s != certPath && line == 1)
-                            {
-                                change = true;
-                            }
-                            line++;
-                        }
-                        sr.Close();
-
-                        // If the certPath and passCert already modified
-                        if (change)
-                        {
-                            File.WriteAllText(filepath, combinedStrings);
-                        }
-                    }
-                }
-            }
+            // Save the configuration
+            SaveConfig();
 
             // Dispose the image
             if (pb_pdfView.Image != null)
@@ -320,19 +235,132 @@ namespace StepOverModel
             return destSource; // Old path + _Signed
         }
 
+        // ---------Confg Save and Load----------
+
+        // Save the configuration
+        private void SaveConfig()
+        {
+            // if certPath is empty, return
+            if (!string.IsNullOrEmpty(certPath) || !string.IsNullOrEmpty(licensePath) && licensePath != "License/FingerTech.xml")
+            {
+                // Create a file to write to.
+                string filepath = "cache.txt";
+
+                // Create a byte array for additional entropy when using Protect method
+                byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 };
+
+                // Encrypt the password
+                byte[] encryptedPassword = ProtectedData.Protect(Encoding.UTF8.GetBytes(tb_passCert.Text), entropy, DataProtectionScope.CurrentUser);
+
+                // Convert the encrypted data to a string
+                string encryptedPasswordString = Convert.ToBase64String(encryptedPassword);
+
+                if (tb_passCert.Text == "")
+                {
+                    encryptedPasswordString = "";
+                }
+
+                // Combine the certPath and passCert
+                string combinedStrings = certPath + Environment.NewLine + encryptedPasswordString + Environment.NewLine + licensePath;
+
+                // Verify if the file exists
+                if (!File.Exists(filepath))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(filepath))
+                    {
+                        sw.WriteLine(combinedStrings);
+                    }
+                }
+                else
+                {
+                    // Open the file to read from.
+                    using (StreamReader sr = File.OpenText(filepath))
+                    {
+                        // Verify if the certPath and passCert already modified
+                        bool change = false;
+
+                        string s = "";
+                        // Count the lines
+                        int line = 0;
+
+                        // Read the file
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            if (s != tb_passCert.Text && s.Contains(".pfx") || s != certPath && line == 1 || s != licensePath && s.Contains(".xml"))
+                            {
+                                change = true;
+                                break;
+                            }
+                            line++;
+                        }
+                        sr.Close();
+
+                        // If the certPath and passCert already modified
+                        if (change)
+                        {
+                            File.WriteAllText(filepath, combinedStrings);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Load the configuration
+        private void LoadConfig()
+        {
+            // Verify if the file exists
+            if (File.Exists("cache.txt"))
+            {
+                // Open the file to read from.
+                using (StreamReader sr = File.OpenText("cache.txt"))
+                {
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        if (s.Contains(".pfx"))
+                        {
+                            certPath = s;
+                        }
+                        else if (s.Contains(".xml"))
+                        {
+                            licensePath = s;
+                        }
+                        else if (s != "" && s != certPath && s != licensePath)
+                        {
+                            // Convert the encrypted data to a byte array
+                            byte[] encryptedPasswordBytes = Convert.FromBase64String(s);
+
+                            // Define the entropy used during encryption (if any).
+                            byte[] entropy = { 1, 2, 3, 4, 1, 2, 3, 4 }; // This should match the entropy used during encryption.
+
+                            // Decrypt the byte array.
+                            byte[] decryptedPasswordBytes = ProtectedData.Unprotect(encryptedPasswordBytes, entropy, DataProtectionScope.CurrentUser);
+
+                            // Convert the decrypted byte array back to a string.
+                            string decryptedPassword = Encoding.UTF8.GetString(decryptedPasswordBytes);
+
+                            // Set the value of the text box passCert
+                            tb_passCert.Text = decryptedPassword;
+                        }
+                    }
+                }
+            }
+        }
+
         // ----------Usb----------
 
         // For the usb arrival and removal events
         private void ArrivalEventArrived(object sender, EventArgs e)
         {
             // USB device was plugged in
-            SearchDevice(deviceArrival);
+            SearchDevice(devicePlugged);
         }
 
         private void RemovalEventArrived(object sender, EventArgs e)
         {
             // USB device was removed
-            SearchDevice(deviceArrival);
+            SearchDevice(devicePlugged);
         }
 
         // Search the device
@@ -366,12 +394,15 @@ namespace StepOverModel
                     this.Invoke(new Action(() => bt_StopSignature.Enabled = false));
                     this.Invoke(new Action(() => bt_saveImage.Enabled = false));
                     this.Invoke(new Action(() => bt_lineColor.Enabled = false));
-                    this.Invoke(new Action(() => lb_deviceArrival.Text = Char.ConvertFromUtf32(0x274C)));
-                    this.Invoke(new Action(() => lb_deviceArrival.ForeColor = Color.Red));
-                    
+                    this.Invoke(new Action(() => lb_license.Text = ""));
+
                     if (bt_signPDFImg.Enabled)
                     {
                         this.Invoke(new Action(() => bt_signPDF.Enabled = false));
+                    }
+                    if (bt_license.Visible)
+                    {
+                        this.Invoke(new Action(() => bt_license.Visible = false));
                     }
                 }
                 else
@@ -380,17 +411,21 @@ namespace StepOverModel
                     bt_StopSignature.Enabled = false;
                     bt_saveImage.Enabled = false;
                     bt_lineColor.Enabled = false;
-                    lb_deviceArrival.Text = Char.ConvertFromUtf32(0x274C);
-                    lb_deviceArrival.ForeColor = Color.Red;
+                    lb_license.Text = "";
+                    lb_license.ForeColor = Color.Red;
 
                     if (bt_signPDFImg.Enabled)
                     {
                         bt_signPDF.Enabled = false;
                     }
+                    if (bt_license.Visible)
+                    {
+                        bt_license.Visible = false;
+                    }
                 }
-                deviceArrival = false;
+                devicePlugged = false;
             }
-            else if (!deviceArrival)
+            else if (!devicePlugged)
             {
                 // Set the device
                 Error r = driverInterface.SetDevice(deviceNames[0]);
@@ -403,8 +438,6 @@ namespace StepOverModel
                         this.Invoke(new Action(() => bt_StopSignature.Enabled = false));
                         this.Invoke(new Action(() => bt_saveImage.Enabled = false));
                         this.Invoke(new Action(() => bt_lineColor.Enabled = true));
-                        this.Invoke(new Action(() => lb_deviceArrival.Text = Char.ConvertFromUtf32(0x2714) + Char.ConvertFromUtf32(0xFE0F)));
-                        this.Invoke(new Action(() => lb_deviceArrival.ForeColor = Color.Green));
 
                         if (bt_signPDFImg.Enabled)
                         {
@@ -417,21 +450,48 @@ namespace StepOverModel
                         bt_StopSignature.Enabled = false;
                         bt_saveImage.Enabled = false;
                         bt_lineColor.Enabled = true;
-                        lb_deviceArrival.Text = Char.ConvertFromUtf32(0x2714) + Char.ConvertFromUtf32(0xFE0F);
-                        lb_deviceArrival.ForeColor = Color.Green;
 
                         if (bt_signPDFImg.Enabled)
                         {
                             bt_signPDF.Enabled = true;
                         }
                     }
-                    deviceArrival = true;
-                    
+                    devicePlugged = true;
+
                 }
 
                 // Load the license
-                r = driverInterface.LoadLicense("License/FingerTech.xml");
-                ShowErrorMessage(r);
+                r = driverInterface.LoadLicense(licensePath);
+                if (r != Error.SUCCESS)
+                {
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => lb_license.Text = Char.ConvertFromUtf32(0x274C)));
+                        this.Invoke(new Action(() => lb_license.ForeColor = Color.Red));
+                        this.Invoke(new Action(() => bt_license.Visible = true));
+                    }
+                    else
+                    {
+                        lb_license.Text = Char.ConvertFromUtf32(0x274C);
+                        lb_license.ForeColor = Color.Red;
+                        bt_license.Visible = true;
+                    }
+                }
+                else
+                {
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => lb_license.Text = Char.ConvertFromUtf32(0x2714) + Char.ConvertFromUtf32(0xFE0F)));
+                        this.Invoke(new Action(() => lb_license.ForeColor = Color.Green));
+                        this.Invoke(new Action(() => bt_license.Visible = false));
+                    }
+                    else
+                    {
+                        lb_license.Text = Char.ConvertFromUtf32(0x2714) + Char.ConvertFromUtf32(0xFE0F);
+                        lb_license.ForeColor = Color.Green;
+                        bt_license.Visible = false;
+                    }
+                }
 
                 // Show the device info
                 if (this.InvokeRequired)
@@ -844,6 +904,32 @@ namespace StepOverModel
             }
         }
 
+        // ------------------------------Methods For License------------------------------
+
+        private void bt_license_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "XML Files|*.xml";
+            openFileDialog.Title = "Select a License File";
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName != "")
+            {
+                Error r = driverInterface.LoadLicense(openFileDialog.FileName);
+                if (r != Error.SUCCESS)
+                {
+                    ShowErrorMessage(r);
+                }
+                else
+                {
+                    licensePath = openFileDialog.FileName;
+                    bt_license.Visible = false;
+                    lb_license.Text = Char.ConvertFromUtf32(0x2714) + Char.ConvertFromUtf32(0xFE0F);
+                    lb_license.ForeColor = Color.Green;
+                }
+            }
+        }
+
         // ------------------------------Methods For PDF Page----------------------
 
         // Limit the value of the text box page
@@ -1031,6 +1117,5 @@ namespace StepOverModel
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
-
     }
 }
