@@ -320,6 +320,8 @@ namespace StepOverModel
             return destSource; // Old path + _Signed
         }
 
+        // ----------Usb----------
+
         // For the usb arrival and removal events
         private void ArrivalEventArrived(object sender, EventArgs e)
         {
@@ -364,8 +366,10 @@ namespace StepOverModel
                     this.Invoke(new Action(() => bt_StopSignature.Enabled = false));
                     this.Invoke(new Action(() => bt_saveImage.Enabled = false));
                     this.Invoke(new Action(() => bt_lineColor.Enabled = false));
+                    this.Invoke(new Action(() => lb_deviceArrival.Text = Char.ConvertFromUtf32(0x274C)));
+                    this.Invoke(new Action(() => lb_deviceArrival.ForeColor = Color.Red));
                     
-                    if (bt_signPDFImg.Enabled == true)
+                    if (bt_signPDFImg.Enabled)
                     {
                         this.Invoke(new Action(() => bt_signPDF.Enabled = false));
                     }
@@ -376,28 +380,33 @@ namespace StepOverModel
                     bt_StopSignature.Enabled = false;
                     bt_saveImage.Enabled = false;
                     bt_lineColor.Enabled = false;
+                    lb_deviceArrival.Text = Char.ConvertFromUtf32(0x274C);
+                    lb_deviceArrival.ForeColor = Color.Red;
 
-                    if (bt_signPDFImg.Enabled == true)
+                    if (bt_signPDFImg.Enabled)
                     {
                         bt_signPDF.Enabled = false;
                     }
                 }
                 deviceArrival = false;
             }
-            else if (deviceArrival != true)
+            else if (!deviceArrival)
             {
                 // Set the device
                 Error r = driverInterface.SetDevice(deviceNames[0]);
                 if (r == Error.SUCCESS)
                 {
+                    // Activate buttons
                     if (this.InvokeRequired)
                     {
                         this.Invoke(new Action(() => gb_sign.Enabled = true));
                         this.Invoke(new Action(() => bt_StopSignature.Enabled = false));
                         this.Invoke(new Action(() => bt_saveImage.Enabled = false));
                         this.Invoke(new Action(() => bt_lineColor.Enabled = true));
+                        this.Invoke(new Action(() => lb_deviceArrival.Text = Char.ConvertFromUtf32(0x2714) + Char.ConvertFromUtf32(0xFE0F)));
+                        this.Invoke(new Action(() => lb_deviceArrival.ForeColor = Color.Green));
 
-                        if (bt_signPDFImg.Enabled == true)
+                        if (bt_signPDFImg.Enabled)
                         {
                             this.Invoke(new Action(() => bt_signPDF.Enabled = true));
                         }
@@ -408,13 +417,16 @@ namespace StepOverModel
                         bt_StopSignature.Enabled = false;
                         bt_saveImage.Enabled = false;
                         bt_lineColor.Enabled = true;
+                        lb_deviceArrival.Text = Char.ConvertFromUtf32(0x2714) + Char.ConvertFromUtf32(0xFE0F);
+                        lb_deviceArrival.ForeColor = Color.Green;
 
-                        if (bt_signPDFImg.Enabled == true)
+                        if (bt_signPDFImg.Enabled)
                         {
                             bt_signPDF.Enabled = true;
                         }
                     }
                     deviceArrival = true;
+                    
                 }
 
                 // Load the license

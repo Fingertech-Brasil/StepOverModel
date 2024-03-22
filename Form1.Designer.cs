@@ -69,6 +69,7 @@ namespace StepOverModel
             tb_sigWidth = new TextBox();
             pb_signPrev = new PictureBox();
             gb_infoDevice = new GroupBox();
+            lb_deviceArrival = new Label();
             lb_DeviceInfo = new Label();
             gb_sign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_signature).BeginInit();
@@ -522,6 +523,7 @@ namespace StepOverModel
             // 
             // gb_infoDevice
             // 
+            gb_infoDevice.Controls.Add(lb_deviceArrival);
             gb_infoDevice.Controls.Add(lb_DeviceInfo);
             gb_infoDevice.Location = new Point(12, 510);
             gb_infoDevice.Name = "gb_infoDevice";
@@ -529,6 +531,16 @@ namespace StepOverModel
             gb_infoDevice.TabIndex = 15;
             gb_infoDevice.TabStop = false;
             gb_infoDevice.Text = "Info Device";
+            // 
+            // lb_deviceArrival
+            // 
+            lb_deviceArrival.AutoSize = true;
+            lb_deviceArrival.ForeColor = Color.FromArgb(192, 0, 0);
+            lb_deviceArrival.Location = new Point(165, 61);
+            lb_deviceArrival.Name = "lb_deviceArrival";
+            lb_deviceArrival.Size = new Size(19, 15);
+            lb_deviceArrival.TabIndex = 16;
+            lb_deviceArrival.Text = "❌";
             // 
             // lb_DeviceInfo
             // 
@@ -616,5 +628,6 @@ namespace StepOverModel
         private TextBox tb_passCert;
         private GroupBox gb_infoDevice;
         private Label lb_DeviceInfo;
+        private Label lb_deviceArrival;
     }
 }
