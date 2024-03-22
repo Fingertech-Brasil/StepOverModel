@@ -147,9 +147,9 @@ namespace StepOverModel
             pb_signature.BackColor = SystemColors.ControlLight;
             pb_signature.BorderStyle = BorderStyle.FixedSingle;
             pb_signature.Cursor = Cursors.Cross;
-            pb_signature.Location = new Point(12, 12);
+            pb_signature.Location = new Point(70, 62);
             pb_signature.Name = "pb_signature";
-            pb_signature.Size = new Size(600, 300);
+            pb_signature.Size = new Size(500, 200);
             pb_signature.TabIndex = 2;
             pb_signature.TabStop = false;
             // 

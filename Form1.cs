@@ -520,24 +520,10 @@ namespace StepOverModel
         // Button to stop signature
         private void bt_StopSignature_Click(object sender, EventArgs e)
         {
-            // Set value of the signature hash
-            Random random = new Random();
-            byte[] hash = new byte[32];
-            random.NextBytes(hash);
-            // Show de document hash in the LCD
-            Error r = driverInterface.SetPreliminaryDocumentHash(hash); // API for   signing 
-            if (r != Error.SUCCESS)
-            {
-                // do nothing
-            }
-            else
-                r = driverInterface.SetFinalDocumentHash(hash, false); // API for  signing 
-
-            if (r != Error.SUCCESS)
-                ShowErrorMessage(r);
-
             driverInterface.StopSignatureCapture();
-            driverInterface.ClearLcd();
+
+            // Clear the device screen
+            driverInterface.UploadPromoScreen("Custom.png", 1, DisplayOrientation.DEG_0, 10);
 
             // Disable the button
             bt_StopSignature.Enabled = false;
@@ -886,6 +872,11 @@ namespace StepOverModel
                 source = "";
             }
 
+            // Show the message
+            MessageBox.Show("PDF file signed and saved in: \n" + destSource);
+
+            // Clear the device screen
+            driverInterface.UploadPromoScreen("Custom.png", 1, DisplayOrientation.DEG_0, 10);
         }
 
         // ------------------------------Methods For Certificate------------------------------
