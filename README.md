@@ -2,7 +2,7 @@
 Um modelo do uso das funções dos SDKs da StepOver (SigDeviceAPI, SigSignAPI) para assinatura de documentos PDF.
 
 ## Compilação
-1. Deve ser adicionado o NuGet Source da StepOver para que as dependências possam sejam baixadas.
+1. Deve ser adicionado o NuGet Source da StepOver para que as dependências possam aer baixadas.
 ```bash
 dotnet nuget add source https://nuget.stepover.com/nuget/stepover/ --name StepOver
 ```
