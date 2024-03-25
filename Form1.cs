@@ -35,14 +35,14 @@ namespace StepOverModel
         string licensePath = "License/FingerTech.xml";
 
         // Create objects of the DeviceAPI
-        public static IDriver driverInterface = new Driver();
-        public static IReadSignatureImageOptions imageOptions = driverInterface.ReadSignatureImageOptions;
+        private static IDriver driverInterface = new Driver();
+        private static IReadSignatureImageOptions imageOptions = driverInterface.ReadSignatureImageOptions;
 
         // Create objects of the SignAPI
-        ISigning theSigningObject = null;
+        private ISigning theSigningObject = null;
 
         // Create objects of the SetCertificate and create certificate path
-        ISetCertificate setCertificate = driverInterface.SetCertificate;
+        private ISetCertificate setCertificate = driverInterface.SetCertificate;
         string certPath;
 
         // WMI query to monitor for device arrival events
