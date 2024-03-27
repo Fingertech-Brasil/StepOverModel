@@ -59,13 +59,6 @@ C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\Microsoft
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\BouncyCastle.Cryptography.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\itext.bouncy-castle-adapter.dll
-C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\GemBox.Pdf.dll
-C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\HarfBuzzSharp.dll
-C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\Pkcs11Interop.dll
-C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\osx\native\libHarfBuzzSharp.dylib
-C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-arm64\native\libHarfBuzzSharp.dll
-C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x64\native\libHarfBuzzSharp.dll
-C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x86\native\libHarfBuzzSharp.dll
 C:\Area de Trabalho\Project\StepOverModel\bin\Debug\net6.0-windows\StepOverModel.exe
 C:\Area de Trabalho\Project\StepOverModel\bin\Debug\net6.0-windows\StepOverModel.deps.json
 C:\Area de Trabalho\Project\StepOverModel\bin\Debug\net6.0-windows\StepOverModel.runtimeconfig.json
@@ -157,3 +150,20 @@ C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\System.Co
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\System.Management.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Management.dll
 C:\Users\Finger\Desktop\Project\StepOverModel\obj\Debug\net6.0-windows\StepOverModel.Form1.resources
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\PDFtoImage.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libpdfium.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libpdfium.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-musl-arm64\native\libpdfium.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-musl-x64\native\libpdfium.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-musl-x86\native\libpdfium.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libpdfium.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-x86\native\libpdfium.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\osx-arm64\native\libpdfium.dylib
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libpdfium.dylib
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-arm64\native\pdfium.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x64\native\pdfium.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\win-x86\native\pdfium.dll
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libSkiaSharp.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libSkiaSharp.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-musl-x64\native\libSkiaSharp.so
+C:\Users\Finger\Desktop\Project\StepOverModel\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libSkiaSharp.so

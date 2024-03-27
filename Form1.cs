@@ -13,11 +13,11 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.IO.Image;
 using System.Windows.Forms;
-using GemBox.Pdf;
 using System.Drawing.Printing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Management;
+using PDFtoImage;
 
 namespace StepOverModel
 {
@@ -155,28 +155,18 @@ namespace StepOverModel
                 pb_pdfView.Image.Dispose();
             }
 
-            // If use the professional version, set the license key
-            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-
-            // Carregue um documento PDF.
-            using (GemBox.Pdf.PdfDocument document = GemBox.Pdf.PdfDocument.Load(source))
+            using (var pdfstream = File.OpenRead(source))
             {
-                // Crie opções de salvamento de imagem.
-                var imageOptions = new ImageSaveOptions(ImageSaveFormat.Bmp)
+                var options = new RenderOptions
                 {
-                    PageNumber = page, // Selecione a primeira página do PDF.
                     Width = pb_pdfView.Width, // Set the FitToSizeWidth property to the width of pb_pdfView
-                    Height = pb_pdfView.Height // Set the FitToSizeHeight property to the height of pb_pdfView
+                    Height = pb_pdfView.Height, // Set the FitToSizeHeight property to the height of pb_pdfView
                 };
 
-                // Salve um documento PDF em um arquivo JPEG.
-                document.Save("tmp/Output.bmp", imageOptions);
 
-                // Load the image from the file and display it in the PictureBox
+                Conversion.SaveJpeg("tmp/Output.bmp", pdfstream, page: page, options: options);
+
                 pb_pdfView.Image = System.Drawing.Image.FromFile("tmp/Output.bmp");
-
-                // Dispose the document
-                document.Unload();
             }
         }
 

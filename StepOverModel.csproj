@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GemBox.Pdf" Version="17.0.1508" />
     <PackageReference Include="itext7" Version="8.0.3" />
     <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
+    <PackageReference Include="PDFtoImage" Version="4.0.1" />
     <PackageReference Include="SigDeviceAPI" Version="3.0.1" />
     <PackageReference Include="SigSignAPI" Version="3.0.7" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
