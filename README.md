@@ -1,15 +1,22 @@
 # StepOver Model
-Um modelo do uso das funções dos SDKs da StepOver (SigDeviceAPI, SigSignAPI) para assinatura de documentos PDF.
+Um modelo do uso das funï¿½ï¿½es dos SDKs da StepOver (SigDeviceAPI, SigSignAPI) para assinatura de documentos PDF.
 
-## Compilação
+## Compilaï¿½ï¿½o
+Clone o repositÃ³rio
+```bash
+git clone https://github.com/Fingertech-Brasil/StepOverModel
+```
+
+### Caso Tenha Erro de Dependencia
+
 1. Deve ser adicionado o NuGet Source da StepOver.
 ```bash
 dotnet nuget add source https://nuget.stepover.com/nuget/stepover/ --name StepOver
 ```
-2. Restaurar as dependências
+2. Restaurar as dependï¿½ncias
 ```bash
 dotnet restore
 ```
 
-# Documentação
-A documentação dos SDKs da StepOver para o C# pode ser encontrado em [StepOver Documentation](https://www.stepoverinfo.net/dotnetDocu/api/Sig.DeviceAPI.Driver.html).
+# Documentaï¿½ï¿½o
+A documentaï¿½ï¿½o dos SDKs da StepOver para o C# pode ser encontrado em [StepOver Documentation](https://www.stepoverinfo.net/dotnetDocu/api/Sig.DeviceAPI.Driver.html).

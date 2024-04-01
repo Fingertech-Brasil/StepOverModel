@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignInfo));
             tb_reason = new TextBox();
             tb_name = new TextBox();
             tb_location = new TextBox();
@@ -190,6 +191,7 @@
             Controls.Add(tb_contactInfo);
             Controls.Add(tb_name);
             Controls.Add(tb_reason);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SignInfo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SignInfo";

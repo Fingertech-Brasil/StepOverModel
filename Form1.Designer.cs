@@ -32,6 +32,7 @@ namespace StepOverModel
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             bt_StartSignature = new Button();
             gb_sign = new GroupBox();
             bt_lineColor = new Button();
@@ -579,6 +580,7 @@ namespace StepOverModel
             Controls.Add(pb_signature);
             Controls.Add(gb_sign);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
