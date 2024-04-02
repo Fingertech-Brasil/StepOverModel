@@ -137,6 +137,14 @@ namespace StepOverModel
             removalWatcher.Start();
         }
 
+        private void tb_passCert_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                bt_setCert_Click(sender, e);
+            }
+        }
+
         // ------------------------------Methods Called------------------------------
 
         // Error Message
@@ -1098,5 +1106,6 @@ namespace StepOverModel
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
+        
     }
 }

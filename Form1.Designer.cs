@@ -115,7 +115,7 @@ namespace StepOverModel
             bt_lineColor.Location = new Point(36, 141);
             bt_lineColor.Name = "bt_lineColor";
             bt_lineColor.Size = new Size(72, 20);
-            bt_lineColor.TabIndex = 15;
+            bt_lineColor.TabIndex = 3;
             bt_lineColor.Text = "Line Color";
             bt_lineColor.UseCompatibleTextRendering = true;
             bt_lineColor.UseVisualStyleBackColor = true;
@@ -127,7 +127,7 @@ namespace StepOverModel
             bt_saveImage.Location = new Point(6, 63);
             bt_saveImage.Name = "bt_saveImage";
             bt_saveImage.Size = new Size(131, 33);
-            bt_saveImage.TabIndex = 2;
+            bt_saveImage.TabIndex = 1;
             bt_saveImage.Text = "Save Image";
             bt_saveImage.UseVisualStyleBackColor = true;
             bt_saveImage.Click += bt_saveImage_Click;
@@ -138,7 +138,7 @@ namespace StepOverModel
             bt_StopSignature.Location = new Point(6, 102);
             bt_StopSignature.Name = "bt_StopSignature";
             bt_StopSignature.Size = new Size(131, 33);
-            bt_StopSignature.TabIndex = 1;
+            bt_StopSignature.TabIndex = 2;
             bt_StopSignature.Text = "Stop Signature";
             bt_StopSignature.UseVisualStyleBackColor = true;
             bt_StopSignature.Click += bt_StopSignature_Click;
@@ -186,8 +186,9 @@ namespace StepOverModel
             tb_passCert.PasswordChar = '*';
             tb_passCert.PlaceholderText = "Cert. Password";
             tb_passCert.Size = new Size(100, 25);
-            tb_passCert.TabIndex = 16;
+            tb_passCert.TabIndex = 4;
             tb_passCert.TextAlign = HorizontalAlignment.Center;
+            tb_passCert.KeyDown += tb_passCert_KeyDown;
             // 
             // bt_signPDF
             // 
@@ -196,7 +197,7 @@ namespace StepOverModel
             bt_signPDF.Location = new Point(6, 122);
             bt_signPDF.Name = "bt_signPDF";
             bt_signPDF.Size = new Size(131, 33);
-            bt_signPDF.TabIndex = 15;
+            bt_signPDF.TabIndex = 2;
             bt_signPDF.Text = "Sign PDF";
             bt_signPDF.UseVisualStyleBackColor = true;
             bt_signPDF.Click += bt_signPDF_Click;
@@ -221,6 +222,7 @@ namespace StepOverModel
             bt_nextPage.Name = "bt_nextPage";
             bt_nextPage.Size = new Size(16, 26);
             bt_nextPage.TabIndex = 15;
+            bt_nextPage.TabStop = false;
             bt_nextPage.Text = ">";
             bt_nextPage.UseVisualStyleBackColor = true;
             bt_nextPage.Visible = false;
@@ -235,6 +237,7 @@ namespace StepOverModel
             bt_previousPage.Name = "bt_previousPage";
             bt_previousPage.Size = new Size(16, 26);
             bt_previousPage.TabIndex = 14;
+            bt_previousPage.TabStop = false;
             bt_previousPage.Text = "<";
             bt_previousPage.UseVisualStyleBackColor = true;
             bt_previousPage.Visible = false;
@@ -311,7 +314,7 @@ namespace StepOverModel
             bt_signPDFImg.Location = new Point(6, 74);
             bt_signPDFImg.Name = "bt_signPDFImg";
             bt_signPDFImg.Size = new Size(131, 33);
-            bt_signPDFImg.TabIndex = 2;
+            bt_signPDFImg.TabIndex = 1;
             bt_signPDFImg.Text = "Sign.img PDF";
             bt_signPDFImg.UseVisualStyleBackColor = true;
             bt_signPDFImg.Click += bt_signPDFImg_Click;
@@ -360,7 +363,7 @@ namespace StepOverModel
             sb_x.Name = "sb_x";
             sb_x.RightToLeft = RightToLeft.No;
             sb_x.Size = new Size(96, 13);
-            sb_x.TabIndex = 6;
+            sb_x.TabIndex = 8;
             sb_x.Scroll += sb_x_Scroll;
             // 
             // lb_y
@@ -379,7 +382,7 @@ namespace StepOverModel
             tb_y.Location = new Point(355, 26);
             tb_y.Name = "tb_y";
             tb_y.Size = new Size(47, 25);
-            tb_y.TabIndex = 7;
+            tb_y.TabIndex = 8;
             tb_y.Text = "0";
             tb_y.TextAlign = HorizontalAlignment.Center;
             tb_y.TextChanged += tb_y_TextChanged;
@@ -400,7 +403,7 @@ namespace StepOverModel
             tb_x.Location = new Point(233, 26);
             tb_x.Name = "tb_x";
             tb_x.Size = new Size(47, 25);
-            tb_x.TabIndex = 5;
+            tb_x.TabIndex = 7;
             tb_x.Text = "0";
             tb_x.TextAlign = HorizontalAlignment.Center;
             tb_x.TextChanged += tb_x_TextChanged;
@@ -448,7 +451,7 @@ namespace StepOverModel
             sb_y.Name = "sb_y";
             sb_y.RightToLeft = RightToLeft.No;
             sb_y.Size = new Size(96, 13);
-            sb_y.TabIndex = 13;
+            sb_y.TabIndex = 9;
             sb_y.Scroll += sb_y_Scroll;
             // 
             // lb_sigHeight
@@ -479,7 +482,7 @@ namespace StepOverModel
             tb_sigHeight.Location = new Point(124, 47);
             tb_sigHeight.Name = "tb_sigHeight";
             tb_sigHeight.Size = new Size(38, 22);
-            tb_sigHeight.TabIndex = 11;
+            tb_sigHeight.TabIndex = 6;
             tb_sigHeight.TabStop = false;
             tb_sigHeight.Text = "77";
             tb_sigHeight.TextAlign = HorizontalAlignment.Center;
@@ -503,7 +506,7 @@ namespace StepOverModel
             tb_sigWidth.Location = new Point(124, 20);
             tb_sigWidth.Name = "tb_sigWidth";
             tb_sigWidth.Size = new Size(38, 22);
-            tb_sigWidth.TabIndex = 9;
+            tb_sigWidth.TabIndex = 5;
             tb_sigWidth.TabStop = false;
             tb_sigWidth.Text = "155";
             tb_sigWidth.TextAlign = HorizontalAlignment.Center;
@@ -561,7 +564,7 @@ namespace StepOverModel
             bt_license.Location = new Point(105, 570);
             bt_license.Name = "bt_license";
             bt_license.Size = new Size(71, 19);
-            bt_license.TabIndex = 16;
+            bt_license.TabIndex = 4;
             bt_license.Text = "Set License";
             bt_license.UseVisualStyleBackColor = true;
             bt_license.Click += bt_license_Click;
@@ -609,10 +612,14 @@ namespace StepOverModel
         private Button bt_nextPage;
         private Button bt_previousPage;
         private Button bt_lineColor;
+        private Button bt_signPDF;
+        private Button bt_setCert;
+        private Button bt_license;
 
         private GroupBox gb_sign;
         private GroupBox gb_PDF;
         private GroupBox gb_signatureOptions;
+        private GroupBox gb_infoDevice;
 
         private PictureBox pb_signature;
         private PictureBox pb_pdfView;
@@ -631,6 +638,8 @@ namespace StepOverModel
         private Label lb_sigSize;
         private Label lb_sigWidth;
         private Label lb_nPages;
+        private Label lb_DeviceInfo;
+        private Label lb_license;
 
         private TextBox tb_page;
         private TextBox tb_y;
@@ -639,12 +648,7 @@ namespace StepOverModel
         private TextBox tb_a4x;
         private TextBox tb_sigHeight;
         private TextBox tb_sigWidth;
-        private Button bt_signPDF;
-        private Button bt_setCert;
         private TextBox tb_passCert;
-        private GroupBox gb_infoDevice;
-        private Label lb_DeviceInfo;
-        private Label lb_license;
-        private Button bt_license;
+
     }
 }

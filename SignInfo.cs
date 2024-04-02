@@ -15,6 +15,8 @@ namespace StepOverModel
 {
     public partial class SignInfo : Form
     {
+        // ------------------------------Variables and Objects-----------------------
+
         // DefaultTextBuilder is a class from the Sig.SignAPI.Stamp namespace
         public Behaviour behaviour;
 
@@ -29,6 +31,8 @@ namespace StepOverModel
             InitializeComponent();
             tb_name.Leave += TbName_Leave; // Attach event handler to the Leave event of tb_name
         }
+
+        // ------------------------------Event Handlers-----------------------
 
         // Event handler for the Leave event of tb_name
         private void TbName_Leave(object sender, EventArgs e)
@@ -53,6 +57,40 @@ namespace StepOverModel
                 tb_name.Text = result.ToString().TrimEnd();
             }
         }
+
+        private void tb_name_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tb_reason.Focus();
+            }
+        }
+
+        private void tb_reason_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tb_location.Focus();
+            }
+        }
+
+        private void tb_location_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tb_contactInfo.Focus();
+            }
+        }
+
+        private void tb_contactInfo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                bt_sign_Click(sender,e);
+            }
+        }
+
+        // ------------------------------Methods For Buttons-----------------------
 
         private void bt_sign_Click(object sender, EventArgs e)
         {

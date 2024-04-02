@@ -52,6 +52,7 @@
             tb_reason.PlaceholderText = "I agree the terms";
             tb_reason.Size = new Size(100, 23);
             tb_reason.TabIndex = 1;
+            tb_reason.KeyDown += tb_reason_KeyDown;
             // 
             // tb_name
             // 
@@ -60,6 +61,7 @@
             tb_name.PlaceholderText = "Signer";
             tb_name.Size = new Size(100, 23);
             tb_name.TabIndex = 0;
+            tb_name.KeyDown += tb_name_KeyDown;
             // 
             // tb_location
             // 
@@ -68,6 +70,7 @@
             tb_location.PlaceholderText = "City - States";
             tb_location.Size = new Size(100, 23);
             tb_location.TabIndex = 2;
+            tb_location.KeyDown += tb_location_KeyDown;
             // 
             // tb_contactInfo
             // 
@@ -76,6 +79,7 @@
             tb_contactInfo.PlaceholderText = "E-mail / Tel";
             tb_contactInfo.Size = new Size(100, 23);
             tb_contactInfo.TabIndex = 3;
+            tb_contactInfo.KeyDown += tb_contactInfo_KeyDown;
             // 
             // bt_sign
             // 
@@ -138,7 +142,7 @@
             cb_by.Location = new Point(12, 32);
             cb_by.Name = "cb_by";
             cb_by.Size = new Size(81, 19);
-            cb_by.TabIndex = 10;
+            cb_by.TabIndex = 5;
             cb_by.Text = "Signed by:";
             cb_by.UseVisualStyleBackColor = true;
             // 
@@ -148,7 +152,7 @@
             cb_reason.Location = new Point(12, 81);
             cb_reason.Name = "cb_reason";
             cb_reason.Size = new Size(127, 19);
-            cb_reason.TabIndex = 11;
+            cb_reason.TabIndex = 6;
             cb_reason.Text = "Reason for signing:";
             cb_reason.UseVisualStyleBackColor = true;
             // 
@@ -158,7 +162,7 @@
             cb_time.Location = new Point(12, 209);
             cb_time.Name = "cb_time";
             cb_time.Size = new Size(52, 19);
-            cb_time.TabIndex = 13;
+            cb_time.TabIndex = 8;
             cb_time.Text = "Time";
             cb_time.UseVisualStyleBackColor = true;
             // 
@@ -168,7 +172,7 @@
             cb_location.Location = new Point(12, 124);
             cb_location.Name = "cb_location";
             cb_location.Size = new Size(75, 19);
-            cb_location.TabIndex = 12;
+            cb_location.TabIndex = 7;
             cb_location.Text = "Location:";
             cb_location.UseVisualStyleBackColor = true;
             // 
@@ -205,12 +209,15 @@
         private TextBox tb_name;
         private TextBox tb_location;
         private TextBox tb_contactInfo;
+
         private Button bt_sign;
+        
         private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;
         private Label label5;
+        
         private CheckBox cb_by;
         private CheckBox cb_reason;
         private CheckBox cb_time;
