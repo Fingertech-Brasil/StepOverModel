@@ -7,12 +7,17 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject></StartupObject>
+    <ApplicationIcon>img\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="tmp\**" />
     <EmbeddedResource Remove="tmp\**" />
     <None Remove="tmp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="img\logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
