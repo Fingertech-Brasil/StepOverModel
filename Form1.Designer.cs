@@ -84,6 +84,7 @@ namespace StepOverModel
             // 
             // bt_StartSignature
             // 
+            bt_StartSignature.Cursor = Cursors.Hand;
             bt_StartSignature.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             bt_StartSignature.Location = new Point(6, 24);
             bt_StartSignature.Name = "bt_StartSignature";
@@ -110,6 +111,7 @@ namespace StepOverModel
             // 
             // bt_lineColor
             // 
+            bt_lineColor.Cursor = Cursors.Hand;
             bt_lineColor.Enabled = false;
             bt_lineColor.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             bt_lineColor.Location = new Point(36, 141);
@@ -123,6 +125,7 @@ namespace StepOverModel
             // 
             // bt_saveImage
             // 
+            bt_saveImage.Cursor = Cursors.Hand;
             bt_saveImage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             bt_saveImage.Location = new Point(6, 63);
             bt_saveImage.Name = "bt_saveImage";
@@ -134,6 +137,7 @@ namespace StepOverModel
             // 
             // bt_StopSignature
             // 
+            bt_StopSignature.Cursor = Cursors.Hand;
             bt_StopSignature.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             bt_StopSignature.Location = new Point(6, 102);
             bt_StopSignature.Name = "bt_StopSignature";
@@ -192,6 +196,7 @@ namespace StepOverModel
             // 
             // bt_signPDF
             // 
+            bt_signPDF.Cursor = Cursors.Hand;
             bt_signPDF.Enabled = false;
             bt_signPDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             bt_signPDF.Location = new Point(6, 122);
@@ -204,6 +209,7 @@ namespace StepOverModel
             // 
             // bt_setCert
             // 
+            bt_setCert.Cursor = Cursors.Hand;
             bt_setCert.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             bt_setCert.Location = new Point(154, 142);
             bt_setCert.Name = "bt_setCert";
@@ -215,6 +221,7 @@ namespace StepOverModel
             // 
             // bt_nextPage
             // 
+            bt_nextPage.Cursor = Cursors.Hand;
             bt_nextPage.FlatStyle = FlatStyle.Popup;
             bt_nextPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
             bt_nextPage.Location = new Point(235, 84);
@@ -230,6 +237,7 @@ namespace StepOverModel
             // 
             // bt_previousPage
             // 
+            bt_previousPage.Cursor = Cursors.Hand;
             bt_previousPage.FlatStyle = FlatStyle.Popup;
             bt_previousPage.Font = new Font("Segoe UI", 6.75F, FontStyle.Bold, GraphicsUnit.Point);
             bt_previousPage.Location = new Point(199, 84);
@@ -309,6 +317,7 @@ namespace StepOverModel
             // 
             // bt_signPDFImg
             // 
+            bt_signPDFImg.Cursor = Cursors.Hand;
             bt_signPDFImg.Enabled = false;
             bt_signPDFImg.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             bt_signPDFImg.Location = new Point(6, 74);
@@ -331,6 +340,7 @@ namespace StepOverModel
             // 
             // bt_loadPDF
             // 
+            bt_loadPDF.Cursor = Cursors.Hand;
             bt_loadPDF.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             bt_loadPDF.Location = new Point(6, 24);
             bt_loadPDF.Name = "bt_loadPDF";
@@ -559,6 +569,7 @@ namespace StepOverModel
             // 
             // bt_license
             // 
+            bt_license.Cursor = Cursors.Hand;
             bt_license.FlatStyle = FlatStyle.Popup;
             bt_license.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point);
             bt_license.Location = new Point(105, 570);
