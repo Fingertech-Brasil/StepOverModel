@@ -2,7 +2,6 @@ using LanguageExt;
 using LanguageExt.Pipes;
 using Sig.DeviceAPI;
 using Sig.SignAPI;
-using Sig.SignAPI.Utils;
 using Sig.PdfClient;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +22,7 @@ namespace StepOverModel
 {
     public partial class Form1 : Form
     {
-        // ------------------------------Variables and Objects-----------------------
+        #region -----------------------------Variables and Objects----------------------------------------------
 
         // number of pages
         int pages = 0;
@@ -51,8 +50,9 @@ namespace StepOverModel
         private ManagementEventWatcher removalWatcher;
         // Device is plugged
         private bool devicePlugged = false;
+        #endregion
 
-        // ------------------------------Methods For Forms---------------------------
+        #region -----------------------------Methods For Forms--------------------------------------------------
 
         // Form is open
         public Form1()
@@ -82,6 +82,7 @@ namespace StepOverModel
 
             // Events
             SubscribeToEvents();
+
         }
 
         // Form is closed
@@ -108,8 +109,9 @@ namespace StepOverModel
             removalWatcher.Stop();
             removalWatcher.Dispose();
         }
+        #endregion
 
-        // ------------------------------Methods For Events--------------------------
+        #region -----------------------------Methods For Events-------------------------------------------------
 
         // Subscribe to events
         private void SubscribeToEvents()
@@ -144,8 +146,9 @@ namespace StepOverModel
                 bt_setCert_Click(sender, e);
             }
         }
+        #endregion
 
-        // ------------------------------Methods Called------------------------------
+        #region -----------------------------Methods Called-----------------------------------------------------
 
         // Error Message
         private void ShowErrorMessage(Error error)
@@ -232,8 +235,9 @@ namespace StepOverModel
             }
             return destSource; // Old path + _Signed
         }
+        #endregion
 
-        // ---------Confg Save and Load----------
+        #region -----------------------------Confg Save and Load------------------------------------------------
 
         // Save the configuration
         private void SaveConfig()
@@ -345,8 +349,9 @@ namespace StepOverModel
                 }
             }
         }
+        #endregion
 
-        // ----------Usb----------
+        #region -----------------------------Usb----------------------------------------------------------------
 
         // For the usb arrival and removal events
         private void ArrivalEventArrived(object sender, EventArgs e)
@@ -502,8 +507,9 @@ namespace StepOverModel
                 }
             }
         }
+        #endregion
 
-        // ------------------------------Methods For Singing--------------------------
+        #region -----------------------------Methods For Singing------------------------------------------------
 
         // Button to start signature
         private void bt_StartSignature_Click(object sender, EventArgs e)
@@ -615,8 +621,9 @@ namespace StepOverModel
             pb_signature.Image = resized;
             pb_signPrev.Image = resized;
         }
+        #endregion
 
-        // ------------------------------Methods For manipulate PDF----------------------
+        #region -----------------------------Methods For manipulate PDF-----------------------------------------
 
         // Load PDF file
         private void bt_loadPDF_Click(object sender, EventArgs e)
@@ -790,8 +797,9 @@ namespace StepOverModel
                 MessageBox.Show("No image to sign");
             }
         }
+        #endregion
 
-        // ------------------------------Methods For sign PDF------------------------------
+        #region -----------------------------Methods For sign PDF-----------------------------------------------
 
         private async void bt_signPDF_Click(object sender, EventArgs e)
         {
@@ -811,6 +819,7 @@ namespace StepOverModel
             // Set the object of the Signing
             using (theSigningObject = await SigningFactory.StartAsync(driverInterface, documentOctets)) // Auto-Dispose in the end
             {
+
                 // Get the device properties
                 IDeviceProperties deviceProperties = driverInterface.DeviceProperties;
 
@@ -876,8 +885,9 @@ namespace StepOverModel
             // Clear the device screen
             driverInterface.UploadPromoScreen("Custom.png", 1, DisplayOrientation.DEG_0, 10);
         }
+        #endregion
 
-        // ------------------------------Methods For Certificate------------------------------
+        #region -----------------------------Methods For Certificate--------------------------------------------
 
         // Get the certificate path
         private void bt_setCert_Click(object sender, EventArgs e)
@@ -892,8 +902,9 @@ namespace StepOverModel
                 certPath = openFileDialog.FileName;
             }
         }
+        #endregion
 
-        // ------------------------------Methods For License------------------------------
+        #region -----------------------------Methods For License------------------------------------------------
 
         private void bt_license_Click(object sender, EventArgs e)
         {
@@ -918,8 +929,9 @@ namespace StepOverModel
                 }
             }
         }
+        #endregion
 
-        // ------------------------------Methods For PDF Page----------------------
+        #region -----------------------------Methods For PDF Page-----------------------------------------------
 
         // Limit the value of the text box page
         private void tb_page_TextChanged(object sender, EventArgs e)
@@ -980,9 +992,10 @@ namespace StepOverModel
             // Update the img
             ConvertPDFtoImg(source, currentPage);
         }
+        #endregion
 
-        // ------------------------------Methods For Sign Coordnates----------------------
-
+        #region -----------------------------Methods For Sign Coordnates----------------------------------------
+        
         // tb x adujstment
         private void tb_x_TextChanged(object sender, EventArgs e)
         {
@@ -1084,8 +1097,9 @@ namespace StepOverModel
         {
             tb_y.Text = sb_y.Value.ToString();
         }
-
-        // ------------------------------Methods For Sign Preview Scale and Coordinate----------------------
+#endregion
+        
+        #region -----------------------------Methods For Sign Preview Scale and Coordinate----------------------
 
         // Scale function for the sign preview
         private void ScaleSign()
@@ -1106,6 +1120,6 @@ namespace StepOverModel
             tb_x.Text = ((e.X * int.Parse(tb_a4x.Text)) / pb_pdfView.Width).ToString();
             tb_y.Text = (((-e.Y * int.Parse(tb_a4y.Text)) / pb_pdfView.Height) + (int.Parse(tb_a4y.Text))).ToString();
         }
-        
+        #endregion
     }
 }
